@@ -63,5 +63,5 @@ date.
 
 ## Versioning
 
-The current API version is the unreleased alpha `0.1.0a1`. Consumers must pin a
-released tag or commit. Floating `main` is not a production dependency.
+The current API version is alpha `0.1.0a2`. Consumers must pin a released tag
+or commit. Floating `main` is not a production dependency.

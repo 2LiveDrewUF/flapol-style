@@ -6,6 +6,22 @@ us-periods-in-headlines:
   contexts: [headline]
   protected_regions: required
   implementations: [FlaPol/USHeadline.yml, python/flapol_style/headlines.py]
+us-periods-in-body-copy:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/mechanics.py]
+gender-neutral-chair:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/mechanics.py]
 covid-without-19:
   documented: true
   detected: true

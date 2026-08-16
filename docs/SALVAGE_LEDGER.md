@@ -123,7 +123,7 @@ table; their coverage remains recorded separately rather than being inferred.
 ## Package and reporting foundation
 
 Before additional Streamlet rule families are salvaged, the Python processor
-is packaged as the unreleased `0.1.0a1` distribution and exposes structured
+is packaged as an alpha distribution and exposes structured
 edit reporting. The reported and string-only APIs share one editing session.
 Each automatic change carries a stable rule ID, action, working text,
 before/after value, authority and offsets into the untouched source. Contextual
@@ -137,11 +137,12 @@ This foundation does not adopt the package in Streamlet. Release pinning,
 shadow comparison, rule-family cutover and legacy retirement remain Newsroom
 Tools responsibilities.
 
-With reporting in place, the already-approved Vale families for `COVID`,
-numeral-plus-percent-sign and meridiem formatting also run through the
-protected main processor. A narrow headline entry point implements only the
-house `U.S.` form; it does not import the legacy headline casing, title removal
-or person-registry machinery.
+With reporting in place, the approved `COVID`, body-copy `U.S.`, gender-neutral
+`Chair`, numeral-plus-percent-sign and meridiem forms run through the protected
+main processor. The separate headline entry point converts imported title case
+to sentence case and applies the headline `U.S.` form. It preserves stable
+public proper nouns and accepts caller-supplied names without importing legacy
+title removal, surname expansion or product-specific cleanup.
 
 No private Streamlet source, production path, credential or private repository
 metadata is reproduced in this public ledger.

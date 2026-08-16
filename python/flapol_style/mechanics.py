@@ -8,6 +8,8 @@ from .reporting import EditingSession, RuleSpec
 
 
 _COVID_RE = re.compile(r"\bCOVID-19\b", re.IGNORECASE)
+_US_RE = re.compile(r"\bUS\b")
+_CHAIR_RE = re.compile(r"\bChair(?:man|woman)\b", re.IGNORECASE)
 _PERCENT_RE = re.compile(
     r"(?<![\w.])(\d+(?:,\d{3})*(?:\.\d+)?)\s+(?:percent|per cent)\b",
     re.IGNORECASE,
@@ -22,6 +24,14 @@ _COVID_RULE = RuleSpec(
     "flapol.terms.covid-without-19",
     "Florida Politics main",
 )
+_US_RULE = RuleSpec(
+    "flapol.terms.us-periods",
+    "AP baseline and Florida Politics main",
+)
+_CHAIR_RULE = RuleSpec(
+    "flapol.titles.gender-neutral-chair",
+    "Florida Politics main",
+)
 _PERCENT_RULE = RuleSpec(
     "ap.numbers.percent-symbol",
     "AP Stylebook 56th edition, percent entry",
@@ -34,6 +44,8 @@ _TIME_RULE = RuleSpec(
 
 def apply_mechanical_rules_to_session(session: EditingSession) -> None:
     session.replace_pattern(_COVID_RULE, _COVID_RE, "COVID")
+    session.replace_pattern(_US_RULE, _US_RE, "U.S.")
+    session.replace_pattern(_CHAIR_RULE, _CHAIR_RE, "Chair")
     session.replace_pattern(_PERCENT_RULE, _PERCENT_RE, r"\1%")
     session.replace_pattern(
         _TIME_RULE,
@@ -45,7 +57,7 @@ def apply_mechanical_rules_to_session(session: EditingSession) -> None:
 
 
 def normalize_mechanical_forms(text: str) -> str:
-    """Normalize protected COVID, percent and meridiem forms."""
+    """Normalize protected house and AP mechanical forms."""
     session = EditingSession(text)
     apply_mechanical_rules_to_session(session)
     return session.text

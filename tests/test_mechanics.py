@@ -11,6 +11,18 @@ from flapol_style.mechanics import normalize_mechanical_forms
 
 
 class MechanicalRuleTests(unittest.TestCase):
+    def test_body_us_and_gender_neutral_chair_are_normalized(self):
+        self.assertEqual(
+            normalize_mechanical_forms(
+                "The US Chairman and chairwoman announced the US policy."
+            ),
+            "The U.S. Chair and Chair announced the U.S. policy.",
+        )
+
+    def test_us_pronoun_and_longer_initialisms_are_untouched(self):
+        source = "Us and USF researchers discussed USDA policy."
+        self.assertEqual(normalize_mechanical_forms(source), source)
+
     def test_covid_percent_and_time_forms_are_normalized(self):
         self.assertEqual(
             normalize_mechanical_forms(
@@ -33,22 +45,26 @@ class MechanicalRuleTests(unittest.TestCase):
 
     def test_protected_regions_are_unchanged(self):
         source = (
-            'COVID-19 rose 8 percent at 9PM. '
-            '“COVID-19 rose 8 percent at 9PM.” `8 percent`'
+            'The US Chairman said COVID-19 rose 8 percent at 9PM. '
+            '“The US Chairman said COVID-19 rose 8 percent at 9PM.” '
+            '`The US Chairman said 8 percent`'
         )
         self.assertEqual(
             normalize_mechanical_forms(source),
-            'COVID rose 8% at 9 p.m. '
-            '“COVID-19 rose 8 percent at 9PM.” `8 percent`',
+            'The U.S. Chair said COVID rose 8% at 9 p.m. '
+            '“The US Chairman said COVID-19 rose 8 percent at 9PM.” '
+            '`The US Chairman said 8 percent`',
         )
 
     def test_mechanical_changes_are_reported_with_stable_ids(self):
-        source = "COVID-19 drew 8 percent at 9PM."
+        source = "The US Chairman said COVID-19 drew 8 percent at 9PM."
         result = apply_main_style_with_report(source)
         self.assertEqual(
             [change.rule_id for change in result.changes],
             [
                 "flapol.terms.covid-without-19",
+                "flapol.terms.us-periods",
+                "flapol.titles.gender-neutral-chair",
                 "ap.numbers.percent-symbol",
                 "ap.times.meridiem-format",
             ],

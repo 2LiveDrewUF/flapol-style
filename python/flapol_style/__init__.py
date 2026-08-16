@@ -21,7 +21,7 @@ from .reporting import Edit, EditingSession, EditResult, Finding, RuleSpec
 from .titles import abbreviate_titles_before_names, load_title_abbreviations
 from .words import load_word_preferences, normalize_word_forms
 
-__version__ = "0.1.0a1"
+__version__ = "0.1.0a2"
 
 __all__ = [
     "ProtectedSpan",

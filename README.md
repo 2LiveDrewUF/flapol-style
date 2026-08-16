@@ -21,9 +21,9 @@ Newsroom Tools and other consumers may choose to integrate.
 
 This repository is an early implementation scaffold. A rule is not considered implemented merely because the human guide discusses it. See `coverage/` for the implementation ledger.
 
-The Python distribution is currently versioned `0.1.0a1` for development. No
-release tag has been created, and no consuming application is implied to have
-adopted that version.
+The Python distribution is currently versioned `0.1.0a2`. A release tag makes
+a version available to consumers; it does not imply that any application has
+adopted it.
 
 See `docs/RULE_SOURCES.md` for the provenance of automatic rules salvaged from
 the legacy formatter and `docs/SALVAGE_LEDGER.md` for accepted, deferred and
@@ -116,8 +116,9 @@ jurisdiction can be normalized automatically. Ambiguous seasons, standalone
 titles, shortened governmental bodies and organization names are reported for
 contextual review instead of being blindly uppercased.
 
-The main pipeline also provides protected automatic forms for `COVID`, numeral
-plus `%`, and lowercase punctuated `a.m.`/`p.m.`. The separate
+The main pipeline also provides protected automatic forms for `COVID`, `U.S.`,
+the gender-neutral `Chair`, numeral plus `%`, and lowercase punctuated
+`a.m.`/`p.m.`. The separate
 `apply_headline_style()` and `apply_headline_style_with_report()` entry points
 convert imported title case to Florida Politics sentence case and apply the
 headline-specific `US` to `U.S.` rule. Already sentence-cased headlines are
