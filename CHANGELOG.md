@@ -10,7 +10,9 @@ prefix.
 - Add protected date, word-form, title and capitalization transformations.
 - Add protected COVID, percent and meridiem auto-fixes already represented by
   Vale rules.
-- Add a narrow headline profile for the Florida Politics `U.S.` form.
+- Add a reportable headline profile that converts imported title case to
+  Florida Politics sentence case, accepts caller-supplied proper nouns and
+  applies the Florida Politics `U.S.` form.
 - Add stable rule IDs and structured `EditResult` reporting against original
   source coordinates.
 - Separate automatic capitalization from contextual findings.

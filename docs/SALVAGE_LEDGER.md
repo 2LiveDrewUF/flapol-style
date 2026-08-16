@@ -42,9 +42,9 @@ in this repository says nothing about that consumer's active behavior.
 | Streamlet asset | Reason for review |
 | --- | --- |
 | Capitalization table | Contains useful house terms but broad case-insensitive replacement can change generic uses and quotations. Keep as flags until the term can be recognized in its Florida governmental or title sense. |
-| Headline proper-noun table | The 475-entry seed list is valuable but needs duplicate, ambiguity, currency and provenance review. |
+| Remaining headline proper-noun table | A small stable public seed and a caller-supplied preservation seam are implemented. The remainder of the 475-entry legacy list still needs duplicate, ambiguity, currency and provenance review. |
 | Person registries | Thousands of public-name entries can save work, but currentness, aliases and public-release suitability must be checked. |
-| Headline sentence-casing | Strong preservation machinery, but title stripping and surname expansion conflict with current headline rules in some cases. |
+| Legacy headline title stripping and surname expansion | Kept separate because both change editorial meaning or naming; neither is part of sentence-case normalization. |
 | Party/location tag stripping | Potentially useful for imported wire copy; it deletes text and depends on entity/context recognition. |
 | State/federal legislator scoping | Valuable and appropriately registry-driven; requires a maintained, dated officeholder registry. |
 | Remaining word-preference entries | Each substitution needs comparison with the current guide and AP baseline. Do not inherit the table wholesale. |

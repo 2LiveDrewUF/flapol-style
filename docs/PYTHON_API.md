@@ -13,12 +13,15 @@ convenience wrapper around the reported API.
 Headline-only behavior uses separate entry points:
 
 ```python
-apply_headline_style(text) -> str
-apply_headline_style_with_report(text) -> EditResult
+apply_headline_style(text, preserve_phrases=()) -> str
+apply_headline_style_with_report(text, preserve_phrases=()) -> EditResult
 ```
 
-The headline API currently performs only explicitly implemented headline
-rules and does not implicitly call the main-body pipeline.
+The headline API converts imported title case to sentence case, preserves
+quoted and literal regions, and applies headline-only house rules. The optional
+`preserve_phrases` iterable lets a consumer protect current people, entities or
+specialized proper nouns without moving a changing registry into this package.
+The headline API does not implicitly call the main-body pipeline.
 
 ## EditResult
 
