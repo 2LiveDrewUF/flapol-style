@@ -51,6 +51,24 @@ class ProtectedRegionTests(unittest.TestCase):
         )
         self.assertEqual(result, "Jan. 8\n```text\nJanuary 9")
 
+    def test_balanced_quotes_can_be_excluded_without_opening_literals(self):
+        text = '“US `US` https://example.com/US”'
+        spans = find_protected_spans(text, allow_balanced_quotations=True)
+        protected_text = [text[span.start:span.end] for span in spans]
+        self.assertIn('`US`', protected_text)
+        self.assertIn('https://example.com/US', protected_text)
+        self.assertNotIn(text, protected_text)
+
+    def test_unmatched_closing_curly_quote_fails_closed(self):
+        text = 'US before an unmatched close” US after'
+        spans = find_protected_spans(text, allow_balanced_quotations=True)
+        uncertain = [span for span in spans if span.kind == "uncertain_quotation"]
+        self.assertEqual(len(uncertain), 1)
+        self.assertEqual(
+            text[uncertain[0].start:uncertain[0].end],
+            'US before an unmatched close”',
+        )
+
     def test_urls_and_email_addresses_are_protected(self):
         text = "January 8 https://example.com/January-9 January10@example.com"
         result = transform_unprotected(

@@ -2,7 +2,10 @@
 
 `FlaPol` is a Vale-compatible implementation of deterministic Florida Politics house-style rules.
 
-The package does not attempt to replace an editor or reproduce the AP Stylebook. It implements narrow, tested rules whose violations can be identified without inventing facts, changing quotations or making an unreviewed editorial judgment.
+The package does not attempt to replace an editor or reproduce the AP
+Stylebook. It implements narrow, tested rules whose violations can be
+identified without inventing facts, changing the spoken substance of
+quotations or making an unreviewed editorial judgment.
 
 ## Project boundary
 
@@ -21,7 +24,7 @@ Newsroom Tools and other consumers may choose to integrate.
 
 This repository is an early implementation scaffold. A rule is not considered implemented merely because the human guide discusses it. See `coverage/` for the implementation ledger.
 
-The Python distribution is currently versioned `0.1.0a2`. A release tag makes
+The Python distribution is currently versioned `0.1.0a3`. A release tag makes
 a version available to consumers; it does not imply that any application has
 adopted it.
 
@@ -43,13 +46,20 @@ Florida Politics house style controls when it differs from AP. Later adopted Flo
 
 The package must not automatically alter:
 
-- Direct quotations.
+- The spoken substance, grammar, emphasis or meaning of direct quotations.
 - URLs or Markdown link destinations.
 - Code or literal text.
 - Verified formal names and document titles.
 - Language reserved for writer or editor judgment.
 
-Vale alone cannot identify every protected inline quotation or resolve every document-level question. A Florida Politics document processor will supply those protections and the metadata needed by contextual rules.
+Balanced direct quotations remain closed to ordinary and semantic editing.
+Only a deterministic rule explicitly classified as `speech_preserving` may
+apply an approved written-style rendering of the same spoken utterance inside
+a quotation. Unbalanced quotations fail closed. See `docs/QUOTE_POLICY.md`.
+
+Vale alone cannot identify every protected inline quotation or resolve every
+document-level question. A Florida Politics document processor supplies those
+protections and the metadata needed by contextual rules.
 
 ## Repository structure
 
@@ -91,8 +101,9 @@ Only tested `error` rules with a safe correction action may be eligible for auto
 
 The Python package under `python/flapol_style/` contains transformations that
 cannot safely be expressed as isolated Vale rules. It normalizes dates,
-approved word forms and before-name title abbreviations while protecting
-quotations, Markdown link destinations, URLs, email addresses and code.
+approved word forms and before-name title abbreviations under per-rule quote
+policies while hard-protecting Markdown link destinations, URLs, email
+addresses, code and uncertain quotation structures.
 Relative-date rules require an explicit publication date; the processor does
 not infer one from the machine clock. Its word and title registries are public
 data files so every automatic replacement can be reviewed without reading

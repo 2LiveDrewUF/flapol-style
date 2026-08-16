@@ -9,6 +9,7 @@ authority that makes the rule correct.
 
 | Registry rule | Governing source |
 | --- | --- |
+| `advisor` to `adviser` | AP baseline and Florida Politics quote-boundary clarification, Aug. 16, 2026. |
 | `health care` or `health-care` to `healthcare` | AP announced `healthcare` as one word on April 27, 2026: [AP Stylebook update](https://www.apstylebook.com/blog_posts/26) and [58th-edition announcement](https://www.ap.org/media-center/press-releases/2026/new-ap-stylebook-features-expanded-artificial-intelligence-chapter/). This later ruling supersedes the pinned 56th-edition entry. |
 | `press conference` to `news conference` | The pinned 56th-edition `press conference` entry prefers `news conference`; Florida Politics owner confirmation, Aug. 16, 2026. |
 | `reelection` to `re-election` | Florida Politics main-guide house departure, retained by owner in the 2026 canonical-guide review. |
@@ -46,8 +47,9 @@ the exact Florida Legislature name, a title directly before a full name, a
 C-suite initialism or an explicitly named governmental body. Seasons,
 standalone titles, shortened governmental bodies, The Process, VISIT FLORIDA
 and POLITICO remain findings when the string alone cannot prove the intended
-sense. Direct quotations and literal regions are excluded from both changes
-and findings.
+sense. Context-proven capitalization is speech-preserving and may render
+inside balanced quotations. Contextual findings remain excluded from
+quotations, and literal regions remain excluded from both changes and findings.
 
 ## Existing Vale families promoted to protected auto-fix
 
@@ -56,6 +58,8 @@ and findings.
 | `COVID-19` to `COVID` | Florida Politics main guide and the existing `FlaPol/Covid.yml` fixture. |
 | Numeral plus `percent` or `per cent` to `%` | Pinned 56th-edition AP percent entry and the existing `FlaPol/PercentSymbol.yml` fixture. Percentage points remain a separate semantic rule. |
 | Meridiem formatting | Pinned 56th-edition AP times entry and the existing `FlaPol/AMPM.yml` fixture. The automatic rule accepts valid 1–12-hour forms and does not legitimize invalid clock values. |
+| Spoken number plus `percent` to numeral plus `%` | Florida Politics quote-boundary clarification, Aug. 16, 2026, applying the AP numeral-plus-percent form to deterministic transcript rendering. Supported word numbers are zero through 999. |
+| Spoken one-through-twelve hour plus meridiem to numeral and punctuated meridiem | Florida Politics quote-boundary clarification, Aug. 16, 2026, applying the AP time form to deterministic transcript rendering. |
 | Headline `US` to `U.S.` | Florida Politics headline departure recorded in main and the existing `FlaPol/USHeadline.yml` fixture. It runs only through the explicit headline API. |
 | Headline sentence case | Florida Politics owner ruling, 2026-08-16. Imported title-case headlines are decapitalized through the explicit headline API, with protected text and proper nouns preserved. |
 | Body-copy `US` to `U.S.` | AP baseline and Florida Politics main-guide usage, confirmed for the protected main processor on Aug. 16, 2026. |

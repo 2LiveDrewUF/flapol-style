@@ -1,58 +1,74 @@
 [
   {
+    "id": "adviser-preferred",
+    "from": "advisor",
+    "to": "adviser",
+    "authority": "AP baseline and Florida Politics clarification 2026-08-16",
+    "action": "AUTO_FIX",
+    "speech_preserving": true
+  },
+  {
     "id": "longtime-one-word",
     "from": "long-time",
     "to": "longtime",
     "authority": "AP baseline",
-    "action": "AUTO_FIX"
+    "action": "AUTO_FIX",
+    "speech_preserving": true
   },
   {
     "id": "re-election-house-hyphen",
     "from": "reelection",
     "to": "re-election",
     "authority": "Florida Politics main",
-    "action": "AUTO_FIX"
+    "action": "AUTO_FIX",
+    "speech_preserving": true
   },
   {
     "id": "front-runner-hyphen",
     "from": "frontrunner",
     "to": "front-runner",
     "authority": "Florida Politics main",
-    "action": "AUTO_FIX"
+    "action": "AUTO_FIX",
+    "speech_preserving": true
   },
   {
     "id": "front-runners-hyphen",
     "from": "frontrunners",
     "to": "front-runners",
     "authority": "Florida Politics main",
-    "action": "AUTO_FIX"
+    "action": "AUTO_FIX",
+    "speech_preserving": true
   },
   {
     "id": "news-conference-preferred",
     "from": "press conference",
     "to": "news conference",
     "authority": "AP baseline and Florida Politics confirmation",
-    "action": "AUTO_FIX"
+    "action": "AUTO_FIX",
+    "speech_preserving": false
   },
   {
     "id": "news-conferences-preferred",
     "from": "press conferences",
     "to": "news conferences",
     "authority": "AP baseline and Florida Politics confirmation",
-    "action": "AUTO_FIX"
+    "action": "AUTO_FIX",
+    "speech_preserving": false
   },
   {
     "id": "healthcare-one-word",
     "from": "health care",
     "to": "healthcare",
     "authority": "AP update 2026-04-27",
-    "action": "AUTO_FIX"
+    "action": "AUTO_FIX",
+    "speech_preserving": true
   },
   {
     "id": "healthcare-no-hyphen",
     "from": "health-care",
     "to": "healthcare",
     "authority": "AP update 2026-04-27",
-    "action": "AUTO_FIX"
+    "action": "AUTO_FIX",
+    "speech_preserving": true
   }
 ]

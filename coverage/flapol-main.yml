@@ -210,6 +210,22 @@ quotation-protection:
   contexts: [main, headline, presentation]
   protected_regions: not_applicable
   implementations: [python/flapol_style/protected.py]
+speech-preserving-quotation-rendering:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main, headline]
+  protected_regions: required
+  implementations: [python/flapol_style/reporting.py, docs/QUOTE_POLICY.md]
+adviser-preferred:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/words.py]
 link-bolding:
   documented: true
   detected: false

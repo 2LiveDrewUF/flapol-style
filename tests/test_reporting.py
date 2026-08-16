@@ -108,11 +108,15 @@ class ReportingTests(unittest.TestCase):
         )
         self.assertEqual(finding.action, "FLAG")
 
-    def test_protected_text_produces_neither_changes_nor_findings(self):
+    def test_speech_preserving_quote_changes_are_reported_but_flags_stay_out(self):
         source = '“Governor Ron DeSantis discussed health care in the spring.”'
         result = apply_main_style_with_report(source)
-        self.assertEqual(result.text, source)
-        self.assertEqual(result.changes, ())
+        self.assertEqual(
+            result.text,
+            '“Gov. Ron DeSantis discussed healthcare in the spring.”',
+        )
+        self.assertTrue(result.changes)
+        self.assertTrue(all(change.speech_preserving for change in result.changes))
         self.assertEqual(result.findings, ())
 
     def test_second_report_is_idempotent(self):

@@ -19,6 +19,7 @@ _SENTENCE_CASE_RULE = RuleSpec(
 _US_HEADLINE_RULE = RuleSpec(
     "flapol.headlines.us-periods",
     "Florida Politics main headline override",
+    speech_preserving=True,
 )
 
 

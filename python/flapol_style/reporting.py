@@ -16,6 +16,7 @@ class RuleSpec:
     authority: str
     action: str = "AUTO_FIX"
     severity: str = "error"
+    speech_preserving: bool = False
 
 
 @dataclass(frozen=True)
@@ -37,6 +38,7 @@ class Edit:
     working_end: int
     severity: str
     authority: str
+    speech_preserving: bool
 
 
 @dataclass(frozen=True)
@@ -137,13 +139,16 @@ class EditingSession:
         replacement: str | ReplacementFunction,
     ) -> None:
         """Replace unprotected matches and append exact structured edits."""
-        protected = find_protected_spans(self.text)
+        hard_protected = find_protected_spans(
+            self.text, allow_balanced_quotations=True
+        )
+        all_protected = find_protected_spans(self.text)
         candidates: list[tuple[re.Match[str], str, RuleSpec, int, int]] = []
 
         for match in pattern.finditer(self.text):
             if any(
                 match.start() < span.end and span.start < match.end()
-                for span in protected
+                for span in hard_protected
             ):
                 continue
 
@@ -159,6 +164,11 @@ class EditingSession:
             else:
                 after = value
                 applied_rule = rule
+            if not applied_rule.speech_preserving and any(
+                match.start() < span.end and span.start < match.end()
+                for span in all_protected
+            ):
+                continue
             before = match.group(0)
             if before == after:
                 continue
@@ -182,6 +192,7 @@ class EditingSession:
                     working_end=match.end(),
                     severity=applied_rule.severity,
                     authority=applied_rule.authority,
+                    speech_preserving=applied_rule.speech_preserving,
                 )
             )
 

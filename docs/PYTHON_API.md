@@ -17,8 +17,9 @@ apply_headline_style(text, preserve_phrases=()) -> str
 apply_headline_style_with_report(text, preserve_phrases=()) -> EditResult
 ```
 
-The headline API converts imported title case to sentence case, preserves
-quoted and literal regions, and applies headline-only house rules. The optional
+The headline API converts imported title case to sentence case, keeps that
+broad casing pass out of quoted and literal regions, and applies separately
+classified headline-only house rules. The optional
 `preserve_phrases` iterable lets a consumer protect current people, entities or
 specialized proper nouns without moving a changing registry into this package.
 The headline API does not implicitly call the main-body pipeline.
@@ -39,6 +40,8 @@ Each `Edit` contains:
 - `working_start` and `working_end`: half-open offsets into the intermediate
   text at the moment the rule ran.
 - `severity` and `authority`: review and provenance metadata.
+- `speech_preserving`: whether the governing rule was explicitly authorized
+  to render the same utterance inside a balanced direct quotation.
 
 Later edits may operate on text produced by an earlier edit. The tracker
 preserves unchanged subranges so both edits still map to the original source.
@@ -53,9 +56,12 @@ authorization to rewrite the text.
 
 ## Protection and metadata
 
-Automatic edits and findings exclude direct quotations, Markdown link
-destinations, URLs, email addresses, inline code and fenced code. Malformed
-unclosed quotations and code fences fail closed.
+Ordinary automatic edits and contextual findings exclude direct quotations.
+An automatic rule may enter a balanced quotation only when its `RuleSpec` is
+explicitly marked `speech_preserving=True`. Markdown link destinations, URLs,
+email addresses, inline code and fenced code remain hard-protected from all
+rules. Malformed or structurally uncertain quotations and code fences fail
+closed.
 
 Publication-date-relative behavior runs only when the caller supplies an
 explicit `datetime.date`. The package never substitutes the machine's current
@@ -63,5 +69,5 @@ date.
 
 ## Versioning
 
-The current API version is alpha `0.1.0a2`. Consumers must pin a released tag
+The current API version is alpha `0.1.0a3`. Consumers must pin a released tag
 or commit. Floating `main` is not a production dependency.

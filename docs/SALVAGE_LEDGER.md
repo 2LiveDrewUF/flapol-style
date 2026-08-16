@@ -31,7 +31,7 @@ in this repository says nothing about that consumer's active behavior.
 | --- | --- | --- |
 | Date display normalization | AP month forms, ordinal removal and month-year punctuation | Port as isolated, protected-region-aware rules. |
 | Publication-date-relative dates | Weekday validation, seven-day window and current-year removal | Require an explicit publication date; never default to the machine date. |
-| Quote-span concept | Prevent word-deleting rules inside quoted speech | Replace the limited 600-character regex with fail-closed protected regions. No automatic rule may alter quotation text. |
+| Quote-span concept | Separate spoken substance from written rendering | Replace the limited 600-character regex with fail-closed structural detection. Only explicitly speech-preserving deterministic rules may enter balanced quotations. |
 | Diff renderer | Human-readable before/after review | Retain as a later UI component after the rule engine emits structured changes. |
 | First-reference registry parser | Canonical names, variants, nicknames and federal/state metadata | Separate registry construction from product-specific bolding behavior. |
 | Bold-marker technique | Preserve intended tags through escaping | Retain where an HTML output adapter needs it; do not make it the core document representation. |
@@ -53,7 +53,7 @@ in this repository says nothing about that consumer's active behavior.
 
 | Legacy behavior | Controlling reason |
 | --- | --- |
-| Apply capitalization, title, word-preference, percent or date changes inside quotations | The current guide requires exact quotation preservation. |
+| Infer quote safety from a registry or broad rule family | Quote access must be granted rule by rule under the speech-preserving policy. |
 | Treat unbalanced quotation marks as ordinary unquoted text | The deterministic system must fail closed. |
 | Default relative-date calculations to the day the software happens to run | Publication date is required context. |
 | Compress a body name to a surname because it appeared in a headline | Sunburn-specific production behavior, not newsroom-wide first-reference style. |
@@ -64,8 +64,9 @@ in this repository says nothing about that consumer's active behavior.
 
 The initial port lives in `python/flapol_style/` and contains:
 
-- Fail-closed protection for direct quotations, Markdown link destinations,
-  URLs, email addresses, inline code and fenced code.
+- Fail-closed structural handling for direct quotations plus hard protection
+  for Markdown link destinations, URLs, email addresses, inline code and
+  fenced code.
 - Fixed AP date-display normalization.
 - Contextual weekday-window and current-year normalization requiring an
   explicit publication date.
@@ -113,8 +114,8 @@ processor now:
 - Reports structured findings for standalone titles, seasons, shortened
   governmental bodies and ambiguous organization or house-term strings.
 - Includes `Second Lady` under the title rule by owner ruling.
-- Excludes quotations and literal regions from both automatic changes and
-  findings.
+- Allows context-proven capitalization rendering inside balanced quotations;
+  contextual findings and literal regions remain excluded.
 
 The legacy table's 26 entries now have no unresolved policy items. The broader
 main guide still contains capitalization rules that were not present in that

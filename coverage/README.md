@@ -15,6 +15,11 @@ Required fields:
 | `protected_regions` | `required`, `partial` or `not_applicable`. |
 | `implementations` | Optional repository-relative paths to tested implementations. |
 
+Python automatic rules also carry a required implementation-level
+`speech_preserving` classification. It is false by default and must be granted
+rule by rule; membership in a registry or rule family does not confer quote
+access.
+
 `partial` protected-region support ordinarily means a Vale detector exists but
 the protected Python correction does not. `contextual` detection means the
 processor can produce a finding but does not claim that the string alone proves

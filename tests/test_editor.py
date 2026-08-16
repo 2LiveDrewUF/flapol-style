@@ -38,7 +38,7 @@ class MainEditorTests(unittest.TestCase):
             "The news conference is Monday.",
         )
 
-    def test_main_pipeline_preserves_quotation_and_is_idempotent(self):
+    def test_main_pipeline_applies_only_speech_preserving_quote_rules(self):
         source = (
             'Governor Ron DeSantis discussed health care. '
             '“Governor Ron DeSantis discussed health care January 8th.”'
@@ -47,7 +47,7 @@ class MainEditorTests(unittest.TestCase):
         self.assertEqual(
             once,
             'Gov. Ron DeSantis discussed healthcare. '
-            '“Governor Ron DeSantis discussed health care January 8th.”',
+            '“Gov. Ron DeSantis discussed healthcare Jan. 8.”',
         )
         self.assertEqual(apply_main_style(once), once)
 

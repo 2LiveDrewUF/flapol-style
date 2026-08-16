@@ -147,6 +147,12 @@ class CapitalizationTests(unittest.TestCase):
         )
         self.assertEqual(find_capitalization_flags(source), ())
 
+    def test_context_proven_capitalization_is_speech_preserving_in_quote(self):
+        self.assertEqual(
+            normalize_capitalization('“The general election is next.”'),
+            '“The General Election is next.”',
+        )
+
     def test_capitalization_pass_is_idempotent(self):
         source = "attorney general Ashley Moody discussed the general election."
         once = normalize_capitalization(source)

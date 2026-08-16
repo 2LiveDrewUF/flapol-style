@@ -1,12 +1,12 @@
 [
-  {"id": "title-lieutenant-governor", "from": "Lieutenant Governor", "to": "Lt. Gov.", "class": "public", "authority": "Florida Politics main"},
-  {"id": "title-us-representative", "from": "U.S. Representative", "to": "U.S. Rep.", "class": "public", "authority": "Florida Politics main"},
-  {"id": "title-us-senator", "from": "U.S. Senator", "to": "U.S. Sen.", "class": "public", "authority": "Florida Politics main"},
-  {"id": "title-representative", "from": "Representative", "to": "Rep.", "class": "public", "authority": "Florida Politics main"},
-  {"id": "title-governor", "from": "Governor", "to": "Gov.", "class": "public", "authority": "Florida Politics main"},
-  {"id": "title-senator", "from": "Senator", "to": "Sen.", "class": "public", "authority": "Florida Politics main"},
-  {"id": "title-chief-executive-officer", "from": "Chief Executive Officer", "to": "CEO", "class": "corporate", "authority": "Florida Politics main"},
-  {"id": "title-chief-financial-officer", "from": "Chief Financial Officer", "to": "CFO", "class": "corporate", "authority": "Florida Politics main"},
-  {"id": "title-chief-operating-officer", "from": "Chief Operating Officer", "to": "COO", "class": "corporate", "authority": "Florida Politics main"},
-  {"id": "title-chief-marketing-officer", "from": "Chief Marketing Officer", "to": "CMO", "class": "corporate", "authority": "Florida Politics main"}
+  {"id": "title-lieutenant-governor", "from": "Lieutenant Governor", "to": "Lt. Gov.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
+  {"id": "title-us-representative", "from": "U.S. Representative", "to": "U.S. Rep.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
+  {"id": "title-us-senator", "from": "U.S. Senator", "to": "U.S. Sen.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
+  {"id": "title-representative", "from": "Representative", "to": "Rep.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
+  {"id": "title-governor", "from": "Governor", "to": "Gov.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
+  {"id": "title-senator", "from": "Senator", "to": "Sen.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
+  {"id": "title-chief-executive-officer", "from": "Chief Executive Officer", "to": "CEO", "class": "corporate", "authority": "Florida Politics main", "speech_preserving": false},
+  {"id": "title-chief-financial-officer", "from": "Chief Financial Officer", "to": "CFO", "class": "corporate", "authority": "Florida Politics main", "speech_preserving": false},
+  {"id": "title-chief-operating-officer", "from": "Chief Operating Officer", "to": "COO", "class": "corporate", "authority": "Florida Politics main", "speech_preserving": false},
+  {"id": "title-chief-marketing-officer", "from": "Chief Marketing Officer", "to": "CMO", "class": "corporate", "authority": "Florida Politics main", "speech_preserving": false}
 ]

@@ -105,9 +105,12 @@ class HeadlineRuleTests(unittest.TestCase):
             "U.S. health care debate",
         )
 
-    def test_quoted_us_is_protected(self):
+    def test_quoted_us_uses_house_rendering(self):
         source = 'Candidate calls policy “US first”'
-        self.assertEqual(apply_headline_style(source), source)
+        self.assertEqual(
+            apply_headline_style(source),
+            'Candidate calls policy “U.S. first”',
+        )
 
     def test_headline_change_is_reported(self):
         source = "US Senate advances bill"

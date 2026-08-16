@@ -43,7 +43,7 @@ class MechanicalRuleTests(unittest.TestCase):
         source = "The log says 13 PM and 9:75 AM."
         self.assertEqual(normalize_mechanical_forms(source), source)
 
-    def test_protected_regions_are_unchanged(self):
+    def test_quote_policy_is_rule_specific_and_literals_stay_protected(self):
         source = (
             'The US Chairman said COVID-19 rose 8 percent at 9PM. '
             '“The US Chairman said COVID-19 rose 8 percent at 9PM.” '
@@ -52,9 +52,38 @@ class MechanicalRuleTests(unittest.TestCase):
         self.assertEqual(
             normalize_mechanical_forms(source),
             'The U.S. Chair said COVID rose 8% at 9 p.m. '
-            '“The US Chairman said COVID-19 rose 8 percent at 9PM.” '
+            '“The U.S. Chairman said COVID-19 rose 8% at 9 p.m.” '
             '`The US Chairman said 8 percent`',
         )
+
+    def test_spoken_percent_and_time_forms_inside_straight_and_curly_quotes(self):
+        source = (
+            '“Eight percent arrived at four PM.” '
+            '"One hundred twenty-three percent arrived at twelve AM."'
+        )
+        result = apply_main_style_with_report(source)
+        self.assertEqual(
+            result.text,
+            '“8% arrived at 4 p.m.” "123% arrived at 12 a.m."',
+        )
+        self.assertTrue(result.changes)
+        self.assertTrue(all(change.speech_preserving for change in result.changes))
+        for change in result.changes:
+            self.assertEqual(
+                source[change.source_start:change.source_end],
+                change.before,
+            )
+
+    def test_literal_regions_inside_quote_remain_hard_protected(self):
+        source = '“US `US` https://example.com/US eight percent”'
+        self.assertEqual(
+            normalize_mechanical_forms(source),
+            '“U.S. `US` https://example.com/US 8%”',
+        )
+
+    def test_unbalanced_quote_blocks_speech_preserving_mechanical_rules(self):
+        source = 'He said, “US support was eight percent at four PM'
+        self.assertEqual(normalize_mechanical_forms(source), source)
 
     def test_mechanical_changes_are_reported_with_stable_ids(self):
         source = "The US Chairman said COVID-19 drew 8 percent at 9PM."

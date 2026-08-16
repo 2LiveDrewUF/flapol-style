@@ -53,6 +53,7 @@ def apply_word_rules_to_session(session: EditingSession) -> None:
             rule_id=f"flapol.words.{record['id']}",
             authority=record["authority"],
             action=record["action"],
+            speech_preserving=record["speech_preserving"],
         )
         session.replace_pattern(
             spec,
@@ -64,7 +65,7 @@ def apply_word_rules_to_session(session: EditingSession) -> None:
 
 
 def normalize_word_forms(text: str) -> str:
-    """Apply approved word forms outside quotations and literal regions."""
+    """Apply approved word forms under their individual quote policies."""
     session = EditingSession(text)
     apply_word_rules_to_session(session)
     return session.text

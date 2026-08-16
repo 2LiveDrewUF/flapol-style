@@ -73,22 +73,27 @@ _RELATIVE_DATE_RE = re.compile(
 _MONTH_DAY_RULE = RuleSpec(
     "ap.dates.month-with-numbered-day",
     "AP Stylebook 56th edition, months entry",
+    speech_preserving=True,
 )
 _ORDINAL_RULE = RuleSpec(
     "ap.dates.calendar-ordinal",
     "AP Stylebook 56th edition, dates entry",
+    speech_preserving=True,
 )
 _MONTH_YEAR_RULE = RuleSpec(
     "ap.dates.month-without-numbered-day",
     "AP Stylebook 56th edition, months entry",
+    speech_preserving=True,
 )
 _MONTH_YEAR_PUNCTUATION_RULE = RuleSpec(
     "ap.dates.month-year-punctuation",
     "AP Stylebook 56th edition, months entry",
+    speech_preserving=True,
 )
 _FULL_DATE_PUNCTUATION_RULE = RuleSpec(
     "ap.dates.full-date-year-punctuation",
     "AP Stylebook 56th edition, dates entry",
+    speech_preserving=True,
 )
 _CURRENT_YEAR_RULE = RuleSpec(
     "ap.dates.current-year-reference",

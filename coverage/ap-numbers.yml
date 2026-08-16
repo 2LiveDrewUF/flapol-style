@@ -6,6 +6,14 @@ numeral-plus-percent-sign:
   contexts: [main]
   protected_regions: required
   implementations: [FlaPol/PercentSymbol.yml, python/flapol_style/mechanics.py]
+spoken-number-percent-sign:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/mechanics.py]
 general-one-through-nine:
   documented: true
   detected: false

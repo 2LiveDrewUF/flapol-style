@@ -87,15 +87,22 @@ class DateRuleTests(unittest.TestCase):
             "The filing was Jan. 8, 2025.",
         )
 
-    def test_quotation_link_destination_and_code_are_unchanged(self):
+    def test_display_dates_enter_quotes_but_literals_remain_protected(self):
         source = (
             'January 8th. “January 9th, 2026.” '
             '[January 10th](https://example.com/January-10th) `January 11th`'
         )
         self.assertEqual(
             apply_date_rules(source),
-            'Jan. 8. “January 9th, 2026.” '
+            'Jan. 8. “Jan. 9, 2026.” '
             '[Jan. 10](https://example.com/January-10th) `January 11th`',
+        )
+
+    def test_relative_date_deletion_does_not_enter_quotes(self):
+        source = 'She said, “The meeting is Tuesday, January 20th, 2026.”'
+        self.assertEqual(
+            apply_date_rules(source, publication_date=date(2026, 1, 1)),
+            'She said, “The meeting is Tuesday, Jan. 20, 2026.”',
         )
 
     def test_date_pass_is_idempotent(self):

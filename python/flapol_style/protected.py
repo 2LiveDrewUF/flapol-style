@@ -1,9 +1,9 @@
 """Protected-region discovery for deterministic editing.
 
-Protection is deliberately conservative. When a quotation or code fence is
-unbalanced, the uncertain remainder is protected instead of being rewritten.
-The processor may miss a correction in malformed input; it must not silently
-alter text that could be verbatim or literal.
+Protection is deliberately conservative. Balanced direct quotations are a
+separate policy boundary: ordinary rules cannot edit them, while explicitly
+speech-preserving deterministic rules may. When a quotation or code fence is
+unbalanced, the uncertain remainder remains hard-protected for every rule.
 """
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ class ProtectedSpan:
 _INLINE_CODE_RE = re.compile(r"(`+)([^\n]*?)\1")
 _LINK_DEST_RE = re.compile(r"\](\((?:[^()\\\n]|\\.|\([^()\n]*\))*\))")
 _AUTOLINK_RE = re.compile(r"<(?:(?:https?|mailto):[^>\n]+)>", re.IGNORECASE)
-_URL_RE = re.compile(r"https?://[^\s<>\]\[\"']+", re.IGNORECASE)
+_URL_RE = re.compile(r"https?://[^\s<>\]\[\"'“”‘’]+", re.IGNORECASE)
 _EMAIL_RE = re.compile(
     r"(?<![\w.+-])[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}(?![\w.-])",
     re.IGNORECASE,
@@ -65,7 +65,8 @@ def _quote_spans(text: str) -> list[ProtectedSpan]:
             break
         close = text.find("”", start + 1)
         end = close + 1 if close >= 0 else len(text)
-        spans.append(ProtectedSpan(start, end, "direct_quotation"))
+        kind = "direct_quotation" if close >= 0 else "uncertain_quotation"
+        spans.append(ProtectedSpan(start, end, kind))
         if close < 0:
             break
         cursor = end
@@ -73,8 +74,21 @@ def _quote_spans(text: str) -> list[ProtectedSpan]:
     straight = [m.start() for m in re.finditer(r'(?<!\\)"', text)]
     for index in range(0, len(straight), 2):
         start = straight[index]
-        end = straight[index + 1] + 1 if index + 1 < len(straight) else len(text)
-        spans.append(ProtectedSpan(start, end, "direct_quotation"))
+        balanced = index + 1 < len(straight)
+        end = straight[index + 1] + 1 if balanced else len(text)
+        kind = "direct_quotation" if balanced else "uncertain_quotation"
+        spans.append(ProtectedSpan(start, end, kind))
+
+    # A closing curly quote without a preceding opening mark makes the
+    # preceding text structurally uncertain. Fail closed through that mark.
+    covered_closers = {
+        span.end - 1
+        for span in spans
+        if span.kind == "direct_quotation" and text[span.end - 1:span.end] == "”"
+    }
+    for close in (m.start() for m in re.finditer("”", text)):
+        if close not in covered_closers:
+            spans.append(ProtectedSpan(0, close + 1, "uncertain_quotation"))
 
     return spans
 
@@ -108,8 +122,17 @@ def _merge_spans(spans: Iterable[ProtectedSpan]) -> list[ProtectedSpan]:
     return merged
 
 
-def find_protected_spans(text: str) -> list[ProtectedSpan]:
-    """Return merged spans that deterministic transformations must not edit."""
+def find_protected_spans(
+    text: str,
+    *,
+    allow_balanced_quotations: bool = False,
+) -> list[ProtectedSpan]:
+    """Return spans protected from the requested transformation class.
+
+    ``allow_balanced_quotations`` removes only balanced direct quotations from
+    the protected set. Literal regions and structurally uncertain quotations
+    remain protected.
+    """
     if not text:
         return []
 
@@ -122,7 +145,12 @@ def find_protected_spans(text: str) -> list[ProtectedSpan]:
     spans.extend(_regex_spans(text, _AUTOLINK_RE, "autolink"))
     spans.extend(_regex_spans(text, _URL_RE, "url"))
     spans.extend(_regex_spans(text, _EMAIL_RE, "email_address"))
-    spans.extend(_quote_spans(text))
+    quote_spans = _quote_spans(text)
+    if allow_balanced_quotations:
+        quote_spans = [
+            span for span in quote_spans if span.kind != "direct_quotation"
+        ]
+    spans.extend(quote_spans)
     return _merge_spans(spans)
 
 

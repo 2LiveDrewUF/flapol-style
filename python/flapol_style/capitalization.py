@@ -105,6 +105,7 @@ def apply_capitalization_rules_to_session(session: EditingSession) -> None:
             RuleSpec(
                 rule_id=f"flapol.capitalization.{record['id']}",
                 authority=record["authority"],
+                speech_preserving=True,
             ),
             pattern,
             record["to"],
@@ -114,6 +115,7 @@ def apply_capitalization_rules_to_session(session: EditingSession) -> None:
             RuleSpec(
                 rule_id=f"flapol.capitalization.{record['id']}",
                 authority=record["authority"],
+                speech_preserving=True,
             ),
             pattern,
             record["to"],
@@ -123,6 +125,7 @@ def apply_capitalization_rules_to_session(session: EditingSession) -> None:
             RuleSpec(
                 rule_id=f"flapol.capitalization.{record['id']}",
                 authority=record["authority"],
+                speech_preserving=True,
             ),
             pattern,
             lambda match, _text, body=record["to"]: (

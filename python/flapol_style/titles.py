@@ -52,6 +52,7 @@ def apply_title_rules_to_session(session: EditingSession) -> None:
             RuleSpec(
                 rule_id=f"flapol.titles.{record['id']}",
                 authority=record["authority"],
+                speech_preserving=record["speech_preserving"],
             ),
             pattern,
             record["to"],

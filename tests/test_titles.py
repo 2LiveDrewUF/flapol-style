@@ -6,10 +6,15 @@ import unittest
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from flapol_style.titles import abbreviate_titles_before_names
+from flapol_style.titles import abbreviate_titles_before_names, load_title_abbreviations
 
 
 class TitleAbbreviationTests(unittest.TestCase):
+    def test_every_registry_rule_declares_quote_policy(self):
+        self.assertTrue(load_title_abbreviations())
+        for record in load_title_abbreviations():
+            self.assertIs(type(record.get("speech_preserving")), bool)
+
     def test_public_titles_before_full_names_are_abbreviated(self):
         self.assertEqual(
             abbreviate_titles_before_names(
@@ -40,12 +45,20 @@ class TitleAbbreviationTests(unittest.TestCase):
         source = "State Attorney Jack Campbell spoke."
         self.assertEqual(abbreviate_titles_before_names(source), source)
 
-    def test_quotation_is_unchanged(self):
+    def test_title_abbreviation_is_speech_preserving_inside_quotation(self):
         source = 'Governor Ron DeSantis spoke. “Governor Ron DeSantis called.”'
         self.assertEqual(
             abbreviate_titles_before_names(source),
-            'Gov. Ron DeSantis spoke. “Governor Ron DeSantis called.”',
+            'Gov. Ron DeSantis spoke. “Gov. Ron DeSantis called.”',
         )
+
+    def test_unbalanced_quote_blocks_title_abbreviation(self):
+        source = 'He said, "Governor Ron DeSantis called'
+        self.assertEqual(abbreviate_titles_before_names(source), source)
+
+    def test_corporate_initialism_does_not_pass_read_aloud_test_in_quote(self):
+        source = '“Chief Executive Officer Jane Smith called,” he said.'
+        self.assertEqual(abbreviate_titles_before_names(source), source)
 
     def test_title_before_bold_full_name_is_abbreviated(self):
         self.assertEqual(

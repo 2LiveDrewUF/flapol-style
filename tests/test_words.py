@@ -6,10 +6,15 @@ import unittest
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from flapol_style.words import normalize_word_forms
+from flapol_style.words import load_word_preferences, normalize_word_forms
 
 
 class WordFormTests(unittest.TestCase):
+    def test_every_registry_rule_declares_quote_policy(self):
+        self.assertTrue(load_word_preferences())
+        for record in load_word_preferences():
+            self.assertIs(type(record.get("speech_preserving")), bool)
+
     def test_approved_forms_are_normalized(self):
         self.assertEqual(
             normalize_word_forms(
@@ -32,16 +37,27 @@ class WordFormTests(unittest.TestCase):
             "News conference and HEALTHCARE",
         )
 
-    def test_protected_regions_are_unchanged(self):
+    def test_quote_policy_is_rule_specific_and_literals_stay_protected(self):
         source = (
             'Health care changed. “Health care at a press conference.” '
             '[health care](https://example.com/health-care) `press conference`'
         )
         self.assertEqual(
             normalize_word_forms(source),
-            'Healthcare changed. “Health care at a press conference.” '
+            'Healthcare changed. “Healthcare at a press conference.” '
             '[healthcare](https://example.com/health-care) `press conference`',
         )
+
+    def test_adviser_and_longtime_are_speech_preserving(self):
+        source = '“My long-time advisor agreed,” she said. "The advisor left."'
+        self.assertEqual(
+            normalize_word_forms(source),
+            '“My longtime adviser agreed,” she said. "The adviser left."',
+        )
+
+    def test_unbalanced_quote_fails_closed_for_speech_preserving_word_rule(self):
+        source = 'She said, “My long-time advisor agreed'
+        self.assertEqual(normalize_word_forms(source), source)
 
     def test_rejected_or_unrelated_legacy_forms_are_not_changed(self):
         source = "Officials tried to preempt a child care dispute."

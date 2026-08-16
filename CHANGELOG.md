@@ -4,6 +4,20 @@ This project follows semantic versioning. Release tags use a `v` prefix; the
 Python distribution exposes the corresponding PEP 440 version without that
 prefix.
 
+## 0.1.0a3 — 2026-08-16
+
+- Replace blanket quotation immutability with explicit rule-level
+  `speech_preserving` classification.
+- Keep balanced quotations closed to ordinary and semantic editing while
+  allowing approved written-style renderings of the same spoken utterance.
+- Keep code, URLs, link destinations, email addresses and structurally
+  uncertain quotations hard-protected from every rule.
+- Apply approved adviser, word-form, capitalization, title, date-display,
+  `U.S.`, percent and meridiem rendering inside balanced quotations.
+- Add spoken-number transcript handling for percentages through 999 and spoken
+  one-through-twelve meridiem hours.
+- Include quote-safety metadata on every structured automatic edit.
+
 ## 0.1.0a2 — 2026-08-16
 
 - Convert imported title case to Florida Politics sentence case through the
