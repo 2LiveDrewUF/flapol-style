@@ -1,0 +1,10 @@
+# Authority: AP Stylebook, 56th edition, times entry.
+extends: existence
+message: "Use lowercase a.m. or p.m., with periods and a preceding space."
+level: error
+nonword: true
+tokens:
+  - '\b\d{1,2}(?::\d{2})?\s*(?:AM|PM|am|pm)(?=\s|[.,;:!?)"]|$)'
+  - '\b\d{1,2}(?::\d{2})?\s*(?:A\.M\.|P\.M\.|A\.m\.|P\.m\.|a\.M\.|p\.M\.)(?=\s|[.,;:!?)"]|$)'
+  - '\b\d{1,2}(?::\d{2})?\s+(?:a\.m|p\.m)(?!\.)(?=\s|[.,;:!?)"]|$)'
+  - '\b\d{1,2}(?::\d{2})?(?:a\.m\.|p\.m\.)(?=\s|[.,;:!?)"]|$)'

@@ -1,0 +1,9 @@
+# Authority: Florida Politics house style.
+extends: substitution
+message: "Use '%s' instead of '%s' in Florida Politics copy."
+level: error
+ignorecase: false
+action:
+  name: replace
+swap:
+  '\bCOVID-19\b': 'COVID'

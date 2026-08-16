@@ -1,0 +1,10 @@
+# Authority: AP Stylebook, 56th edition, dates entry.
+extends: existence
+message: "Use a cardinal figure without an ordinal suffix in a calendar date."
+level: error
+nonword: true
+ignorecase: true
+raw:
+  - '\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?\s+'
+tokens:
+  - '\d{1,2}(?:st|nd|rd|th)\b'

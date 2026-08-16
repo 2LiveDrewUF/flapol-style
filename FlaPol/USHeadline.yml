@@ -1,0 +1,10 @@
+# Authority: Florida Politics house override of AP headline treatment.
+extends: substitution
+message: "Use '%s' instead of '%s' for the United States in a headline."
+level: error
+scope: heading
+ignorecase: false
+action:
+  name: replace
+swap:
+  '\bUS\b': 'U.S.'

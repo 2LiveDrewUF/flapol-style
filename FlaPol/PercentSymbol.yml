@@ -1,0 +1,8 @@
+# Authority: AP Stylebook, 56th edition, percent entry.
+extends: existence
+message: "Use a numeral followed by the percent symbol."
+level: error
+nonword: true
+ignorecase: true
+tokens:
+  - '\b\d+(?:\.\d+)?\s+percent\b'
