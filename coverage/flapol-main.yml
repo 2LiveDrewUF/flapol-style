@@ -1,0 +1,22 @@
+# USHeadline.yml
+us-periods-in-headlines: true
+
+# Covid.yml
+covid-without-19: true
+
+# AMPM.yml
+ap-am-pm-form: true
+
+capitalize-seasons: false
+capitalize-house-titles: false
+first-reference-name-bolding: false
+headline-full-names: false
+desantis-headline-exception: false
+agriculture-department-first-reference: false
+acronym-first-reference: false
+re-election-hyphenation: false
+front-runner-hyphenation: false
+organization-house-forms: false
+district-forms: false
+quotation-protection: false
+link-bolding: false

@@ -1,0 +1,12 @@
+# PercentSymbol.yml
+numeral-plus-percent-sign: true
+
+general-one-through-nine: false
+general-ten-and-above: false
+sentence-initial-number: false
+ages: false
+dimensions: false
+money: false
+percentage-points: false
+temperatures: false
+weights: false
