@@ -96,9 +96,52 @@ The reconciliation decisions behind this tranche are explicit:
   recorded in `RULE_SOURCES.md`.
 - `child care` remains unchanged.
 
-Broad capitalization remains deferred. Detection is useful, but automatic
-case replacement still needs enough context to distinguish a Florida title or
-governmental body from an ordinary noun.
+At the end of the second tranche, broad capitalization remained deferred
+pending a split between context-proven fixes and contextual findings. The
+third tranche below implements that split.
+
+## Third salvaged implementation
+
+The legacy capitalization table has been reconciled entry by entry. Its old
+universal, case-insensitive replacement behavior remains rejected. The public
+processor now:
+
+- Automatically capitalizes named election stages, including `Midterms`.
+- Automatically normalizes Florida Legislature, C-suite initialisms, titles
+  directly before full names and governmental bodies with an explicit
+  jurisdiction.
+- Reports structured findings for standalone titles, seasons, shortened
+  governmental bodies and ambiguous organization or house-term strings.
+- Includes `Second Lady` under the title rule by owner ruling.
+- Excludes quotations and literal regions from both automatic changes and
+  findings.
+
+The legacy table's 26 entries now have no unresolved policy items. The broader
+main guide still contains capitalization rules that were not present in that
+table; their coverage remains recorded separately rather than being inferred.
+
+## Package and reporting foundation
+
+Before additional Streamlet rule families are salvaged, the Python processor
+is packaged as the unreleased `0.1.0a1` distribution and exposes structured
+edit reporting. The reported and string-only APIs share one editing session.
+Each automatic change carries a stable rule ID, action, working text,
+before/after value, authority and offsets into the untouched source. Contextual
+capitalization findings use the same source-coordinate contract.
+
+Coverage records now distinguish documentation, detection mode, automatic
+correction, applicable profiles and protected-region support. This prevents a
+Vale alert or a prose rule from being mistaken for a protected automatic fix.
+
+This foundation does not adopt the package in Streamlet. Release pinning,
+shadow comparison, rule-family cutover and legacy retirement remain Newsroom
+Tools responsibilities.
+
+With reporting in place, the already-approved Vale families for `COVID`,
+numeral-plus-percent-sign and meridiem formatting also run through the
+protected main processor. A narrow headline entry point implements only the
+house `U.S.` form; it does not import the legacy headline casing, title removal
+or person-registry machinery.
 
 No private Streamlet source, production path, credential or private repository
 metadata is reproduced in this public ledger.

@@ -1,0 +1,131 @@
+{
+  "automatic_exact": [
+    {
+      "id": "ceo-initialism",
+      "from": "ceo",
+      "to": "CEO",
+      "authority": "Florida Politics main"
+    },
+    {
+      "id": "cfo-initialism",
+      "from": "cfo",
+      "to": "CFO",
+      "authority": "Florida Politics main"
+    },
+    {
+      "id": "coo-initialism",
+      "from": "coo",
+      "to": "COO",
+      "authority": "Florida Politics main"
+    },
+    {
+      "id": "cmo-initialism",
+      "from": "cmo",
+      "to": "CMO",
+      "authority": "Florida Politics main"
+    },
+    {
+      "id": "general-election",
+      "from": "general election",
+      "to": "General Election",
+      "authority": "Florida Politics main"
+    },
+    {
+      "id": "primary-election",
+      "from": "primary election",
+      "to": "Primary Election",
+      "authority": "Florida Politics main"
+    },
+    {
+      "id": "special-election",
+      "from": "special election",
+      "to": "Special Election",
+      "authority": "Florida Politics main"
+    },
+    {
+      "id": "midterm-election",
+      "from": "midterm election",
+      "to": "Midterm Election",
+      "authority": "Florida Politics main"
+    },
+    {
+      "id": "midterm-elections",
+      "from": "midterm elections",
+      "to": "Midterm Elections",
+      "authority": "Florida Politics main"
+    },
+    {
+      "id": "midterms",
+      "from": "midterms",
+      "to": "Midterms",
+      "authority": "Florida Politics owner ruling 2026-08-16"
+    },
+    {
+      "id": "presidential-election",
+      "from": "presidential election",
+      "to": "Presidential Election",
+      "authority": "Florida Politics main"
+    },
+    {
+      "id": "election-day",
+      "from": "election day",
+      "to": "Election Day",
+      "authority": "Florida Politics main"
+    },
+    {
+      "id": "florida-legislature",
+      "from": "florida legislature",
+      "to": "Florida Legislature",
+      "authority": "Florida Politics main"
+    }
+  ],
+  "before_name_titles": [
+    {"id": "president-before-name", "from": "President", "to": "President", "authority": "Florida Politics main"},
+    {"id": "vice-president-before-name", "from": "Vice President", "to": "Vice President", "authority": "Florida Politics main"},
+    {"id": "first-lady-before-name", "from": "First Lady", "to": "First Lady", "authority": "Florida Politics main"},
+    {"id": "second-lady-before-name", "from": "Second Lady", "to": "Second Lady", "authority": "Florida Politics owner ruling 2026-08-16"},
+    {"id": "attorney-general-before-name", "from": "Attorney General", "to": "Attorney General", "authority": "Florida Politics main"},
+    {"id": "mayor-before-name", "from": "Mayor", "to": "Mayor", "authority": "Florida Politics main"},
+    {"id": "managing-partner-before-name", "from": "Managing Partner", "to": "Managing Partner", "authority": "Florida Politics main"},
+    {"id": "director-before-name", "from": "Director", "to": "Director", "authority": "Florida Politics main"},
+    {"id": "chair-before-name", "from": "Chair", "to": "Chair", "authority": "Florida Politics main"}
+  ],
+  "governmental_bodies": [
+    {"id": "named-county-commission", "from": "County Commission", "to": "County Commission", "authority": "Florida Politics main"},
+    {"id": "named-city-commission", "from": "City Commission", "to": "City Commission", "authority": "Florida Politics main"},
+    {"id": "named-city-council", "from": "City Council", "to": "City Council", "authority": "Florida Politics main"},
+    {"id": "named-school-board", "from": "School Board", "to": "School Board", "authority": "Florida Politics main"},
+    {"id": "named-school-district", "from": "School District", "to": "School District", "authority": "Florida Politics main"}
+  ],
+  "context_flags": [
+    {"id": "season-spring", "from": "spring", "to": "Spring"},
+    {"id": "season-summer", "from": "summer", "to": "Summer"},
+    {"id": "season-fall", "from": "fall", "to": "Fall"},
+    {"id": "season-winter", "from": "winter", "to": "Winter"},
+    {"id": "president-title", "from": "president", "to": "President"},
+    {"id": "vice-president-title", "from": "vice president", "to": "Vice President"},
+    {"id": "first-lady-title", "from": "first lady", "to": "First Lady"},
+    {"id": "second-lady-title", "from": "second lady", "to": "Second Lady"},
+    {"id": "governor-title", "from": "governor", "to": "Governor"},
+    {"id": "attorney-general-title", "from": "attorney general", "to": "Attorney General"},
+    {"id": "representative-title", "from": "representative", "to": "Representative"},
+    {"id": "senator-title", "from": "senator", "to": "Senator"},
+    {"id": "mayor-title", "from": "mayor", "to": "Mayor"},
+    {"id": "managing-partner-title", "from": "managing partner", "to": "Managing Partner"},
+    {"id": "director-title", "from": "director", "to": "Director"},
+    {"id": "chair-title", "from": "chair", "to": "Chair"},
+    {"id": "legislative-session", "from": "legislative session", "to": "Legislative Session"},
+    {"id": "regular-session", "from": "regular session", "to": "Regular Session"},
+    {"id": "special-session", "from": "special session", "to": "Special Session"},
+    {"id": "legislature", "from": "legislature", "to": "Legislature"},
+    {"id": "county-commission", "from": "county commission", "to": "County Commission"},
+    {"id": "city-commission", "from": "city commission", "to": "City Commission"},
+    {"id": "city-council", "from": "city council", "to": "City Council"},
+    {"id": "school-board", "from": "school board", "to": "School Board"},
+    {"id": "school-district", "from": "school district", "to": "School District"},
+    {"id": "the-process", "from": "the process", "to": "The Process"},
+    {"id": "visit-florida", "from": "visit florida", "to": "VISIT FLORIDA"},
+    {"id": "politico", "from": "politico", "to": "POLITICO"}
+  ],
+  "unresolved_legacy": []
+}

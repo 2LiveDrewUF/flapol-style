@@ -1,12 +1,76 @@
-# DateOrdinal.yml
-calendar-date-ordinal-suffix: true
-
-month-with-numbered-day: true
-month-without-numbered-day: true
-month-year-punctuation: true
-full-date-year-punctuation: true
-current-year-reference: true
-weekday-window: true
-relative-today-tonight: false
-time-format: false
-time-zone-format: false
+calendar-date-ordinal-suffix:
+  documented: true
+  detected: true
+  detection_mode: both
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [FlaPol/DateOrdinal.yml, python/flapol_style/dates.py]
+month-with-numbered-day:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/dates.py]
+month-without-numbered-day:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/dates.py]
+month-year-punctuation:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/dates.py]
+full-date-year-punctuation:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/dates.py]
+current-year-reference:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/dates.py]
+weekday-window:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/dates.py]
+relative-today-tonight:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+time-format:
+  documented: true
+  detected: true
+  detection_mode: both
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [FlaPol/AMPM.yml, python/flapol_style/mechanics.py]
+time-zone-format:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required

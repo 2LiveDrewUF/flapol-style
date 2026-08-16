@@ -19,6 +19,16 @@ class MainEditorTests(unittest.TestCase):
             "Gov. Ron DeSantis held a news conference Jan. 8, 2026.",
         )
 
+    def test_main_pipeline_includes_safe_capitalization(self):
+        self.assertEqual(
+            apply_main_style(
+                "president Joe Biden discussed the general election with the "
+                "Leon County school board."
+            ),
+            "President Joe Biden discussed the General Election with the "
+            "Leon County School Board.",
+        )
+
     def test_main_pipeline_uses_explicit_publication_date(self):
         self.assertEqual(
             apply_main_style(

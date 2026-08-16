@@ -15,6 +15,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Set up minimum supported Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
       - name: Install pinned Vale release
         shell: bash
         run: |
@@ -32,3 +37,11 @@ jobs:
 
       - name: Run protected processor tests
         run: python3 -m unittest discover -s tests -p 'test_*.py'
+
+      - name: Install Python package
+        run: python3 -m pip install .
+
+      - name: Smoke-test installed package and registry data
+        run: |
+          cd /tmp
+          python3 -I -c "import flapol_style; assert flapol_style.__version__; assert flapol_style.load_word_preferences(); assert flapol_style.load_capitalization_rules()"

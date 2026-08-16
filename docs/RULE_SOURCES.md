@@ -33,3 +33,27 @@ be used on first reference. State Attorney remains spelled out.
 These rules do not implement headline choice, title capitalization away from a
 name or the `Gov. DeSantis` versus `Ron DeSantis` distinction. Those questions
 require document role or story meaning and are not word-level replacements.
+
+## Capitalization
+
+The capitalization registry implements the Florida Politics main-guide rules
+without inheriting the legacy formatter's universal case-insensitive rewrite.
+Owner rulings on Aug. 16, 2026, confirmed that `Midterms` is capitalized and
+added `Second Lady` to the house title forms.
+
+Automatic changes require textual proof: an unambiguous named election stage,
+the exact Florida Legislature name, a title directly before a full name, a
+C-suite initialism or an explicitly named governmental body. Seasons,
+standalone titles, shortened governmental bodies, The Process, VISIT FLORIDA
+and POLITICO remain findings when the string alone cannot prove the intended
+sense. Direct quotations and literal regions are excluded from both changes
+and findings.
+
+## Existing Vale families promoted to protected auto-fix
+
+| Rule | Governing source |
+| --- | --- |
+| `COVID-19` to `COVID` | Florida Politics main guide and the existing `FlaPol/Covid.yml` fixture. |
+| Numeral plus `percent` or `per cent` to `%` | Pinned 56th-edition AP percent entry and the existing `FlaPol/PercentSymbol.yml` fixture. Percentage points remain a separate semantic rule. |
+| Meridiem formatting | Pinned 56th-edition AP times entry and the existing `FlaPol/AMPM.yml` fixture. The automatic rule accepts valid 1–12-hour forms and does not legitimize invalid clock values. |
+| Headline `US` to `U.S.` | Florida Politics headline departure recorded in main and the existing `FlaPol/USHeadline.yml` fixture. It runs only through the explicit headline API. |

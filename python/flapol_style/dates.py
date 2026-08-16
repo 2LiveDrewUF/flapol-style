@@ -11,7 +11,7 @@ from __future__ import annotations
 from datetime import date
 import re
 
-from .protected import transform_unprotected
+from .reporting import EditingSession, Replacement, RuleSpec
 
 
 MONTHS_FULL = (
@@ -70,8 +70,64 @@ _RELATIVE_DATE_RE = re.compile(
 )
 
 
-def _normalize_full_date_commas(text: str) -> str:
-    def replace(match: re.Match[str]) -> str:
+_MONTH_DAY_RULE = RuleSpec(
+    "ap.dates.month-with-numbered-day",
+    "AP Stylebook 56th edition, months entry",
+)
+_ORDINAL_RULE = RuleSpec(
+    "ap.dates.calendar-ordinal",
+    "AP Stylebook 56th edition, dates entry",
+)
+_MONTH_YEAR_RULE = RuleSpec(
+    "ap.dates.month-without-numbered-day",
+    "AP Stylebook 56th edition, months entry",
+)
+_MONTH_YEAR_PUNCTUATION_RULE = RuleSpec(
+    "ap.dates.month-year-punctuation",
+    "AP Stylebook 56th edition, months entry",
+)
+_FULL_DATE_PUNCTUATION_RULE = RuleSpec(
+    "ap.dates.full-date-year-punctuation",
+    "AP Stylebook 56th edition, dates entry",
+)
+_CURRENT_YEAR_RULE = RuleSpec(
+    "ap.dates.current-year-reference",
+    "AP Stylebook 56th edition, time element entry",
+)
+_WEEKDAY_WINDOW_RULE = RuleSpec(
+    "ap.dates.weekday-window",
+    "AP Stylebook 56th edition, time element entry",
+)
+
+
+def apply_date_display_rules_to_session(session: EditingSession) -> None:
+    session.replace_pattern(
+        _MONTH_DAY_RULE,
+        _SLOPPY_ABBREVIATION_RE,
+        lambda match, _text: _ABBREVIATION_CANON.get(
+            match.group(1), match.group(1) + "."
+        ),
+    )
+    session.replace_pattern(_ORDINAL_RULE, _ORDINAL_DATE_RE, r"\1")
+    session.replace_pattern(
+        _MONTH_DAY_RULE,
+        _ABBREVIATE_WITH_DAY_RE,
+        lambda match, _text: AP_ABBREVIATIONS[match.group(1)],
+    )
+    session.replace_pattern(
+        _MONTH_YEAR_RULE,
+        _EXPAND_WITH_YEAR_RE,
+        lambda match, _text: (
+            f"{ABBREVIATION_TO_FULL[match.group(1)]} {match.group(2)}"
+        ),
+    )
+    session.replace_pattern(
+        _MONTH_YEAR_PUNCTUATION_RULE,
+        _MONTH_YEAR_COMMA_RE,
+        r"\1 \2",
+    )
+
+    def full_date_replacement(match: re.Match[str], text: str) -> str:
         month_day, year, existing_trailing_comma = match.groups()
         following = text[match.end():]
         trailing = existing_trailing_comma
@@ -79,47 +135,33 @@ def _normalize_full_date_commas(text: str) -> str:
             trailing = ","
         return f"{month_day}, {year}{trailing}"
 
-    return _FULL_DATE_RE.sub(replace, text)
+    session.replace_pattern(
+        _FULL_DATE_PUNCTUATION_RULE,
+        _FULL_DATE_RE,
+        full_date_replacement,
+    )
 
 
 def normalize_date_display(text: str) -> str:
-    """Apply fixed date-form rules to an already unprotected text slice."""
-    if not text:
-        return text
-    text = _SLOPPY_ABBREVIATION_RE.sub(
-        lambda match: _ABBREVIATION_CANON.get(
-            match.group(1), match.group(1) + "."
-        ),
-        text,
-    )
-    text = _ORDINAL_DATE_RE.sub(r"\1", text)
-    text = _ABBREVIATE_WITH_DAY_RE.sub(
-        lambda match: AP_ABBREVIATIONS[match.group(1)], text
-    )
-    text = _EXPAND_WITH_YEAR_RE.sub(
-        lambda match: (
-            f"{ABBREVIATION_TO_FULL[match.group(1)]} {match.group(2)}"
-        ),
-        text,
-    )
-    text = _MONTH_YEAR_COMMA_RE.sub(r"\1 \2", text)
-    return _normalize_full_date_commas(text)
+    """Apply fixed date-form rules outside protected regions."""
+    session = EditingSession(text)
+    apply_date_display_rules_to_session(session)
+    return session.text
 
 
-def normalize_relative_dates(text: str, publication_date: date) -> str:
+def apply_relative_date_rules_to_session(
+    session: EditingSession, publication_date: date
+) -> None:
     """Apply context-dependent weekday and current-year rules.
 
     A contradictory written weekday is left unchanged because the processor
     cannot know whether the weekday or numeric date is the reporting error.
     """
-    if not text:
-        return text
-
-    def replace(match: re.Match[str]) -> str:
+    def replace(match: re.Match[str], _text: str) -> Replacement | None:
         weekday, month_token, day_text, year_text, trailing_comma = match.groups()
         trailing_comma = trailing_comma or ""
         if not weekday and not year_text:
-            return match.group(0)
+            return None
 
         month_number = MONTH_TO_NUMBER[month_token]
         day_number = int(day_text)
@@ -127,7 +169,7 @@ def normalize_relative_dates(text: str, publication_date: date) -> str:
             try:
                 resolved = date(int(year_text), month_number, day_number)
             except ValueError:
-                return match.group(0)
+                return None
         else:
             candidates: list[date] = []
             for year in (
@@ -140,7 +182,7 @@ def normalize_relative_dates(text: str, publication_date: date) -> str:
                 except ValueError:
                     continue
             if not candidates:
-                return match.group(0)
+                return None
             resolved = min(
                 candidates,
                 key=lambda candidate: abs((candidate - publication_date).days),
@@ -149,20 +191,43 @@ def normalize_relative_dates(text: str, publication_date: date) -> str:
         is_current_year = resolved.year == publication_date.year
         if weekday:
             if weekday != resolved.strftime("%A"):
-                return match.group(0)
+                return None
             if year_text and not is_current_year:
-                return f"{month_token} {day_text}, {year_text}{trailing_comma}"
+                return Replacement(
+                    f"{month_token} {day_text}, {year_text}{trailing_comma}",
+                    _WEEKDAY_WINDOW_RULE,
+                )
             if abs((resolved - publication_date).days) < 7:
-                return weekday
+                return Replacement(weekday, _WEEKDAY_WINDOW_RULE)
             if year_text and is_current_year:
-                return f"{month_token} {day_text}"
-            return f"{month_token} {day_text}{trailing_comma}"
+                return Replacement(
+                    f"{month_token} {day_text}", _WEEKDAY_WINDOW_RULE
+                )
+            return Replacement(
+                f"{month_token} {day_text}{trailing_comma}",
+                _WEEKDAY_WINDOW_RULE,
+            )
 
         if is_current_year:
-            return f"{month_token} {day_text}"
-        return match.group(0)
+            return Replacement(f"{month_token} {day_text}", _CURRENT_YEAR_RULE)
+        return None
 
-    return _RELATIVE_DATE_RE.sub(replace, text)
+    session.replace_pattern(_CURRENT_YEAR_RULE, _RELATIVE_DATE_RE, replace)
+
+
+def normalize_relative_dates(text: str, publication_date: date) -> str:
+    """Apply context-dependent weekday and current-year rules."""
+    session = EditingSession(text)
+    apply_relative_date_rules_to_session(session, publication_date)
+    return session.text
+
+
+def apply_date_rules_to_session(
+    session: EditingSession, publication_date: date | None = None
+) -> None:
+    apply_date_display_rules_to_session(session)
+    if publication_date is not None:
+        apply_relative_date_rules_to_session(session, publication_date)
 
 
 def apply_date_rules(text: str, publication_date: date | None = None) -> str:
@@ -171,10 +236,6 @@ def apply_date_rules(text: str, publication_date: date | None = None) -> str:
     ``publication_date`` is required for current-year and weekday-window
     changes. Omitting it still permits fixed display normalization.
     """
-    text = transform_unprotected(text, normalize_date_display)
-    if publication_date is not None:
-        text = transform_unprotected(
-            text,
-            lambda chunk: normalize_relative_dates(chunk, publication_date),
-        )
-    return text
+    session = EditingSession(text)
+    apply_date_rules_to_session(session, publication_date)
+    return session.text

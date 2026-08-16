@@ -21,6 +21,10 @@ Newsroom Tools and other consumers may choose to integrate.
 
 This repository is an early implementation scaffold. A rule is not considered implemented merely because the human guide discusses it. See `coverage/` for the implementation ledger.
 
+The Python distribution is currently versioned `0.1.0a1` for development. No
+release tag has been created, and no consuming application is implied to have
+adopted that version.
+
 See `docs/RULE_SOURCES.md` for the provenance of automatic rules salvaged from
 the legacy formatter and `docs/SALVAGE_LEDGER.md` for accepted, deferred and
 rejected legacy behavior.
@@ -99,11 +103,45 @@ pipeline or use the narrower date, word-form and title functions separately.
 The combined entry point includes automatic fixes only; it does not silently
 turn flags or editor-only guidance into changes.
 
+Consumers that need explainability can call
+`apply_main_style_with_report()`. It returns an `EditResult` containing the
+final text, ordered automatic changes and contextual findings. Every change
+includes a stable rule ID, action, before/after text, authority and offsets into
+the original source. The simple and reported APIs execute the same rule path.
+
+Capitalization is deliberately split between automatic fixes and structured
+findings. Named election stages, C-suite initialisms, Florida Legislature,
+titles directly before full names and governmental bodies with an explicit
+jurisdiction can be normalized automatically. Ambiguous seasons, standalone
+titles, shortened governmental bodies and organization names are reported for
+contextual review instead of being blindly uppercased.
+
+The main pipeline also provides protected automatic forms for `COVID`, numeral
+plus `%`, and lowercase punctuated `a.m.`/`p.m.`. The separate
+`apply_headline_style()` and `apply_headline_style_with_report()` entry points
+currently implement only the headline-specific `US` to `U.S.` rule. They do
+not silently inherit body rules or imply that the broader headline profile is
+complete.
+
 Run its tests with:
 
 ```sh
 python3 -m unittest discover -s tests -p 'test_*.py'
 ```
+
+Install the development package with:
+
+```sh
+python3 -m pip install .
+```
+
+JSON rule registries are included as package data. A consumer should pin a
+published tag or commit; it should never treat floating `main` as a production
+dependency.
+
+See `CONTRIBUTING.md` for the rule-authoring and validation contract and
+`CHANGELOG.md` for release notes. The structured result and coordinate
+semantics are documented in `docs/PYTHON_API.md`.
 
 ## Source-material boundary
 

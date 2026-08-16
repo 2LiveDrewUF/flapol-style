@@ -1,12 +1,62 @@
-# PercentSymbol.yml
-numeral-plus-percent-sign: true
-
-general-one-through-nine: false
-general-ten-and-above: false
-sentence-initial-number: false
-ages: false
-dimensions: false
-money: false
-percentage-points: false
-temperatures: false
-weights: false
+numeral-plus-percent-sign:
+  documented: true
+  detected: true
+  detection_mode: both
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [FlaPol/PercentSymbol.yml, python/flapol_style/mechanics.py]
+general-one-through-nine:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+general-ten-and-above:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+sentence-initial-number:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+ages:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+dimensions:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+money:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [main, headline]
+  protected_regions: required
+percentage-points:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+temperatures:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+weights:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required

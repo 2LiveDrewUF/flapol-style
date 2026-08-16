@@ -1,26 +1,202 @@
-# USHeadline.yml
-us-periods-in-headlines: true
-
-# Covid.yml
-covid-without-19: true
-
-# AMPM.yml
-ap-am-pm-form: true
-
-capitalize-seasons: false
-capitalize-house-titles: false
-first-reference-name-bolding: false
-headline-full-names: false
-desantis-headline-exception: false
-agriculture-department-first-reference: false
-acronym-first-reference: false
-re-election-hyphenation: true
-front-runner-hyphenation: true
-healthcare-one-word: true
-news-conference-preferred: true
-title-abbreviations-before-name: true
-c-suite-initialisms-before-name: true
-organization-house-forms: false
-district-forms: false
-quotation-protection: true
-link-bolding: false
+us-periods-in-headlines:
+  documented: true
+  detected: true
+  detection_mode: both
+  auto_fix: true
+  contexts: [headline]
+  protected_regions: required
+  implementations: [FlaPol/USHeadline.yml, python/flapol_style/headlines.py]
+covid-without-19:
+  documented: true
+  detected: true
+  detection_mode: both
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [FlaPol/Covid.yml, python/flapol_style/mechanics.py]
+ap-am-pm-form:
+  documented: true
+  detected: true
+  detection_mode: both
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [FlaPol/AMPM.yml, python/flapol_style/mechanics.py]
+capitalize-seasons:
+  documented: true
+  detected: true
+  detection_mode: contextual
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/capitalization.py]
+capitalize-house-titles:
+  documented: true
+  detected: true
+  detection_mode: contextual
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/capitalization.py]
+capitalize-titles-before-name:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/capitalization.py]
+capitalize-c-suite-initialisms:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/capitalization.py]
+capitalization-context-findings:
+  documented: true
+  detected: true
+  detection_mode: contextual
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/capitalization.py]
+capitalize-named-election-stages:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/capitalization.py]
+capitalize-midterms:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/capitalization.py]
+capitalize-florida-legislature:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/capitalization.py]
+capitalize-named-governmental-bodies:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/capitalization.py]
+first-reference-name-bolding:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [presentation]
+  protected_regions: required
+headline-full-names:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [headline]
+  protected_regions: required
+desantis-headline-exception:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [headline]
+  protected_regions: required
+agriculture-department-first-reference:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+acronym-first-reference:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+re-election-hyphenation:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/words.py]
+front-runner-hyphenation:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/words.py]
+healthcare-one-word:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/words.py]
+news-conference-preferred:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/words.py]
+title-abbreviations-before-name:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/titles.py]
+c-suite-initialisms-before-name:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/titles.py]
+organization-house-forms:
+  documented: true
+  detected: true
+  detection_mode: contextual
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/capitalization.py]
+district-forms:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+quotation-protection:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: false
+  contexts: [main, headline, presentation]
+  protected_regions: not_applicable
+  implementations: [python/flapol_style/protected.py]
+link-bolding:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [presentation]
+  protected_regions: required

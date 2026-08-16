@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 import re
 
-from .protected import transform_unprotected
+from .reporting import EditingSession, RuleSpec
 
 
 _DATA_PATH = Path(__file__).with_name("data") / "word_preferences.json"
@@ -32,30 +32,39 @@ def _project_case(source: str, replacement: str) -> str:
     return replacement
 
 
-def _compile_rules() -> tuple[tuple[re.Pattern[str], str], ...]:
-    rules: list[tuple[re.Pattern[str], str]] = []
+def _compile_rules() -> tuple[tuple[re.Pattern[str], dict[str, str]], ...]:
+    rules: list[tuple[re.Pattern[str], dict[str, str]]] = []
     for record in load_word_preferences():
         source = record["from"]
         pattern = re.compile(
             rf"(?<![\w-]){re.escape(source)}(?![\w-])",
             re.IGNORECASE,
         )
-        rules.append((pattern, record["to"]))
+        rules.append((pattern, record))
     return tuple(rules)
 
 
 _RULES = _compile_rules()
 
 
+def apply_word_rules_to_session(session: EditingSession) -> None:
+    for pattern, record in _RULES:
+        spec = RuleSpec(
+            rule_id=f"flapol.words.{record['id']}",
+            authority=record["authority"],
+            action=record["action"],
+        )
+        session.replace_pattern(
+            spec,
+            pattern,
+            lambda match, _text, replacement=record["to"]: _project_case(
+                match.group(0), replacement
+            ),
+        )
+
+
 def normalize_word_forms(text: str) -> str:
     """Apply approved word forms outside quotations and literal regions."""
-
-    def transform(chunk: str) -> str:
-        for pattern, replacement in _RULES:
-            chunk = pattern.sub(
-                lambda match: _project_case(match.group(0), replacement),
-                chunk,
-            )
-        return chunk
-
-    return transform_unprotected(text, transform)
+    session = EditingSession(text)
+    apply_word_rules_to_session(session)
+    return session.text

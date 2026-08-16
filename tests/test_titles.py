@@ -47,6 +47,12 @@ class TitleAbbreviationTests(unittest.TestCase):
             'Gov. Ron DeSantis spoke. “Governor Ron DeSantis called.”',
         )
 
+    def test_title_before_bold_full_name_is_abbreviated(self):
+        self.assertEqual(
+            abbreviate_titles_before_names("Governor **Ron DeSantis** spoke."),
+            "Gov. **Ron DeSantis** spoke.",
+        )
+
     def test_title_pass_is_idempotent(self):
         source = "U.S. Representative Kathy Castor spoke."
         once = abbreviate_titles_before_names(source)
