@@ -1,0 +1,2 @@
+test.md:3:16:FlaPol.DateOrdinal:Use a cardinal figure without an ordinal suffix in a calendar date.
+test.md:5:16:FlaPol.DateOrdinal:Use a cardinal figure without an ordinal suffix in a calendar date.
