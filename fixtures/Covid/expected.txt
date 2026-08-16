@@ -1,0 +1,1 @@
+test.md:3:24:FlaPol.Covid:Use 'COVID' instead of 'COVID-19' in Florida Politics copy.
