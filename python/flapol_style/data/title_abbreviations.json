@@ -1,0 +1,12 @@
+[
+  {"from": "Lieutenant Governor", "to": "Lt. Gov.", "class": "public"},
+  {"from": "U.S. Representative", "to": "U.S. Rep.", "class": "public"},
+  {"from": "U.S. Senator", "to": "U.S. Sen.", "class": "public"},
+  {"from": "Representative", "to": "Rep.", "class": "public"},
+  {"from": "Governor", "to": "Gov.", "class": "public"},
+  {"from": "Senator", "to": "Sen.", "class": "public"},
+  {"from": "Chief Executive Officer", "to": "CEO", "class": "corporate"},
+  {"from": "Chief Financial Officer", "to": "CFO", "class": "corporate"},
+  {"from": "Chief Operating Officer", "to": "COO", "class": "corporate"},
+  {"from": "Chief Marketing Officer", "to": "CMO", "class": "corporate"}
+]

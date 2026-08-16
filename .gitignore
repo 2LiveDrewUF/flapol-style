@@ -2,3 +2,5 @@
 .vale-config/
 styles/
 dist/
+__pycache__/
+*.py[cod]

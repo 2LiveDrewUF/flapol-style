@@ -1,12 +1,12 @@
 # DateOrdinal.yml
 calendar-date-ordinal-suffix: true
 
-month-with-numbered-day: false
-month-without-numbered-day: false
-month-year-punctuation: false
-full-date-year-punctuation: false
-current-year-reference: false
-weekday-window: false
+month-with-numbered-day: true
+month-without-numbered-day: true
+month-year-punctuation: true
+full-date-year-punctuation: true
+current-year-reference: true
+weekday-window: true
 relative-today-tonight: false
 time-format: false
 time-zone-format: false

@@ -4,9 +4,26 @@
 
 The package does not attempt to replace an editor or reproduce the AP Stylebook. It implements narrow, tested rules whose violations can be identified without inventing facts, changing quotations or making an unreviewed editorial judgment.
 
+## Project boundary
+
+This repository owns the public, product-neutral Florida Politics style kit.
+It may use behavior observed in Drew-owned newsroom applications as
+implementation evidence, but it does not own those applications or their
+migration work.
+
+In particular, Streamlet does not currently depend on this package. Any future
+Streamlet integration, replacement of its internal formatter or retirement of
+legacy behavior belongs to the separately managed Newsroom Tools project and
+must be recorded there. This repository supplies a versioned dependency that
+Newsroom Tools and other consumers may choose to integrate.
+
 ## Status
 
 This repository is an early implementation scaffold. A rule is not considered implemented merely because the human guide discusses it. See `coverage/` for the implementation ledger.
+
+See `docs/RULE_SOURCES.md` for the provenance of automatic rules salvaged from
+the legacy formatter and `docs/SALVAGE_LEDGER.md` for accepted, deferred and
+rejected legacy behavior.
 
 ## Authority
 
@@ -37,6 +54,8 @@ FlaPol/       Vale rule files
 fixtures/     isolated inputs for individual rules
 coverage/     source-topic implementation status
 docs/         public governing documentation
+python/       protected, context-aware editing primitives
+tests/        processor regression tests
 tools/        validation and packaging utilities
 ```
 
@@ -63,6 +82,28 @@ Published releases will contain a `FlaPol.zip` package suitable for a version-pi
 | `suggestion` | Editorial or craft concern; the text is not presumed wrong. |
 
 Only tested `error` rules with a safe correction action may be eligible for automatic application by the Florida Politics document processor.
+
+## Context-aware processor
+
+The Python package under `python/flapol_style/` contains transformations that
+cannot safely be expressed as isolated Vale rules. It normalizes dates,
+approved word forms and before-name title abbreviations while protecting
+quotations, Markdown link destinations, URLs, email addresses and code.
+Relative-date rules require an explicit publication date; the processor does
+not infer one from the machine clock. Its word and title registries are public
+data files so every automatic replacement can be reviewed without reading
+application code.
+
+Consumers can call `apply_main_style()` for the stable product-neutral
+pipeline or use the narrower date, word-form and title functions separately.
+The combined entry point includes automatic fixes only; it does not silently
+turn flags or editor-only guidance into changes.
+
+Run its tests with:
+
+```sh
+python3 -m unittest discover -s tests -p 'test_*.py'
+```
 
 ## Source-material boundary
 

@@ -14,9 +14,13 @@ headline-full-names: false
 desantis-headline-exception: false
 agriculture-department-first-reference: false
 acronym-first-reference: false
-re-election-hyphenation: false
-front-runner-hyphenation: false
+re-election-hyphenation: true
+front-runner-hyphenation: true
+healthcare-one-word: true
+news-conference-preferred: true
+title-abbreviations-before-name: true
+c-suite-initialisms-before-name: true
 organization-house-forms: false
 district-forms: false
-quotation-protection: false
+quotation-protection: true
 link-bolding: false

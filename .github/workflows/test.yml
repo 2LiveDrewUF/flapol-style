@@ -29,3 +29,6 @@ jobs:
         env:
           VALE_BIN: ${{ github.workspace }}/vale-bin/vale
         run: ruby tools/test_rules.rb
+
+      - name: Run protected processor tests
+        run: python3 -m unittest discover -s tests -p 'test_*.py'
