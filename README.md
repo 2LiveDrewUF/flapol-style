@@ -32,6 +32,22 @@ See `docs/RULE_SOURCES.md` for the provenance of automatic rules salvaged from
 the legacy formatter and `docs/SALVAGE_LEDGER.md` for accepted, deferred and
 rejected legacy behavior.
 
+## Project governance
+
+This repository is the active project, not merely a rules export. Its durable
+operating records are:
+
+- [`PROJECT.md`](PROJECT.md) — mission, authority, boundaries and success criteria
+- [`STARTUP.md`](STARTUP.md) — current baseline and session startup checklist
+- [`AGENTS.md`](AGENTS.md) — implementation, safety and release instructions
+- [`OWNERSHIP.md`](OWNERSHIP.md) — public, restricted and downstream boundaries
+- [`DECISIONS.md`](DECISIONS.md) — accepted architectural and editorial decisions
+- [`runbooks/`](runbooks/) — rule, release and downstream-handoff procedures
+- [`systems/`](systems/) — the canonical repository and release system
+- [`services/`](services/) — honest inventory of hosted services, currently none
+- [`scripts/`](scripts/) — bounded verification automation
+- [`references/`](references/) — reference-handling boundary
+
 ## Authority
 
 Rules are derived from:

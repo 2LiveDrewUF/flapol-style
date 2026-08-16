@@ -3,6 +3,10 @@
 Every contribution must preserve the distinction between an adopted rule, a
 detectable condition and a safe automatic correction.
 
+Project-wide operating instructions live in `AGENTS.md`. Use
+`runbooks/add-or-reclassify-rule.md` for rule work and `runbooks/release.md` for
+publication.
+
 ## Rule workflow
 
 1. Identify the governing source and record concise provenance. Florida
