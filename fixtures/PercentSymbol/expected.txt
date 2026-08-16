@@ -1,0 +1,1 @@
+test.md:3:17:FlaPol.PercentSymbol:Use a numeral followed by the percent symbol.
