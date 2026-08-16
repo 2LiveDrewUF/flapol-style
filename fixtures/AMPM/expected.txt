@@ -1,0 +1,3 @@
+test.md:3:23:FlaPol.AMPM:Use lowercase a.m. or p.m., with periods and a preceding space.
+test.md:5:23:FlaPol.AMPM:Use lowercase a.m. or p.m., with periods and a preceding space.
+test.md:7:23:FlaPol.AMPM:Use lowercase a.m. or p.m., with periods and a preceding space.
