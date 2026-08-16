@@ -1,0 +1,1 @@
+test.md:1:3:FlaPol.USHeadline:Use 'U.S.' instead of 'US' for the United States in a headline.
