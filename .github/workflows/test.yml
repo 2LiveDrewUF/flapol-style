@@ -1,0 +1,31 @@
+name: Test FlaPol style rules
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install pinned Vale release
+        shell: bash
+        run: |
+          curl --fail --location --silent --show-error \
+            --output vale.tar.gz \
+            https://github.com/vale-cli/vale/releases/download/v3.17.1/vale_3.17.1_Linux_64-bit.tar.gz
+          echo "db947f89f2292e6a0381a61de155f6a5f5cb4cb460ca178ea412ef605559cefd  vale.tar.gz" | sha256sum --check
+          mkdir vale-bin
+          tar -xzf vale.tar.gz -C vale-bin
+
+      - name: Run rule fixtures and coverage validation
+        env:
+          VALE_BIN: ${{ github.workspace }}/vale-bin/vale
+        run: ruby tools/test_rules.rb
