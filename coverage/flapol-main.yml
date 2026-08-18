@@ -113,7 +113,7 @@ capitalize-named-governmental-bodies:
 first-reference-name-bolding:
   documented: true
   detected: true
-  detection_mode: python_with_caller_context
+  detection_mode: python
   auto_fix: true
   contexts: [presentation]
   protected_regions: required
@@ -138,7 +138,7 @@ office-group-bold-removal:
 unauthorized-bold-removal:
   documented: true
   detected: true
-  detection_mode: python_with_caller_context
+  detection_mode: python
   auto_fix: true
   contexts: [presentation]
   protected_regions: required

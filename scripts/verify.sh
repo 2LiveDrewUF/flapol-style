@@ -15,7 +15,32 @@ echo "Checking JSON registries"
 jq empty python/flapol_style/data/*.json
 
 echo "Checking coverage YAML"
-ruby -e 'require "yaml"; Dir["coverage/*.yml"].sort.each { |path| YAML.safe_load(File.read(path), permitted_classes: [], aliases: false) }'
+ruby <<'RUBY'
+require "yaml"
+
+allowed_detection_modes = %w[vale python both contextual].freeze
+
+Dir["coverage/*.yml"].sort.each do |path|
+  manifest = YAML.safe_load(
+    File.read(path),
+    permitted_classes: [],
+    aliases: false
+  )
+  abort "#{path}: coverage manifest must be a nonempty mapping" unless manifest.is_a?(Hash) && !manifest.empty?
+
+  manifest.each do |rule_id, record|
+    abort "#{path}:#{rule_id}: coverage record must be a mapping" unless record.is_a?(Hash)
+
+    if record["detected"]
+      unless allowed_detection_modes.include?(record["detection_mode"])
+        abort "#{path}:#{rule_id}: detected rules need a supported detection_mode"
+      end
+    elsif record.key?("detection_mode")
+      abort "#{path}:#{rule_id}: undetected rules must omit detection_mode"
+    end
+  end
+end
+RUBY
 
 echo "Checking patch whitespace"
 git diff --check
