@@ -210,6 +210,74 @@ class EditingSession:
                 + self._source_boundaries[match.end() + 1:]
             )
 
+    def replace_span(
+        self,
+        rule: RuleSpec,
+        working_start: int,
+        working_end: int,
+        after: str,
+    ) -> bool:
+        """Replace one exact working-text span and report original offsets.
+
+        Presentation adapters use this when document structure identifies an
+        exact span more reliably than a global regular expression. The same
+        quotation and literal protections used by ``replace_pattern`` apply.
+        """
+        if not 0 <= working_start <= working_end <= len(self.text):
+            raise ValueError("replacement span is outside the working text")
+
+        before = self.text[working_start:working_end]
+        if before == after:
+            return False
+
+        hard_protected = find_protected_spans(
+            self.text, allow_balanced_quotations=True
+        )
+        if any(
+            working_start < span.end and span.start < working_end
+            for span in hard_protected
+        ):
+            return False
+
+        if not rule.speech_preserving:
+            all_protected = find_protected_spans(self.text)
+            if any(
+                working_start < span.end and span.start < working_end
+                for span in all_protected
+            ):
+                return False
+
+        source_start, source_end = self.source_span(working_start, working_end)
+        self._sequence += 1
+        self._changes.append(
+            Edit(
+                sequence=self._sequence,
+                rule_id=rule.rule_id,
+                action=rule.action,
+                before=before,
+                after=after,
+                source_start=source_start,
+                source_end=source_end,
+                working_start=working_start,
+                working_end=working_end,
+                severity=rule.severity,
+                authority=rule.authority,
+                speech_preserving=rule.speech_preserving,
+            )
+        )
+
+        old_boundaries = self._source_boundaries[working_start:working_end + 1]
+        replacement_boundaries = self._map_replacement_boundaries(
+            before, after, old_boundaries
+        )
+        self.text = self.text[:working_start] + after + self.text[working_end:]
+        self._source_boundaries = (
+            self._source_boundaries[:working_start]
+            + replacement_boundaries
+            + self._source_boundaries[working_end + 1:]
+        )
+        return True
+
     def result(self, findings: tuple[Finding, ...] = ()) -> EditResult:
         return EditResult(
             text=self.text,

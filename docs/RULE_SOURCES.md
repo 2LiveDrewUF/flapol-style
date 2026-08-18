@@ -51,6 +51,46 @@ sense. Context-proven capitalization is speech-preserving and may render
 inside balanced quotations. Contextual findings remain excluded from
 quotations, and literal regions remain excluded from both changes and findings.
 
+## Presentation bolding
+
+Florida Politics owner rulings on Aug. 18, 2026, establish body-copy bolding as
+a closed presentation convention. Bold is permitted only for the first
+eligible full-name reference to a real person and for the visible text of a
+hyperlink. A title, office, honorific, affiliation or descriptive phrase
+immediately preceding a person's name remains outside the name's bold span.
+
+The Markdown adapter automatically bolds inline and reference-style hyperlink
+labels without changing destinations. This is a representation of the semantic
+rule; it does not claim direct WordPress or WYSIWYG integration. A later HTML
+adapter should render the visible link label with `strong`, such as
+`<a href="..."><strong>Florida Politics</strong></a>`.
+
+The public before-name presentation registry includes full and abbreviated
+forms for Governor, Lieutenant Governor, Secretary of State, U.S., state and
+unqualified Representative and Senator titles, Commissioner, President and
+approved C-suite titles. When one of those forms begins an otherwise
+name-shaped bold span, the title is moved outside the bold markers without a
+person roster.
+
+Bold officeholder-group language using `commissioners`, `governors`, full or
+abbreviated Representative and Senator forms, and `state rep` or `state sen`
+singular and plural forms is removed when it does not resolve as the approved
+title-plus-name structure. This narrow negative rule does not attempt to infer
+arbitrary people or descriptive phrases.
+
+Positive first-reference person bolding uses caller-supplied, document-specific
+approved names. A caller may explicitly declare that list complete for the
+document; only then may the adapter remove every remaining nonlink bold span.
+Without complete context, supplied people and structurally proven rules are
+applied, while unresolved nonlink bold spans remain findings. Person discovery,
+identity resolution, WordPress conversion and consumer adoption remain outside
+the public package.
+
+The presentation input is body-copy Markdown. A consumer may crawl a broader
+article packet to discover people, but headlines and other separately governed
+fields are not prepended to the body when determining its first eligible
+reference.
+
 ## Existing Vale families promoted to protected auto-fix
 
 | Rule | Governing source |

@@ -112,10 +112,38 @@ capitalize-named-governmental-bodies:
   implementations: [python/flapol_style/capitalization.py]
 first-reference-name-bolding:
   documented: true
-  detected: false
-  auto_fix: false
+  detected: true
+  detection_mode: python_with_caller_context
+  auto_fix: true
   contexts: [presentation]
   protected_regions: required
+  caller_context: approved_person_names
+  implementations: [python/flapol_style/presentation.py]
+title-outside-person-bold:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [presentation]
+  protected_regions: required
+  implementations: [python/flapol_style/presentation.py]
+office-group-bold-removal:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [presentation]
+  protected_regions: required
+  implementations: [python/flapol_style/presentation.py]
+unauthorized-bold-removal:
+  documented: true
+  detected: true
+  detection_mode: python_with_caller_context
+  auto_fix: true
+  contexts: [presentation]
+  protected_regions: required
+  caller_context: complete_approved_person_names
+  implementations: [python/flapol_style/presentation.py]
 headline-full-names:
   documented: true
   detected: false
@@ -215,7 +243,7 @@ speech-preserving-quotation-rendering:
   detected: true
   detection_mode: python
   auto_fix: true
-  contexts: [main, headline]
+  contexts: [main, headline, presentation]
   protected_regions: required
   implementations: [python/flapol_style/reporting.py, docs/QUOTE_POLICY.md]
 adviser-preferred:
@@ -228,7 +256,9 @@ adviser-preferred:
   implementations: [python/flapol_style/words.py]
 link-bolding:
   documented: true
-  detected: false
-  auto_fix: false
+  detected: true
+  detection_mode: python
+  auto_fix: true
   contexts: [presentation]
   protected_regions: required
+  implementations: [python/flapol_style/presentation.py]

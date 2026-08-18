@@ -147,3 +147,17 @@ title removal, surname expansion or product-specific cleanup.
 
 No private Streamlet source, production path, credential or private repository
 metadata is reproduced in this public ledger.
+
+## Presentation bolding tranche
+
+The public Markdown presentation API now implements the closed Florida Politics
+bolding convention adopted Aug. 18, 2026. Hyperlink labels are always bolded;
+approved titles are moved outside name-shaped bold spans; and approved
+officeholder-group terms lose erroneous bolding. The package accepts an ad hoc,
+document-specific list of approved person names for additive first-reference
+bolding. An explicit completeness assertion is required before the formatter
+removes all other nonlink bold.
+
+This tranche creates an integration seam but does not implement a Newsroom
+Tools crawler, identity resolver, Markdown-to-HTML conversion, WordPress write
+or consumer pin. Those remain consumer-owned work.

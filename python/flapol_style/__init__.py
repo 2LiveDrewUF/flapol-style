@@ -16,12 +16,17 @@ from .dates import apply_date_rules, normalize_date_display, normalize_relative_
 from .editor import apply_main_style, apply_main_style_with_report
 from .headlines import apply_headline_style, apply_headline_style_with_report
 from .mechanics import normalize_mechanical_forms
+from .presentation import (
+    apply_presentation_style,
+    apply_presentation_style_with_report,
+    load_bolding_rules,
+)
 from .protected import ProtectedSpan, find_protected_spans, transform_unprotected
 from .reporting import Edit, EditingSession, EditResult, Finding, RuleSpec
 from .titles import abbreviate_titles_before_names, load_title_abbreviations
 from .words import load_word_preferences, normalize_word_forms
 
-__version__ = "0.1.0a3"
+__version__ = "0.1.0a4"
 
 __all__ = [
     "ProtectedSpan",
@@ -33,12 +38,15 @@ __all__ = [
     "abbreviate_titles_before_names",
     "apply_main_style",
     "apply_main_style_with_report",
+    "apply_presentation_style",
+    "apply_presentation_style_with_report",
     "apply_headline_style",
     "apply_headline_style_with_report",
     "apply_date_rules",
     "find_protected_spans",
     "find_capitalization_flags",
     "load_capitalization_rules",
+    "load_bolding_rules",
     "load_title_abbreviations",
     "load_word_preferences",
     "normalize_date_display",

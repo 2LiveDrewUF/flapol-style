@@ -82,3 +82,27 @@ look tidier than it was.
   administered by this project.
 - Why: Empty ceremonial infrastructure records create false confidence.
 - Consequence: Add a service or system record only when a real managed target exists.
+
+## D-010 — Body-copy bold is a closed presentation convention
+
+- Status: Accepted
+- Decision: Permit bold only for the first eligible full-name reference to a
+  real person and for the visible text of a hyperlink. Keep preceding titles,
+  offices, honorifics, affiliations and descriptive language outside the
+  person-name span.
+- Why: Bold is production structure in Florida Politics copy, not discretionary
+  emphasis. A closed convention can be normalized and audited deterministically.
+- Consequence: Hyperlink labels are structurally fixable. Person additions use
+  caller-supplied approved names. Complete removal of other bold requires an
+  explicit assertion that the document-specific person context is complete.
+
+## D-011 — Person discovery remains consumer-owned
+
+- Status: Accepted
+- Decision: Accept approved, document-specific person names through the public
+  presentation API without embedding a private roster or inferring identity in
+  FlaPol Style.
+- Why: A consumer can crawl and resolve the full article using its own current
+  data, while the public package remains product-neutral and deterministic.
+- Consequence: A nonempty list does not imply completeness. The caller must
+  explicitly declare complete person context before broad nonlink-bold cleanup.

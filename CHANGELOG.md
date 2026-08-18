@@ -4,6 +4,23 @@ This project follows semantic versioning. Release tags use a `v` prefix; the
 Python distribution exposes the corresponding PEP 440 version without that
 prefix.
 
+## 0.1.0a4 — 2026-08-18
+
+- Add a Markdown presentation API for Florida Politics' closed bolding
+  convention.
+- Bold inline and reference-style hyperlink labels without changing link
+  destinations.
+- Move approved full and abbreviated office or corporate titles outside
+  otherwise name-shaped bold spans.
+- Remove bold from approved officeholder-group language including
+  commissioners, governors, representatives, senators, state reps and state
+  sens.
+- Accept caller-supplied document person names for first-reference bolding and
+  require an explicit completeness assertion before removing all remaining
+  nonlink bold.
+- Report unresolved nonlink bold as findings when person context is incomplete.
+- Extend exact-span structured reporting for presentation adapters.
+
 ## 0.1.0a3 — 2026-08-16
 
 - Replace blanket quotation immutability with explicit rule-level

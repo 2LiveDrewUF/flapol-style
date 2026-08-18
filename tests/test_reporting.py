@@ -15,6 +15,24 @@ from flapol_style.words import load_word_preferences
 
 
 class ReportingTests(unittest.TestCase):
+    def test_exact_span_replacement_uses_the_same_coordinate_contract(self):
+        from flapol_style.reporting import EditingSession, RuleSpec
+
+        source = "Alpha beta gamma"
+        session = EditingSession(source)
+        changed = session.replace_span(
+            RuleSpec("flapol.test.exact-span", "Test authority"),
+            6,
+            10,
+            "BETA",
+        )
+        result = session.result()
+        self.assertTrue(changed)
+        self.assertEqual(result.text, "Alpha BETA gamma")
+        self.assertEqual(result.changes[0].before, "beta")
+        self.assertEqual(result.changes[0].source_start, 6)
+        self.assertEqual(result.changes[0].source_end, 10)
+
     def test_registry_rule_ids_are_unique_and_stable_names(self):
         ids = [
             *(f"flapol.words.{record['id']}" for record in load_word_preferences()),

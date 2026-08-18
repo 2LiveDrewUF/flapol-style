@@ -6,8 +6,8 @@
 - [x] Public remote confirmed as `https://github.com/2LiveDrewUF/flapol-style.git`.
 - [x] Default branch confirmed as `main`.
 - [x] Existing history and annotated release tags preserved.
-- [x] `v0.1.0a3` confirmed as the current release on 2026-08-16.
-- [x] Public branch and tag CI confirmed green for `v0.1.0a3`.
+- [x] `v0.1.0a4` confirmed as the current release on 2026-08-18.
+- [x] Public branch and tag CI confirmed green for `v0.1.0a4`.
 - [x] Project, ownership, decision, runbook, system and script governance added.
 
 ## Begin every work session
@@ -22,7 +22,7 @@
 
 ## Current operating baseline
 
-- Package API version: `0.1.0a3`
+- Package API version: `0.1.0a4`
 - Current quote model: rule-level `speech_preserving`, false by default
 - Current release channel: annotated Git tag in the public GitHub repository
 - Hosted services: none
