@@ -6,7 +6,11 @@ import unittest
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from flapol_style.titles import abbreviate_titles_before_names, load_title_abbreviations
+from flapol_style.titles import (
+    abbreviate_titles_before_names,
+    load_title_abbreviations,
+    normalize_office_title_forms,
+)
 
 
 class TitleAbbreviationTests(unittest.TestCase):
@@ -70,6 +74,68 @@ class TitleAbbreviationTests(unittest.TestCase):
         source = "U.S. Representative Kathy Castor spoke."
         once = abbreviate_titles_before_names(source)
         self.assertEqual(abbreviate_titles_before_names(once), once)
+
+
+class OfficeTitleFormTests(unittest.TestCase):
+    def test_commissioner_of_agriculture_uses_house_form(self):
+        self.assertEqual(
+            normalize_office_title_forms(
+                "The Commissioner of Agriculture spoke with "
+                "commissioner of agriculture Wilton Simpson."
+            ),
+            "The Agriculture Commissioner spoke with "
+            "Agriculture Commissioner Wilton Simpson.",
+        )
+
+    def test_geographic_modifiers_are_retained(self):
+        self.assertEqual(
+            normalize_office_title_forms(
+                "Florida Commissioner of Agriculture Wilton Simpson met the "
+                "Florida agriculture commissioner."
+            ),
+            "Florida Agriculture Commissioner Wilton Simpson met the "
+            "Florida Agriculture Commissioner.",
+        )
+
+    def test_other_state_geography_is_retained(self):
+        self.assertEqual(
+            normalize_office_title_forms(
+                "Georgia Commissioner of Agriculture Tyler Harper spoke."
+            ),
+            "Georgia Agriculture Commissioner Tyler Harper spoke.",
+        )
+
+    def test_unrelated_federal_title_and_plural_are_untouched(self):
+        source = (
+            "The USDA Secretary met several agriculture commissioners and the "
+            "commissioner of agricultural services."
+        )
+        self.assertEqual(normalize_office_title_forms(source), source)
+
+    def test_quote_capitalization_preserves_the_spoken_order(self):
+        source = (
+            'Commissioner of Agriculture appeared outside the quote. '
+            '“commissioner of agriculture is what I said,” she replied. '
+            '"florida agriculture commissioner was my phrase," he added.'
+        )
+        self.assertEqual(
+            normalize_office_title_forms(source),
+            'Agriculture Commissioner appeared outside the quote. '
+            '“Commissioner of Agriculture is what I said,” she replied. '
+            '"florida Agriculture Commissioner was my phrase," he added.',
+        )
+
+    def test_unbalanced_quote_and_literal_fail_closed(self):
+        source = (
+            '`Commissioner of Agriculture` is a literal. '
+            'He said, "Commissioner of Agriculture'
+        )
+        self.assertEqual(normalize_office_title_forms(source), source)
+
+    def test_office_title_form_is_idempotent(self):
+        source = "Commissioner of Agriculture Wilton Simpson spoke."
+        once = normalize_office_title_forms(source)
+        self.assertEqual(normalize_office_title_forms(once), once)
 
 
 if __name__ == "__main__":

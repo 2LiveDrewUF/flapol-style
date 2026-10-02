@@ -23,7 +23,11 @@ from .presentation import (
 )
 from .protected import ProtectedSpan, find_protected_spans, transform_unprotected
 from .reporting import Edit, EditingSession, EditResult, Finding, RuleSpec
-from .titles import abbreviate_titles_before_names, load_title_abbreviations
+from .titles import (
+    abbreviate_titles_before_names,
+    load_title_abbreviations,
+    normalize_office_title_forms,
+)
 from .words import load_word_preferences, normalize_word_forms
 
 __version__ = "0.1.0a4"
@@ -53,6 +57,7 @@ __all__ = [
     "normalize_capitalization",
     "normalize_relative_dates",
     "normalize_mechanical_forms",
+    "normalize_office_title_forms",
     "normalize_word_forms",
     "RuleSpec",
     "transform_unprotected",

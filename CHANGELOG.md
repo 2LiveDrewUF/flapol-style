@@ -6,6 +6,9 @@ prefix.
 
 ## Unreleased
 
+- Use the capitalized `Agriculture Commissioner` house title in body copy and
+  headlines; capitalize the title in quotations without changing the speaker's
+  ordering.
 - Add a public issue form for repeatable style gaps and regressions.
 - Clarify that issues and consumer handoffs are evidence, not authority to
   admit a rule or change the package.

@@ -44,6 +44,33 @@ class HeadlineRuleTests(unittest.TestCase):
             "Florida Governor and CFO announce new program",
         )
 
+    def test_agriculture_commissioner_house_form_is_applied_and_preserved(self):
+        once = apply_headline_style(
+            "Commissioner of Agriculture Announces New Program"
+        )
+        self.assertEqual(once, "Agriculture Commissioner announces new program")
+        self.assertEqual(apply_headline_style(once), once)
+        self.assertEqual(
+            apply_headline_style(
+                "The Agriculture commissioner announces a new program"
+            ),
+            "The Agriculture Commissioner announces a new program",
+        )
+        self.assertEqual(
+            apply_headline_style(
+                "Florida Commissioner of Agriculture Announces New Program"
+            ),
+            "Florida Agriculture Commissioner announces new program",
+        )
+
+    def test_agriculture_commissioner_quote_is_untouched_in_headline(self):
+        self.assertEqual(
+            apply_headline_style(
+                'Candidate Quotes “commissioner of agriculture” In New Ad'
+            ),
+            'Candidate quotes “Commissioner of Agriculture” in new ad',
+        )
+
     def test_internal_capitals_acronyms_and_money_are_preserved(self):
         self.assertEqual(
             apply_headline_style("DeSantis Says SpaceX Deal Is Worth $547M"),

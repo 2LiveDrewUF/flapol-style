@@ -208,6 +208,22 @@ title-abbreviations-before-name:
   contexts: [main]
   protected_regions: required
   implementations: [python/flapol_style/titles.py]
+agriculture-commissioner-order:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main, headline]
+  protected_regions: required
+  implementations: [python/flapol_style/titles.py, python/flapol_style/headlines.py]
+agriculture-commissioner-capitalization:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main, headline]
+  protected_regions: required
+  implementations: [python/flapol_style/titles.py, python/flapol_style/headlines.py]
 c-suite-initialisms-before-name:
   documented: true
   detected: true

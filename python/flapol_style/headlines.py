@@ -8,6 +8,7 @@ from importlib.resources import files
 import re
 
 from .reporting import EditingSession, EditResult, RuleSpec
+from .titles import apply_office_title_form_rules_to_session
 
 
 _WORD_RE = re.compile(r"[A-Za-z]+(?:['’.-][A-Za-z]+)*")
@@ -129,6 +130,7 @@ def apply_headline_rules_to_session(
     preserve_phrases: Iterable[str] | str = (),
 ) -> None:
     phrases = _normalize_preserve_phrases(preserve_phrases)
+    apply_office_title_form_rules_to_session(session)
     _apply_sentence_case(session, phrases)
     session.replace_pattern(_US_HEADLINE_RULE, _US_HEADLINE_RE, "U.S.")
 

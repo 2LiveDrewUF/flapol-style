@@ -2,6 +2,7 @@
   "_comment": "Stable public proper nouns preserved by headline sentence-casing. Current people and specialized consumer terms belong in the preserve_phrases API argument.",
   "phrases": [
     "America",
+    "Agriculture Commissioner",
     "Attorney General",
     "CEO",
     "CFO",

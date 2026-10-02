@@ -35,6 +35,17 @@ These rules do not implement headline choice, title capitalization away from a
 name or the `Gov. DeSantis` versus `Ron DeSantis` distinction. Those questions
 require document role or story meaning and are not word-level replacements.
 
+Florida Politics owner guidance on Oct. 2, 2026, establishes `Agriculture
+Commissioner` as the capitalized house title in body copy and headlines,
+including when it stands alone. The automatic rule changes `Commissioner of
+Agriculture` to `Agriculture Commissioner` and normalizes that title's
+capitalization. Geographic modifiers remain unchanged pending a separate,
+broader title rule. It does not alter `USDA Secretary`. Ordering is an editorial
+choice and does not operate inside quotations. Capitalization is explicitly
+speech-preserving: inside a balanced quotation, the formatter capitalizes the
+title while retaining the speaker's `Commissioner of Agriculture` or
+`Agriculture Commissioner` ordering.
+
 ## Capitalization
 
 The capitalization registry implements the Florida Politics main-guide rules

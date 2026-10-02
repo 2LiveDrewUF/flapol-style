@@ -7,7 +7,7 @@ import unittest
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from flapol_style.editor import apply_main_style
+from flapol_style.editor import apply_main_style, apply_main_style_with_report
 
 
 class MainEditorTests(unittest.TestCase):
@@ -50,6 +50,46 @@ class MainEditorTests(unittest.TestCase):
             '“Gov. Ron DeSantis discussed healthcare Jan. 8.”',
         )
         self.assertEqual(apply_main_style(once), once)
+
+    def test_main_pipeline_reports_agriculture_commissioner_changes(self):
+        source = "Commissioner of Agriculture Wilton Simpson spoke."
+        result = apply_main_style_with_report(source)
+        self.assertEqual(
+            result.text,
+            "Agriculture Commissioner Wilton Simpson spoke.",
+        )
+        self.assertEqual(
+            [change.rule_id for change in result.changes],
+            ["flapol.titles.agriculture-commissioner-order"],
+        )
+        self.assertTrue(
+            all(not change.speech_preserving for change in result.changes)
+        )
+        for change in result.changes:
+            self.assertEqual(
+                source[change.source_start:change.source_end],
+                change.before,
+            )
+        self.assertEqual(apply_main_style(result.text), result.text)
+
+    def test_main_pipeline_reports_quote_capitalization_without_reordering(self):
+        source = 'She said, “the commissioner of agriculture called.”'
+        result = apply_main_style_with_report(source)
+        self.assertEqual(
+            result.text,
+            'She said, “the Commissioner of Agriculture called.”',
+        )
+        self.assertEqual(len(result.changes), 1)
+        change = result.changes[0]
+        self.assertEqual(
+            change.rule_id,
+            "flapol.titles.agriculture-commissioner-capitalization",
+        )
+        self.assertTrue(change.speech_preserving)
+        self.assertEqual(
+            source[change.source_start:change.source_end],
+            change.before,
+        )
 
 
 if __name__ == "__main__":

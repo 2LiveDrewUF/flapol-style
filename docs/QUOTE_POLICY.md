@@ -25,7 +25,8 @@ date registry.
 Permitted examples include written forms such as `advisor` to `adviser`,
 `long-time` to `longtime`, `US` to `U.S.`, `8 percent` or `eight percent` to
 `8%`, `4 PM` or `four PM` to `4 p.m.`, and `Governor Ron DeSantis` to
-`Gov. Ron DeSantis`.
+`Gov. Ron DeSantis`. The `Agriculture Commissioner` title is capitalized inside
+quotations, but quoted `Commissioner of Agriculture` ordering is preserved.
 
 Prohibited examples include changing `I don't support the bill` to `I oppose
 the bill`, removing `kind of`, or changing `We ain't doing that` to `We aren't

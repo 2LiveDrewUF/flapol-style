@@ -150,8 +150,9 @@ The main pipeline also provides protected automatic forms for `COVID`, `U.S.`,
 the gender-neutral `Chair`, numeral plus `%`, and lowercase punctuated
 `a.m.`/`p.m.`. The separate
 `apply_headline_style()` and `apply_headline_style_with_report()` entry points
-convert imported title case to Florida Politics sentence case and apply the
-headline-specific `US` to `U.S.` rule. Already sentence-cased headlines are
+convert imported title case to Florida Politics sentence case, apply the
+headline-specific `US` to `U.S.` rule and enforce the `Agriculture Commissioner`
+house title outside quotations. Already sentence-cased headlines are
 left alone. Quotes, acronyms, internal capitals, money expressions, stable
 built-in proper nouns and caller-supplied preservation phrases are protected.
 Headline rules do not silently inherit the body pipeline.
