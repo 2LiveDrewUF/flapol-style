@@ -3,8 +3,20 @@
 The package exposes two main entry points:
 
 ```python
-apply_main_style(text, publication_date=None) -> str
-apply_main_style_with_report(text, publication_date=None) -> EditResult
+apply_main_style(
+    text,
+    publication_date=None,
+    *,
+    officeholder_as_of=None,
+    legislator_overlays=(),
+) -> str
+apply_main_style_with_report(
+    text,
+    publication_date=None,
+    *,
+    officeholder_as_of=None,
+    legislator_overlays=(),
+) -> EditResult
 ```
 
 Both execute the same automatic rules in the same order. The string API is a
@@ -55,6 +67,46 @@ level, chamber or district where applicable, status and source identifiers.
 Vacant and pending-election seats are recorded separately and never represented
 by a former officeholder. Callers may add private or regional aliases and
 people through their own overlays; those additions do not belong in this base.
+
+Supplying `officeholder_as_of` activates the registry-backed legislator title
+rules in the main pipeline:
+
+```python
+from datetime import date
+from flapol_style import apply_main_style
+
+edited = apply_main_style(
+    "Representative Darren Soto met Representative Anna Eskamani.",
+    officeholder_as_of=date(2026, 10, 2),
+)
+# U.S. Rep. Darren Soto met state Rep. Anna Eskamani.
+```
+
+The document mode is state-only, federal-only, mixed or unresolved based on
+lawmakers whose identities resolve in the copy. Exact official names,
+conservative initial-omission variants and explicit aliases are eligible.
+Institutional mentions do not establish a person's level. The legacy call
+without `officeholder_as_of` retains the generic before-name title
+abbreviation but does not infer or add legislative jurisdiction.
+
+Caller-owned identities use the public `LegislatorIdentity` value:
+
+```python
+from flapol_style import LegislatorIdentity
+
+local_names = (
+    LegislatorIdentity(
+        name="Jane Q. Doe",
+        aliases=("Jane Doe",),
+        level="state",
+        chamber="house",
+    ),
+)
+```
+
+Pass that tuple as `legislator_overlays=local_names` together with an explicit
+`officeholder_as_of`. Conflicting aliases are ambiguous and produce a finding;
+an overlay cannot silently win an identity conflict.
 
 Presentation-only Markdown behavior uses separate entry points:
 
@@ -150,5 +202,5 @@ hard-protected.
 
 ## Versioning
 
-The current API version is alpha `0.1.0a4`. Consumers must pin a released tag
+The current API version is alpha `0.1.0a5`. Consumers must pin a released tag
 or commit. Floating `main` is not a production dependency.

@@ -226,11 +226,12 @@ title-abbreviations-before-name:
   implementations: [python/flapol_style/titles.py]
 legislator-jurisdiction-scoping:
   documented: true
-  detected: false
-  auto_fix: false
+  detected: true
+  detection_mode: python
+  auto_fix: true
   contexts: [main]
   protected_regions: required
-  implementations: [docs/LEGISLATOR_STYLE_SCOPE.md]
+  implementations: [python/flapol_style/legislators.py, docs/LEGISLATOR_STYLE_SCOPE.md]
 florida-governor-home-state:
   documented: true
   detected: true

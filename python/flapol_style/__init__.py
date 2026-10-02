@@ -15,6 +15,11 @@ from .capitalization import (
 from .dates import apply_date_rules, normalize_date_display, normalize_relative_dates
 from .editor import apply_main_style, apply_main_style_with_report
 from .headlines import apply_headline_style, apply_headline_style_with_report
+from .legislators import (
+    LegislatorContext,
+    LegislatorIdentity,
+    resolve_legislator_context,
+)
 from .mechanics import normalize_mechanical_forms
 from .officeholders import (
     OfficeholderBookStaleError,
@@ -35,7 +40,7 @@ from .titles import (
 )
 from .words import load_word_preferences, normalize_word_forms
 
-__version__ = "0.1.0a4"
+__version__ = "0.1.0a5"
 
 __all__ = [
     "ProtectedSpan",
@@ -44,6 +49,8 @@ __all__ = [
     "EditingSession",
     "EditResult",
     "Finding",
+    "LegislatorContext",
+    "LegislatorIdentity",
     "OfficeholderBookStaleError",
     "abbreviate_titles_before_names",
     "apply_main_style",
@@ -67,6 +74,7 @@ __all__ = [
     "normalize_mechanical_forms",
     "normalize_office_title_forms",
     "normalize_word_forms",
+    "resolve_legislator_context",
     "RuleSpec",
     "transform_unprotected",
     "__version__",

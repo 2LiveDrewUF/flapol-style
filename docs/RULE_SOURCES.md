@@ -147,6 +147,24 @@ and refuses operational loading beginning Nov. 4. Special elections,
 resignations, deaths and other changes may require an earlier refresh; the
 date is a backstop, not a guarantee that no seat can change beforehand.
 
+## State and federal legislator titles
+
+Florida Politics owner rulings from Sept. 29-Oct. 2, 2026, establish a
+document-level convention backed by the dated officeholder book. A document
+that invokes only Florida state lawmakers uses `Rep.`, `Sen.`, `Reps.` and
+`Sens.`. A document that invokes only members of Congress adds `U.S.`. A mixed
+document uses `U.S. Rep.` or `U.S. Sen.` for federal lawmakers and lowercase
+`state Rep.` or `state Sen.` for state lawmakers. Edited narration does not use
+`Florida Rep.` or `Florida Sen.`.
+
+The implementation requires an explicit officeholder as-of date and resolves
+identity from the public base plus caller overlays. Unknown identities,
+mixed-level plural lists, former or historical offices and mixed-document
+standalone attributions become findings instead of guesses. Inside balanced
+direct quotations, spoken jurisdiction words remain unchanged; the existing
+speech-preserving title rules may still abbreviate `Representative` or
+`Senator`. Stale required roster data stops the identity-dependent family.
+
 ## Existing Vale families promoted to protected auto-fix
 
 | Rule | Governing source |

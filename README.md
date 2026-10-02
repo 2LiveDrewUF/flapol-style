@@ -27,7 +27,7 @@ rule coverage. A rule is not considered implemented merely because the human
 guide discusses it. See `coverage/` for the implementation ledger and its
 separate documentation, detection, context and automatic-correction fields.
 
-The Python distribution is currently versioned `0.1.0a4`. A release tag makes
+The Python distribution is currently versioned `0.1.0a5`. A release tag makes
 a version available to consumers; it does not imply that any application has
 adopted it.
 
@@ -146,6 +146,14 @@ Consumers that need explainability can call
 final text, ordered automatic changes and contextual findings. Every change
 includes a stable rule ID, action, before/after text, authority and offsets into
 the original source. The simple and reported APIs execute the same rule path.
+
+An explicit `officeholder_as_of` date activates registry-backed legislative
+title scoping in the main pipeline. State-only documents use unqualified
+`Rep.` and `Sen.` forms, federal-only documents use `U.S.` forms, and mixed
+documents distinguish `U.S. Rep.` from lowercase `state Rep.`. Unknown or
+historical identities and structurally mixed forms remain findings. Consumers
+may provide private aliases through `LegislatorIdentity` overlays without
+adding them to this public repository.
 
 Capitalization is deliberately split between automatic fixes and structured
 findings. Named election stages, C-suite initialisms, Florida Legislature,

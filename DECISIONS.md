@@ -141,7 +141,7 @@ look tidier than it was.
 
 ## D-014 — Legislative jurisdiction style is document-level and identity-backed
 
-- Status: Accepted scope; implementation pending
+- Status: Accepted; implemented in 0.1.0a5
 - Decision: Select state-only, federal-only or mixed legislative title forms
   from resolved lawmakers present in the document. Use the public officeholder
   base plus caller overlays as identity evidence. Outside quotations,

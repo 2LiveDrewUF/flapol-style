@@ -2,9 +2,9 @@
 
 ## Status
 
-Accepted scope, not yet implemented. The public officeholder book supplies the
-identity evidence this rule needs, but the current editor does not consume that
-book or apply the document-level convention below.
+Implemented for the `main` profile in `flapol-style` 0.1.0a5. The public
+officeholder book supplies identity evidence to the document-level convention
+below when a caller provides an explicit officeholder as-of date.
 
 The governing source is Drew's Florida Politics ruling of Sept. 29-Oct. 2,
 2026. Existing title-abbreviation rules remain independently active.
@@ -77,8 +77,10 @@ full name may be normalized to the form required by the document mode. This
 includes removing `Florida`, adding `U.S.` or lowercase `state`, and applying
 the established `Rep.` or `Sen.` abbreviation.
 
-A plural title may be normalized only when a syntactically closed coordinated
-list resolves every named person to the same legislative level and chamber.
+The written plural title is abbreviated before a name, including inside a
+balanced quotation. Outside quotations, its jurisdiction may be normalized
+only when a syntactically closed coordinated list resolves every named person
+to the same legislative level and chamber.
 
 In a state-only or federal-only document, a standalone attribution title may be
 normalized to the corresponding settled form when the attribution structure is
@@ -106,10 +108,10 @@ or replace `Florida`, `state` or `U.S.` inside the quotation.
 Unbalanced quotations fail closed. Code, literal examples, URLs, email
 addresses and link destinations remain hard-protected.
 
-## Required implementation proof
+## Implementation proof
 
-Implementation must use the shared editing session and produce original-source
-coordinates and structured before/after values. Tests must cover:
+The implementation uses the shared editing session and produces
+original-source coordinates and structured before/after values. Tests cover:
 
 - all three resolved document modes and the unresolved mode;
 - singular and plural House and Senate forms;
@@ -121,5 +123,6 @@ coordinates and structured before/after values. Tests must cover:
 - roster staleness; and
 - idempotence.
 
-Until that implementation and its tests exist, coverage remains documented
-only: the officeholder book is a prerequisite, not the behavior itself.
+Coverage records detection and automatic correction separately. The
+officeholder book remains identity evidence rather than authority for any
+other textual rule.

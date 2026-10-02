@@ -1,7 +1,11 @@
 [
   {"id": "title-lieutenant-governor", "from": "Lieutenant Governor", "to": "Lt. Gov.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
+  {"id": "title-us-representatives", "from": "U.S. Representatives", "to": "U.S. Reps.", "class": "public", "authority": "Florida Politics owner ruling 2026-10-02", "speech_preserving": true},
+  {"id": "title-us-senators", "from": "U.S. Senators", "to": "U.S. Sens.", "class": "public", "authority": "Florida Politics owner ruling 2026-10-02", "speech_preserving": true},
   {"id": "title-us-representative", "from": "U.S. Representative", "to": "U.S. Rep.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
   {"id": "title-us-senator", "from": "U.S. Senator", "to": "U.S. Sen.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
+  {"id": "title-representatives", "from": "Representatives", "to": "Reps.", "class": "public", "authority": "Florida Politics owner ruling 2026-10-02", "speech_preserving": true},
+  {"id": "title-senators", "from": "Senators", "to": "Sens.", "class": "public", "authority": "Florida Politics owner ruling 2026-10-02", "speech_preserving": true},
   {"id": "title-representative", "from": "Representative", "to": "Rep.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
   {"id": "title-governor", "from": "Governor", "to": "Gov.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
   {"id": "title-senator", "from": "Senator", "to": "Sen.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
