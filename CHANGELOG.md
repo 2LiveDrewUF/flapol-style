@@ -8,6 +8,8 @@ prefix.
 
 - Remove redundant `Florida` from `Florida Governor` or `Florida Gov.` directly
   before a full name, then apply the existing `Gov.` title abbreviation.
+- Capitalize `Governor` with or without a connected name and flag, rather than
+  automatically changing, `Florida Governor` without a full name.
 - Use the capitalized `Agriculture Commissioner` house title in body copy and
   headlines; capitalize the title in quotations without changing the speaker's
   ordering.

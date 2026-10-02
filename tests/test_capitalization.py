@@ -67,6 +67,14 @@ class CapitalizationTests(unittest.TestCase):
             "The Midterms will determine control.",
         )
 
+    def test_governor_is_capitalized_with_or_without_a_name(self):
+        self.assertEqual(
+            normalize_capitalization(
+                'The governor spoke. “The governor called.” Every governor attended.'
+            ),
+            'The Governor spoke. “The Governor called.” Every Governor attended.',
+        )
+
     def test_c_suite_initialisms_are_automatic(self):
         self.assertEqual(
             normalize_capitalization("The ceo met the cfo, coo and cmo."),

@@ -41,8 +41,11 @@ directly before a full name in body copy, the processor removes `Florida`; the
 ordinary before-name title rule then renders a spelled-out `Governor` as
 `Gov.`. Other states remain identified, so `California Governor Gavin Newsom`
 becomes `California Gov. Gavin Newsom`. The home-state deletion does not enter
-quotations and does not apply to a standalone `the Florida Governor`, where
-contrast or context may make the geographic label meaningful.
+quotations. Without a full name, `Florida Governor` or `Florida Gov.` produces
+a finding rather than an automatic deletion; the formal `Florida Governor's
+Mansion` is excluded. The same owner guidance makes `Governor` a capitalized
+house title with or without a connected name, including inside balanced
+quotations.
 
 Florida Politics owner guidance on Oct. 2, 2026, establishes `Agriculture
 Commissioner` as the capitalized house title in body copy and headlines,

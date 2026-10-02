@@ -119,8 +119,37 @@ class MainEditorTests(unittest.TestCase):
         self.assertEqual(apply_main_style(result.text), result.text)
 
     def test_florida_governor_rule_requires_a_full_name(self):
-        source = "The Florida Governor met the California Governor."
-        self.assertEqual(apply_main_style(source), source)
+        source = "The Florida governor met the California governor."
+        result = apply_main_style_with_report(source)
+        self.assertEqual(
+            result.text,
+            "The Florida Governor met the California Governor.",
+        )
+        self.assertEqual(len(result.findings), 1)
+        finding = result.findings[0]
+        self.assertEqual(
+            finding.rule_id,
+            "flapol.titles.florida-governor-without-name",
+        )
+        self.assertEqual(finding.found, "Florida Governor")
+        self.assertEqual(finding.suggestion, "Governor")
+        self.assertEqual(
+            source[finding.source_start:finding.source_end],
+            "Florida governor",
+        )
+
+    def test_florida_governor_flag_excludes_quotes_and_formal_mansion_name(self):
+        source = (
+            '“The Florida governor called,” she said outside the '
+            "Florida Governor's Mansion."
+        )
+        result = apply_main_style_with_report(source)
+        self.assertEqual(
+            result.text,
+            '“The Florida Governor called,” she said outside the '
+            "Florida Governor's Mansion.",
+        )
+        self.assertEqual(result.findings, ())
 
     def test_florida_label_is_preserved_in_quote_while_title_is_abbreviated(self):
         source = (

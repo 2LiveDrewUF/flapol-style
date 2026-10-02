@@ -61,6 +61,12 @@
       "authority": "Florida Politics owner ruling 2026-08-16"
     },
     {
+      "id": "governor-title",
+      "from": "governor",
+      "to": "Governor",
+      "authority": "Florida Politics owner ruling 2026-10-02"
+    },
+    {
       "id": "presidential-election",
       "from": "presidential election",
       "to": "Presidential Election",
@@ -106,7 +112,6 @@
     {"id": "vice-president-title", "from": "vice president", "to": "Vice President"},
     {"id": "first-lady-title", "from": "first lady", "to": "First Lady"},
     {"id": "second-lady-title", "from": "second lady", "to": "Second Lady"},
-    {"id": "governor-title", "from": "governor", "to": "Governor"},
     {"id": "attorney-general-title", "from": "attorney general", "to": "Attorney General"},
     {"id": "representative-title", "from": "representative", "to": "Representative"},
     {"id": "senator-title", "from": "senator", "to": "Senator"},

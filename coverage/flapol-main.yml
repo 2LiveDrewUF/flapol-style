@@ -54,6 +54,14 @@ capitalize-house-titles:
   contexts: [main]
   protected_regions: required
   implementations: [python/flapol_style/capitalization.py]
+capitalize-governor-title:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/capitalization.py]
 capitalize-titles-before-name:
   documented: true
   detected: true
@@ -213,6 +221,14 @@ florida-governor-home-state:
   detected: true
   detection_mode: python
   auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/titles.py]
+florida-governor-without-name:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: false
   contexts: [main]
   protected_regions: required
   implementations: [python/flapol_style/titles.py]

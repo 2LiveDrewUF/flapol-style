@@ -6,7 +6,8 @@ import json
 from pathlib import Path
 import re
 
-from .reporting import EditingSession, RuleSpec
+from .protected import find_protected_spans
+from .reporting import EditingSession, Finding, RuleSpec
 
 
 _DATA_PATH = Path(__file__).with_name("data") / "title_abbreviations.json"
@@ -43,6 +44,13 @@ _FLORIDA_GOVERNOR_BEFORE_NAME_RE = re.compile(
     rf"(?<![\w])(?i:Florida)\s+"
     rf"(?=(?i:Governor|Gov\.)\s+{FULL_NAME_DISPLAY_PATTERN}"
     rf"(?:\b|(?<=\*\*)))"
+)
+_FLORIDA_GOVERNOR_WITHOUT_NAME_RE = re.compile(
+    r"(?<![\w])(?i:Florida\s+)(?P<title>(?i:Governor|Gov\.))(?![\w])"
+)
+_GOVERNORS_MANSION_SUFFIX_RE = re.compile(
+    r"^['’]s\s+Mansion\b",
+    re.IGNORECASE,
 )
 
 
@@ -98,6 +106,43 @@ def apply_home_state_title_rules_to_session(session: EditingSession) -> None:
         _FLORIDA_GOVERNOR_BEFORE_NAME_RE,
         "",
     )
+
+
+def home_state_title_flags_for_session(
+    session: EditingSession,
+) -> tuple[Finding, ...]:
+    """Flag unresolved Florida title labels that lack a full-name context."""
+    text = session.text
+    protected = find_protected_spans(text)
+    findings: list[Finding] = []
+
+    for match in _FLORIDA_GOVERNOR_WITHOUT_NAME_RE.finditer(text):
+        if any(
+            match.start() < span.end and span.start < match.end()
+            for span in protected
+        ):
+            continue
+        if _GOVERNORS_MANSION_SUFFIX_RE.match(text[match.end():]):
+            continue
+        source_start, source_end = session.source_span(
+            match.start(), match.end()
+        )
+        title = match.group("title")
+        suggestion = "Gov." if title.casefold() == "gov." else "Governor"
+        findings.append(
+            Finding(
+                rule_id="flapol.titles.florida-governor-without-name",
+                action="FLAG",
+                found=match.group(0),
+                suggestion=suggestion,
+                source_start=source_start,
+                source_end=source_end,
+                severity="warning",
+                authority="Florida Politics owner ruling 2026-10-02",
+            )
+        )
+
+    return tuple(findings)
 
 
 def apply_title_rules_to_session(session: EditingSession) -> None:
