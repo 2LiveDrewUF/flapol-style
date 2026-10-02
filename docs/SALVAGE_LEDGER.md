@@ -46,7 +46,7 @@ in this repository says nothing about that consumer's active behavior.
 | Person registries | Thousands of public-name entries can save work, but currentness, aliases and public-release suitability must be checked. |
 | Legacy headline title stripping and surname expansion | Kept separate because both change editorial meaning or naming; neither is part of sentence-case normalization. |
 | Party/location tag stripping | Potentially useful for imported wire copy; it deletes text and depends on entity/context recognition. |
-| State/federal legislator scoping | Valuable and appropriately registry-driven; requires a maintained, dated officeholder registry. |
+| State/federal legislator scoping | The dated public base now exists and the accepted behavior is scoped in `docs/LEGISLATOR_STYLE_SCOPE.md`; implementation and proof remain pending. |
 | Remaining word-preference entries | Each substitution needs comparison with the current guide and AP baseline. Do not inherit the table wholesale. |
 
 ## Exclude from canonical main behavior

@@ -138,3 +138,21 @@ look tidier than it was.
   records when it was verified. The 2024-2026 state-legislator group is valid
   through Nov. 3, 2026, and hard-stale beginning Nov. 4: the public loader must
   require adjudication and refresh rather than continue returning that group.
+
+## D-014 — Legislative jurisdiction style is document-level and identity-backed
+
+- Status: Accepted scope; implementation pending
+- Decision: Select state-only, federal-only or mixed legislative title forms
+  from resolved lawmakers present in the document. Use the public officeholder
+  base plus caller overlays as identity evidence. Outside quotations,
+  identity-proven forms may be corrected to `Rep.` or `Sen.`, `U.S. Rep.` or
+  `U.S. Sen.`, or lowercase `state Rep.` or `state Sen.` as the document mode
+  requires. Edited narration never uses `Florida Rep.` or `Florida Sen.`.
+- Why: The same short title has different Florida Politics meaning depending on
+  whether a story invokes state lawmakers, members of Congress or both. Text
+  alone cannot safely establish that distinction; the dated book now supplies
+  the missing evidence.
+- Consequence: Implement the three rule families and proof boundaries in
+  `docs/LEGISLATOR_STYLE_SCOPE.md` before claiming coverage. Preserve spoken
+  jurisdiction words inside quotations, flag unresolved identities and mixed
+  standalone attributions, and stop rather than use a stale required roster.
