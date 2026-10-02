@@ -6,6 +6,14 @@ prefix.
 
 ## Unreleased
 
+## 0.1.0a6 — 2026-10-02
+
+- Preserve title-cased `Advisor` as possible formal-name text while retaining
+  automatic correction of lowercase `advisor` and all-capital `ADVISOR`.
+- Normalize context-proven numeric number signs in body copy and headlines,
+  flag unresolved forms, preserve hashtag-like tokens such as `#8isEnough`,
+  and keep every hash form inside quotations untouched.
+
 ## 0.1.0a5 — 2026-10-02
 
 - Add a narrow, official-source Florida officeholder book covering the

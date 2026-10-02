@@ -19,7 +19,16 @@ def load_word_preferences() -> tuple[dict[str, str], ...]:
     return tuple(records)
 
 
-def _project_case(source: str, replacement: str) -> str:
+def _project_case(
+    source: str,
+    replacement: str,
+    *,
+    preserve_title_case: bool = False,
+) -> str:
+    # A title-cased word may be part of a formal name. Individual registry
+    # rules can preserve that form when the text alone cannot prove otherwise.
+    if preserve_title_case and source[:1].isupper() and source[1:].islower():
+        return source
     # A title-cased phrase may be part of a verified formal name, such as the
     # Health Care District of Palm Beach County. Without entity metadata, fail
     # conservatively rather than silently renaming it.
@@ -58,8 +67,13 @@ def apply_word_rules_to_session(session: EditingSession) -> None:
         session.replace_pattern(
             spec,
             pattern,
-            lambda match, _text, replacement=record["to"]: _project_case(
-                match.group(0), replacement
+            lambda match,
+            _text,
+            replacement=record["to"],
+            preserve_title_case=record.get("preserve_title_case", False): _project_case(
+                match.group(0),
+                replacement,
+                preserve_title_case=preserve_title_case,
             ),
         )
 

@@ -310,6 +310,38 @@ adviser-preferred:
   contexts: [main]
   protected_regions: required
   implementations: [python/flapol_style/words.py]
+ranking-number-sign:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main, headline]
+  protected_regions: required
+  implementations: [python/flapol_style/numbers.py]
+numbered-label-number-sign:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main, headline]
+  protected_regions: required
+  implementations: [python/flapol_style/numbers.py]
+ballot-amendment-number-sign:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main, headline]
+  protected_regions: required
+  implementations: [python/flapol_style/numbers.py]
+ambiguous-number-sign:
+  documented: true
+  detected: true
+  detection_mode: contextual
+  auto_fix: false
+  contexts: [main, headline]
+  protected_regions: required
+  implementations: [python/flapol_style/numbers.py]
 link-bolding:
   documented: true
   detected: true

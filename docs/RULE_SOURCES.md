@@ -9,7 +9,7 @@ authority that makes the rule correct.
 
 | Registry rule | Governing source |
 | --- | --- |
-| `advisor` to `adviser` | AP baseline and Florida Politics quote-boundary clarification, Aug. 16, 2026. |
+| `advisor` to `adviser` | AP baseline and Florida Politics quote-boundary clarification, Aug. 16, 2026. Title-cased `Advisor` is preserved because it may be part of a formal name; lowercase and all-capital forms remain automatic. |
 | `health care` or `health-care` to `healthcare` | AP announced `healthcare` as one word on April 27, 2026: [AP Stylebook update](https://www.apstylebook.com/blog_posts/26) and [58th-edition announcement](https://www.ap.org/media-center/press-releases/2026/new-ap-stylebook-features-expanded-artificial-intelligence-chapter/). This later ruling supersedes the pinned 56th-edition entry. |
 | `press conference` to `news conference` | The pinned 56th-edition `press conference` entry prefers `news conference`; Florida Politics owner confirmation, Aug. 16, 2026. |
 | `reelection` to `re-election` | Florida Politics main-guide house departure, retained by owner in the 2026 canonical-guide review. |
@@ -23,6 +23,21 @@ lowercase `health care` and sentence-initial `Health care` remain automatic.
 The legacy `preempt` to `pre-empt` replacement is intentionally excluded. AP's
 2024 dictionary update says prefixes including `pre-` generally do not take a
 hyphen: [AP primary-dictionary announcement](https://www.ap.org/the-definitive-source/products-and-services/a-new-primary-dictionary-for-the-ap-stylebook/).
+
+## Number signs
+
+Florida Politics owner guidance on Oct. 2, 2026, treats a number sign followed
+by digits as unsuitable in ordinary narrative copy when the surrounding text
+proves the intended form. Ranking cues, Executive Orders and room numbers use
+`No.`; explicitly identified Florida or ballot amendments drop the number sign.
+Other numeric hash forms produce findings rather than guessed corrections.
+
+The numeric token must end before another word character. Consequently,
+`#8isEnough`, `#8_is_Enough` and similar hashtags are neither changed nor
+flagged, while punctuation, a ranking hyphen, whitespace or the end of the text
+can end a numeric token. All number-sign changes and findings stay out of
+balanced quotations so quoted rankings, slogans and social-media hashtags are
+preserved. Literal regions and malformed quotations remain hard-protected.
 
 ## Title abbreviations
 

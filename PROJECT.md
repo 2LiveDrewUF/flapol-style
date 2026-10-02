@@ -2,7 +2,7 @@
 
 ## Status
 
-Active — public deterministic style kit released through `v0.1.0a5`; downstream adoption remains consumer-owned.
+Active — public deterministic style kit released through `v0.1.0a6`; downstream adoption remains consumer-owned.
 
 ## Ownership and placement
 

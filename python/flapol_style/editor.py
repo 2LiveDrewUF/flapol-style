@@ -12,6 +12,10 @@ from .capitalization import (
 from .dates import apply_date_rules_to_session
 from .legislators import LegislatorIdentity, apply_legislator_rules_to_session
 from .mechanics import apply_mechanical_rules_to_session
+from .numbers import (
+    apply_number_sign_rules_to_session,
+    number_sign_flags_for_session,
+)
 from .reporting import EditingSession, EditResult
 from .titles import (
     apply_title_rules_to_session,
@@ -45,6 +49,7 @@ def apply_main_style_with_report(
     apply_title_rules_to_session(session)
     apply_capitalization_rules_to_session(session)
     apply_mechanical_rules_to_session(session)
+    apply_number_sign_rules_to_session(session)
     apply_date_rules_to_session(session, publication_date)
     findings = tuple(
         sorted(
@@ -52,6 +57,7 @@ def apply_main_style_with_report(
                 *legislator_findings,
                 *capitalization_flags_for_session(session),
                 *home_state_title_flags_for_session(session),
+                *number_sign_flags_for_session(session),
             ),
             key=lambda item: (item.start, item.end, item.rule_id),
         )

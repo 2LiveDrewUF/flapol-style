@@ -55,6 +55,19 @@ class WordFormTests(unittest.TestCase):
             '“My longtime adviser agreed,” she said. "The adviser left."',
         )
 
+    def test_title_cased_advisor_may_be_part_of_a_formal_name(self):
+        source = (
+            "The Financial Advisor Council met an advisor. "
+            '“Advisor Jane Smith agreed, but my advisor did not.” '
+            "ADVISOR"
+        )
+        self.assertEqual(
+            normalize_word_forms(source),
+            "The Financial Advisor Council met an adviser. "
+            '“Advisor Jane Smith agreed, but my adviser did not.” '
+            "ADVISER",
+        )
+
     def test_unbalanced_quote_fails_closed_for_speech_preserving_word_rule(self):
         source = 'She said, “My long-time advisor agreed'
         self.assertEqual(normalize_word_forms(source), source)

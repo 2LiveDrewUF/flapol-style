@@ -21,6 +21,7 @@ from .legislators import (
     resolve_legislator_context,
 )
 from .mechanics import normalize_mechanical_forms
+from .numbers import find_number_sign_flags, normalize_number_sign_forms
 from .officeholders import (
     OfficeholderBookStaleError,
     list_officeholder_groups,
@@ -40,7 +41,7 @@ from .titles import (
 )
 from .words import load_word_preferences, normalize_word_forms
 
-__version__ = "0.1.0a5"
+__version__ = "0.1.0a6"
 
 __all__ = [
     "ProtectedSpan",
@@ -62,6 +63,7 @@ __all__ = [
     "apply_date_rules",
     "find_protected_spans",
     "find_capitalization_flags",
+    "find_number_sign_flags",
     "load_capitalization_rules",
     "load_bolding_rules",
     "list_officeholder_groups",
@@ -72,6 +74,7 @@ __all__ = [
     "normalize_capitalization",
     "normalize_relative_dates",
     "normalize_mechanical_forms",
+    "normalize_number_sign_forms",
     "normalize_office_title_forms",
     "normalize_word_forms",
     "resolve_legislator_context",

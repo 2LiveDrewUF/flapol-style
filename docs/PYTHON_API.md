@@ -36,6 +36,13 @@ classified headline-only house rules. The optional
 specialized proper nouns without moving a changing registry into this package.
 The headline API does not implicitly call the main-body pipeline.
 
+Both main and headline profiles normalize context-proven numeric number-sign
+forms outside quotations. Ranking forms, Executive Orders and rooms use
+`No. N`; explicitly identified ballot amendments use the bare amendment
+number. Other `#N` tokens become findings. A letter or underscore immediately
+after the digit run makes the token hashtag-like and excludes it from this rule
+family. All quoted hash forms remain untouched and unflagged.
+
 ## Public officeholder base
 
 The package includes a deliberately narrow public identity book for Florida's
@@ -202,5 +209,5 @@ hard-protected.
 
 ## Versioning
 
-The current API version is alpha `0.1.0a5`. Consumers must pin a released tag
+The current API version is alpha `0.1.0a6`. Consumers must pin a released tag
 or commit. Floating `main` is not a production dependency.

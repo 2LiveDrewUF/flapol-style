@@ -5,7 +5,8 @@
     "to": "adviser",
     "authority": "AP baseline and Florida Politics clarification 2026-08-16",
     "action": "AUTO_FIX",
-    "speech_preserving": true
+    "speech_preserving": true,
+    "preserve_title_case": true
   },
   {
     "id": "longtime-one-word",

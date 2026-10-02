@@ -7,6 +7,10 @@ import json
 from importlib.resources import files
 import re
 
+from .numbers import (
+    apply_number_sign_rules_to_session,
+    number_sign_flags_for_session,
+)
 from .reporting import EditingSession, EditResult, RuleSpec
 from .titles import apply_office_title_form_rules_to_session
 
@@ -133,6 +137,7 @@ def apply_headline_rules_to_session(
     apply_office_title_form_rules_to_session(session)
     _apply_sentence_case(session, phrases)
     session.replace_pattern(_US_HEADLINE_RULE, _US_HEADLINE_RE, "U.S.")
+    apply_number_sign_rules_to_session(session)
 
 
 def apply_headline_style_with_report(
@@ -146,7 +151,7 @@ def apply_headline_style_with_report(
     """
     session = EditingSession(text)
     apply_headline_rules_to_session(session, preserve_phrases)
-    return session.result()
+    return session.result(number_sign_flags_for_session(session))
 
 
 def apply_headline_style(

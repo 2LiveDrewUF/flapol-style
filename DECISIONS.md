@@ -156,3 +156,18 @@ look tidier than it was.
   `docs/LEGISLATOR_STYLE_SCOPE.md` before claiming coverage. Preserve spoken
   jurisdiction words inside quotations, flag unresolved identities and mixed
   standalone attributions, and stop rather than use a stale required roster.
+
+## D-015 — Numeric number signs require proven prose context
+
+- Status: Accepted
+- Decision: Outside quotations, automatically replace a numeric number sign
+  only when the surrounding text proves a ranking, Executive Order, room or
+  explicitly identified ballot-amendment form. Use `No.` for rankings, orders
+  and rooms; omit the sign for ballot amendments. Flag other standalone `#N`
+  forms. Do not match when another word character follows the digits.
+- Why: A number sign is rarely acceptable in Florida Politics narrative copy,
+  but the correct replacement depends on context and numeric hashtags such as
+  `#8isEnough` must survive unchanged.
+- Consequence: This rule family has no quotation access. Balanced quotations,
+  including quoted rankings and social posts, are untouched and unflagged;
+  malformed quotations and literal regions fail closed.
