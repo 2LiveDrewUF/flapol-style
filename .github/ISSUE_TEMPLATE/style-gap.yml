@@ -1,0 +1,93 @@
+name: Style gap or regression
+description: Report a repeatable pattern that may belong in FlaPol Style.
+title: "[Style gap]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for bringing the pattern here. An issue is evidence for FlaPol Style triage, not an adopted rule or authorization to change the package.
+
+        Use only public or synthetic copy. Do not include unpublished articles, private Slack content, AP Stylebook text, credentials, private registries or consumer implementation details.
+
+  - type: dropdown
+    id: report_kind
+    attributes:
+      label: What kind of report is this?
+      options:
+        - A released behavior is missing or has regressed
+        - A repeated pattern may need a new rule
+        - An automatic change is unsafe or incorrect
+        - A finding or alert is noisy or missing
+        - Documentation and actual behavior disagree
+    validations:
+      required: true
+
+  - type: dropdown
+    id: profile
+    attributes:
+      label: Where does it apply?
+      options:
+        - Main body copy
+        - Headline
+        - Presentation or bolding
+        - More than one profile
+        - Unknown
+    validations:
+      required: true
+
+  - type: input
+    id: surfaced_in
+    attributes:
+      label: Where did it surface?
+      description: Name the consumer or workflow only if it is safe to publish. Do not include private paths, URLs or article identifiers.
+      placeholder: Newsroom tool, draft workflow, manual edit, or unknown
+
+  - type: textarea
+    id: minimal_example
+    attributes:
+      label: Minimal public or synthetic example
+      description: Replace private names and facts while preserving the exact structure that triggers the behavior.
+      placeholder: Show the smallest before example that reproduces the problem.
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_behavior
+    attributes:
+      label: Current behavior
+      description: Describe what FlaPol Style currently changes, flags or misses.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected behavior
+      description: Describe the desired result. This is a proposal; project triage will establish the governing rule and action class.
+    validations:
+      required: true
+
+  - type: textarea
+    id: frequency_impact
+    attributes:
+      label: Frequency and impact
+      description: How often does this recur, and what manual work or risk does it create?
+
+  - type: textarea
+    id: authority
+    attributes:
+      label: Publishable authority or chronology
+      description: Add a public link, house-guidance date or prior FlaPol Style decision if known. Do not quote copyrighted or private source material.
+
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Public-source and decision boundary
+      options:
+        - label: I replaced unpublished or private copy with a minimal public or synthetic example.
+          required: true
+        - label: I did not include AP Stylebook text, Slack content, credentials, private registry data or consumer internals.
+          required: true
+        - label: I understand this issue is a proposal for FlaPol Style triage, not an adopted rule or authorization to implement it.
+          required: true

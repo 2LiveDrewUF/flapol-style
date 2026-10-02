@@ -7,6 +7,8 @@ behavior without widening authority by accident.
 
 ## Prerequisites
 
+- Confirm the proposal belongs in FlaPol Style; an issue or consumer handoff
+  alone is not authority to admit a rule.
 - A concrete proposed rule and governing source.
 - Current worktree and branch state inspected.
 - Relevant current guide, decisions, coverage and implementation read.

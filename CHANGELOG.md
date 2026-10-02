@@ -4,6 +4,12 @@ This project follows semantic versioning. Release tags use a `v` prefix; the
 Python distribution exposes the corresponding PEP 440 version without that
 prefix.
 
+## Unreleased
+
+- Add a public issue form for repeatable style gaps and regressions.
+- Clarify that issues and consumer handoffs are evidence, not authority to
+  admit a rule or change the package.
+
 ## 0.1.0a4 — 2026-08-18
 
 - Add a Markdown presentation API for Florida Politics' closed bolding

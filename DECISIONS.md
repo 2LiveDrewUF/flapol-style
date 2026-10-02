@@ -106,3 +106,16 @@ look tidier than it was.
   data, while the public package remains product-neutral and deterministic.
 - Consequence: A nonempty list does not imply completeness. The caller must
   explicitly declare complete person context before broad nonlink-bold cleanup.
+
+## D-012 — Consumer handoffs and issues are proposals, not authority
+
+- Status: Accepted
+- Decision: Treat every reporter alike. Issues and consumer handoffs may identify
+  recurring patterns or regressions, but they do not admit rules or authorize
+  changes to FlaPol Style.
+- Why: Consumers are valuable sources of real-world evidence, but letting each
+  product decide package policy would create conflicting rules, leak private
+  assumptions and bypass deterministic-safety review.
+- Consequence: Every report is reproduced and classified here. Filing,
+  assigning or wording an issue does not admit a rule, select an action class,
+  grant quote access, authorize implementation or approve a release.

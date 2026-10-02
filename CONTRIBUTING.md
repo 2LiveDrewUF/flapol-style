@@ -7,6 +7,14 @@ Project-wide operating instructions live in `AGENTS.md`. Use
 `runbooks/add-or-reclassify-rule.md` for rule work and `runbooks/release.md` for
 publication.
 
+## Reporting a style gap
+
+Use the issue form for repeatable gaps, regressions, false positives or
+documentation mismatches. Supply a minimal public or synthetic example; do not
+post unpublished copy, private Slack content, AP Stylebook text, credentials,
+private registries or consumer implementation details. Reports are evidence,
+not adopted rules or authorization to change the package.
+
 ## Rule workflow
 
 1. Identify the governing source and record concise provenance. Florida
