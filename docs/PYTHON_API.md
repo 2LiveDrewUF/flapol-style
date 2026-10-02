@@ -24,6 +24,38 @@ classified headline-only house rules. The optional
 specialized proper nouns without moving a changing registry into this package.
 The headline API does not implicitly call the main-body pipeline.
 
+## Public officeholder base
+
+The package includes a deliberately narrow public identity book for Florida's
+statewide executive officers, congressional delegation and state lawmakers.
+It is evidence for document-level identity and jurisdiction; loading a name
+does not admit an editorial rule or authorize an automatic correction.
+
+Load one group only with an explicit as-of date:
+
+```python
+from datetime import date
+from flapol_style import load_officeholder_group
+
+legislators = load_officeholder_group(
+    "florida-state-legislature",
+    as_of=date(2026, 10, 2),
+)
+```
+
+The package never substitutes the machine date. The state-legislature snapshot
+is valid through Nov. 3, 2026. On or after Nov. 4,
+`load_officeholder_group()` raises `OfficeholderBookStaleError` instead of
+returning the old identities. In this API, stale means adjudication is required;
+it does not mean “warn and keep going.” The packaged JSON remains inspectable
+for that review.
+
+Entries include official names, conservative source-derived aliases, office,
+level, chamber or district where applicable, status and source identifiers.
+Vacant and pending-election seats are recorded separately and never represented
+by a former officeholder. Callers may add private or regional aliases and
+people through their own overlays; those additions do not belong in this base.
+
 Presentation-only Markdown behavior uses separate entry points:
 
 ```python

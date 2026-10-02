@@ -143,6 +143,14 @@ office-group-bold-removal:
   contexts: [presentation]
   protected_regions: required
   implementations: [python/flapol_style/presentation.py]
+public-officeholder-base:
+  documented: true
+  detected: false
+  auto_fix: false
+  contexts: [identity-context]
+  protected_regions: not_applicable
+  caller_context: explicit_as_of_date
+  implementations: [python/flapol_style/data/officeholders.json, python/flapol_style/officeholders.py]
 unauthorized-bold-removal:
   documented: true
   detected: true

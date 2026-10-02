@@ -128,6 +128,14 @@ not infer one from the machine clock. Its word and title registries are public
 data files so every automatic replacement can be reviewed without reading
 application code.
 
+The package also provides a narrow public officeholder base covering Florida's
+statewide executive officers, congressional delegation and state lawmakers.
+Consumers must request a group with an explicit as-of date. The current
+state-legislator snapshot refuses to load beginning Nov. 4, 2026, so expiration
+becomes an adjudication gate rather than a warning that stale identities may be
+used anyway. Private, regional and reporter-specific name books remain caller
+overlays.
+
 Consumers can call `apply_main_style()` for the stable product-neutral
 pipeline or use the narrower date, word-form and title functions separately.
 The combined entry point includes automatic fixes only; it does not silently

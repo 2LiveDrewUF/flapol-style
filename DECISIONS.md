@@ -119,3 +119,22 @@ look tidier than it was.
 - Consequence: Every report is reproduced and classified here. Filing,
   assigning or wording an issue does not admit a rule, select an action class,
   grant quote access, authorize implementation or approve a release.
+
+## D-013 — Keep a narrow, dated public officeholder base
+
+- Status: Accepted
+- Decision: Maintain a public base book limited to Florida's Governor,
+  Lieutenant Governor, Attorney General, Chief Financial Officer, Agriculture
+  Commissioner, congressional delegation and state lawmakers. Build it from
+  official government sources and keep reporter-, region- and newsroom-specific
+  names in caller-supplied overlays.
+- Why: State-versus-federal legislative style requires identity context, and
+  this small high-value roster is public and reviewable. Expanding it into a
+  general people database would create unnecessary maintenance and privacy
+  scope.
+- Consequence: This decision is a narrow qualification to D-011, not a transfer
+  of private roster ownership. The book supplies identity evidence but does not
+  itself authorize a textual change. Vacancies remain vacancies. Each group
+  records when it was verified. The 2024-2026 state-legislator group is valid
+  through Nov. 3, 2026, and hard-stale beginning Nov. 4: the public loader must
+  require adjudication and refresh rather than continue returning that group.

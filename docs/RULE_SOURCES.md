@@ -114,6 +114,39 @@ article packet to discover people, but headlines and other separately governed
 fields are not prepended to the body when determining its first eligible
 reference.
 
+## Public officeholder identity book
+
+Florida Politics owner rulings on Oct. 2, 2026, establish a narrow public base
+book containing only the Governor, Lieutenant Governor, Cabinet, Florida's
+congressional delegation and Florida state lawmakers. This identity resource
+does not itself change text or confer quotation access. Reporter- and
+region-specific names remain caller-owned overlays.
+
+The snapshot verified Oct. 2, 2026, uses these official government sources:
+
+- [Executive Office of the Governor](https://www.flgov.com/eog/) and its
+  [Lieutenant Governor profile](https://www.flgov.com/eog/leadership/people/jay-collins)
+- [Florida Attorney General](https://www.myfloridalegal.com/ag-bio)
+- [Florida Chief Financial Officer](https://myfloridacfo.com/about/meet-the-cfo)
+- [Florida Agriculture Commissioner](https://www.fdacs.gov/About-Us/Meet-Commissioner-Simpson)
+- [U.S. House directory](https://www.house.gov/representatives) and
+  [U.S. Senate Florida page](https://www.senate.gov/states/FL/intro.htm)
+- [Florida House roster](https://www.flhouse.gov/Representatives) and
+  [Florida Senate roster](https://www.flsenate.gov/Senators)
+- [Florida Division of Elections 2026 dates](https://dos.fl.gov/elections/for-voters/election-dates/)
+  and [Florida Statutes §100.041](https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0100/Sections/0100.041.html)
+
+Some Florida agencies use longstanding official `.com` domains. Source
+admission is based on the government office controlling the site, not a
+literal top-level-domain test.
+
+The official Florida House roster assigns the 2024-2026 term an end date of
+Nov. 3, 2026. Consistent with the owner's ruling that a stale book requires
+adjudication, the packaged state-legislator group is valid through that date
+and refuses operational loading beginning Nov. 4. Special elections,
+resignations, deaths and other changes may require an earlier refresh; the
+date is a backstop, not a guarantee that no seat can change beforehand.
+
 ## Existing Vale families promoted to protected auto-fix
 
 | Rule | Governing source |

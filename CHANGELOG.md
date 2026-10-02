@@ -6,6 +6,11 @@ prefix.
 
 ## Unreleased
 
+- Add a narrow, official-source Florida officeholder book covering the
+  Governor, Lieutenant Governor, Cabinet, congressional delegation and state
+  lawmakers, while preserving vacancies and caller-owned overlays.
+- Make the 2024-2026 state-legislator book valid through Nov. 3, 2026, and
+  refuse to load it beginning Nov. 4 until it is adjudicated and refreshed.
 - Remove redundant `Florida` from `Florida Governor` or `Florida Gov.` directly
   before a full name, then apply the existing `Gov.` title abbreviation.
 - Capitalize `Governor` with or without a connected name and flag, rather than

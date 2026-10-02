@@ -43,11 +43,12 @@ automated.
 
 - Reproducing or redistributing the AP Stylebook.
 - Replacing a human editor or authorizing generative quote editing.
-- Owning Streamlet, Newsroom Tools, WordPress, newsletter assembly, name
-  registries, deployment or downstream rule retirement.
+- Owning Streamlet, Newsroom Tools, WordPress, newsletter assembly, private or
+  open-ended name registries, deployment or downstream rule retirement.
 - Treating every suggestion, Slack reminder or legacy regex as current law.
 - Storing private Slack exports, article text, credentials, private registries
-  or proprietary application code in this public repository.
+  or proprietary application code in this public repository. The accepted
+  public officeholder base is deliberately narrow, sourced and dated.
 - Creating hosted services or infrastructure merely to make the project look
   more important at cocktail parties.
 
@@ -65,6 +66,8 @@ automated.
 - Public Vale rules and fixtures.
 - An installable Python package with protected, context-aware APIs.
 - Public rule registries and coverage records.
+- A narrow, dated public Florida officeholder base for deterministic identity
+  context.
 - Structured changes and contextual findings.
 - Provenance, quote-policy and migration documentation.
 - Immutable Git tags with verified branch and tag CI.

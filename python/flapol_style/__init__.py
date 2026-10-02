@@ -16,6 +16,11 @@ from .dates import apply_date_rules, normalize_date_display, normalize_relative_
 from .editor import apply_main_style, apply_main_style_with_report
 from .headlines import apply_headline_style, apply_headline_style_with_report
 from .mechanics import normalize_mechanical_forms
+from .officeholders import (
+    OfficeholderBookStaleError,
+    list_officeholder_groups,
+    load_officeholder_group,
+)
 from .presentation import (
     apply_presentation_style,
     apply_presentation_style_with_report,
@@ -39,6 +44,7 @@ __all__ = [
     "EditingSession",
     "EditResult",
     "Finding",
+    "OfficeholderBookStaleError",
     "abbreviate_titles_before_names",
     "apply_main_style",
     "apply_main_style_with_report",
@@ -51,6 +57,8 @@ __all__ = [
     "find_capitalization_flags",
     "load_capitalization_rules",
     "load_bolding_rules",
+    "list_officeholder_groups",
+    "load_officeholder_group",
     "load_title_abbreviations",
     "load_word_preferences",
     "normalize_date_display",

@@ -45,8 +45,12 @@ publishes interoperable rules, not a substitute Stylebook.
 ## Newsroom Tools boundary
 
 Newsroom Tools is a separate, private Drew-owned project. It owns Streamlet,
-product-specific formatting, current people and officeholder registries,
-deployment, shadow comparison, release adoption and retirement of legacy code.
+product-specific formatting, private or newsroom-specific people and
+officeholder overlays, deployment, shadow comparison, release adoption and
+retirement of legacy code. FlaPol Style owns only the accepted narrow public
+officeholder base: Florida's Governor, Lieutenant Governor, Cabinet,
+congressional delegation and state lawmakers, with public provenance and
+explicit staleness metadata.
 
 FlaPol Style may publish a versioned interface and inspect authorized legacy
 behavior read-only. It must not claim that Newsroom Tools has adopted a release
