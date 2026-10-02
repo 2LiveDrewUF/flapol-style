@@ -91,6 +91,70 @@ class MainEditorTests(unittest.TestCase):
             change.before,
         )
 
+    def test_main_pipeline_drops_florida_before_governor_and_full_name(self):
+        source = (
+            "Florida Governor Ron DeSantis met California Governor Gavin Newsom "
+            "and former Florida Gov. Jeb Bush."
+        )
+        result = apply_main_style_with_report(source)
+        self.assertEqual(
+            result.text,
+            "Gov. Ron DeSantis met California Gov. Gavin Newsom and former "
+            "Gov. Jeb Bush.",
+        )
+        self.assertEqual(
+            [change.rule_id for change in result.changes],
+            [
+                "flapol.titles.florida-governor-home-state",
+                "flapol.titles.florida-governor-home-state",
+                "flapol.titles.title-governor",
+                "flapol.titles.title-governor",
+            ],
+        )
+        for change in result.changes:
+            self.assertEqual(
+                source[change.source_start:change.source_end],
+                change.before,
+            )
+        self.assertEqual(apply_main_style(result.text), result.text)
+
+    def test_florida_governor_rule_requires_a_full_name(self):
+        source = "The Florida Governor met the California Governor."
+        self.assertEqual(apply_main_style(source), source)
+
+    def test_florida_label_is_preserved_in_quote_while_title_is_abbreviated(self):
+        source = (
+            'She said, “Florida Governor Ron DeSantis called.” '
+            'He replied, "Florida Governor Ron DeSantis answered."'
+        )
+        result = apply_main_style_with_report(source)
+        self.assertEqual(
+            result.text,
+            'She said, “Florida Gov. Ron DeSantis called.” '
+            'He replied, "Florida Gov. Ron DeSantis answered."',
+        )
+        self.assertEqual(len(result.changes), 2)
+        self.assertTrue(
+            all(
+                change.rule_id == "flapol.titles.title-governor"
+                and change.speech_preserving
+                for change in result.changes
+            )
+        )
+
+    def test_florida_governor_rule_protects_literals_and_uncertain_quotes(self):
+        source = (
+            '`Florida Governor Ron DeSantis` is literal. '
+            'She said, "Florida Governor Ron DeSantis called'
+        )
+        self.assertEqual(apply_main_style(source), source)
+
+    def test_florida_governor_rule_handles_bold_full_name(self):
+        self.assertEqual(
+            apply_main_style("Florida Governor **Ron DeSantis** spoke."),
+            "Gov. **Ron DeSantis** spoke.",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

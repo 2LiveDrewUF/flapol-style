@@ -20,6 +20,11 @@ _AGRICULTURE_COMMISSIONER_CAPITALIZATION_RULE = RuleSpec(
     "Florida Politics owner ruling 2026-10-02",
     speech_preserving=True,
 )
+_FLORIDA_GOVERNOR_HOME_STATE_RULE = RuleSpec(
+    "flapol.titles.florida-governor-home-state",
+    "Florida Politics owner ruling 2026-10-02",
+    speech_preserving=False,
+)
 _COMMISSIONER_OF_AGRICULTURE_RE = re.compile(
     r"(?<![\w])(?i:Commissioner\s+of\s+Agriculture)(?![\w])"
 )
@@ -33,6 +38,11 @@ FULL_NAME_PATTERN = (
 )
 FULL_NAME_DISPLAY_PATTERN = (
     rf"(?:{FULL_NAME_PATTERN}|\*\*{FULL_NAME_PATTERN}\*\*)"
+)
+_FLORIDA_GOVERNOR_BEFORE_NAME_RE = re.compile(
+    rf"(?<![\w])(?i:Florida)\s+"
+    rf"(?=(?i:Governor|Gov\.)\s+{FULL_NAME_DISPLAY_PATTERN}"
+    rf"(?:\b|(?<=\*\*)))"
 )
 
 
@@ -81,8 +91,18 @@ def apply_office_title_form_rules_to_session(session: EditingSession) -> None:
     )
 
 
+def apply_home_state_title_rules_to_session(session: EditingSession) -> None:
+    """Remove a redundant Florida label where the full title proves context."""
+    session.replace_pattern(
+        _FLORIDA_GOVERNOR_HOME_STATE_RULE,
+        _FLORIDA_GOVERNOR_BEFORE_NAME_RE,
+        "",
+    )
+
+
 def apply_title_rules_to_session(session: EditingSession) -> None:
     apply_office_title_form_rules_to_session(session)
+    apply_home_state_title_rules_to_session(session)
     for pattern, record in _ABBREVIATION_RULES:
         session.replace_pattern(
             RuleSpec(

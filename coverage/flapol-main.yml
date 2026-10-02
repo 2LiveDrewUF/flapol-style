@@ -208,6 +208,14 @@ title-abbreviations-before-name:
   contexts: [main]
   protected_regions: required
   implementations: [python/flapol_style/titles.py]
+florida-governor-home-state:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/titles.py]
 agriculture-commissioner-order:
   documented: true
   detected: true

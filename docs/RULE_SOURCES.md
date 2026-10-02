@@ -35,6 +35,15 @@ These rules do not implement headline choice, title capitalization away from a
 name or the `Gov. DeSantis` versus `Ron DeSantis` distinction. Those questions
 require document role or story meaning and are not word-level replacements.
 
+Florida Politics owner guidance on Oct. 2, 2026, establishes Florida as the
+assumed home jurisdiction. When `Florida Governor` or `Florida Gov.` appears
+directly before a full name in body copy, the processor removes `Florida`; the
+ordinary before-name title rule then renders a spelled-out `Governor` as
+`Gov.`. Other states remain identified, so `California Governor Gavin Newsom`
+becomes `California Gov. Gavin Newsom`. The home-state deletion does not enter
+quotations and does not apply to a standalone `the Florida Governor`, where
+contrast or context may make the geographic label meaningful.
+
 Florida Politics owner guidance on Oct. 2, 2026, establishes `Agriculture
 Commissioner` as the capitalized house title in body copy and headlines,
 including when it stands alone. The automatic rule changes `Commissioner of
