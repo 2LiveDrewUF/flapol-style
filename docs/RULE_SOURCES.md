@@ -180,6 +180,18 @@ direct quotations, spoken jurisdiction words remain unchanged; the existing
 speech-preserving title rules may still abbreviate `Representative` or
 `Senator`. Stale required roster data stops the identity-dependent family.
 
+## Date capitalization
+
+Florida Politics owner guidance on Oct. 2, 2026, makes lowercase or otherwise
+mis-cased month names automatic when a following day or year proves date
+context. The main profile then applies its existing AP date-display rules, so
+`september 30th, 2026` becomes `Sept. 30, 2026`. The headline profile restores
+the proper month capitalization after sentence-casing without importing the
+rest of the main profile. Month homographs without date context, such as the
+verbs in `workers may march`, remain untouched. This capitalization is
+speech-preserving inside balanced quotations; literals and malformed quotation
+structure remain protected.
+
 ## Existing Vale families promoted to protected auto-fix
 
 | Rule | Governing source |

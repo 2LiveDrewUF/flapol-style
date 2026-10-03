@@ -35,6 +35,8 @@ classified headline-only house rules. The optional
 `preserve_phrases` iterable lets a consumer protect current people, entities or
 specialized proper nouns without moving a changing registry into this package.
 The headline API does not implicitly call the main-body pipeline.
+It does restore proper month capitalization when a following day or year proves
+date context, after the sentence-case pass has run.
 
 Both main and headline profiles normalize context-proven numeric number-sign
 forms outside quotations. Ranking forms, Executive Orders and rooms use
@@ -209,5 +211,5 @@ hard-protected.
 
 ## Versioning
 
-The current API version is alpha `0.1.0a6`. Consumers must pin a released tag
+The current API version is alpha `0.1.0a7`. Consumers must pin a released tag
 or commit. Floating `main` is not a production dependency.

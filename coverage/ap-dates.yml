@@ -6,6 +6,14 @@ calendar-date-ordinal-suffix:
   contexts: [main]
   protected_regions: required
   implementations: [FlaPol/DateOrdinal.yml, python/flapol_style/dates.py]
+month-capitalization:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main, headline]
+  protected_regions: required
+  implementations: [python/flapol_style/dates.py]
 month-with-numbered-day:
   documented: true
   detected: true

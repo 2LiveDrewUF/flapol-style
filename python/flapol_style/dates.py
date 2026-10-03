@@ -27,6 +27,19 @@ AP_ABBREVIATIONS = {
     "November": "Nov.",
     "December": "Dec.",
 }
+_MONTH_FORM_CANON = {month.casefold(): month for month in MONTHS_FULL}
+_MONTH_FORM_CANON.update(
+    {
+        "jan": "Jan.",
+        "feb": "Feb.",
+        "aug": "Aug.",
+        "sep": "Sept.",
+        "sept": "Sept.",
+        "oct": "Oct.",
+        "nov": "Nov.",
+        "dec": "Dec.",
+    }
+)
 ABBREVIATION_TO_FULL = {
     abbreviation: full for full, abbreviation in AP_ABBREVIATIONS.items()
 }
@@ -43,6 +56,16 @@ MONTH_TOKEN = (
 )
 DAY_OF_WEEK = r"(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)"
 
+_MONTH_FORM = (
+    r"(?:January|February|March|April|May|June|July|August|September|"
+    r"October|November|December|Jan\.?|Feb\.?|Aug\.?|Sept?\.?|Oct\.?|"
+    r"Nov\.?|Dec\.?)"
+)
+_MONTH_CAPITALIZATION_RE = re.compile(
+    rf"(?<!\w)(?P<month>{_MONTH_FORM})(?!\w)"
+    r"(?=(?:\s+\d{1,2}(?:st|nd|rd|th)?\b|(?:,\s*|\s+)\d{4}\b))",
+    re.IGNORECASE,
+)
 _SLOPPY_ABBREVIATION_RE = re.compile(
     r"\b(Jan|Feb|Sept|Sep|Aug|Oct|Nov|Dec)\b\.?(?=\s+\d{1,4}\b)"
 )
@@ -75,6 +98,11 @@ _MONTH_DAY_RULE = RuleSpec(
     "AP Stylebook 56th edition, months entry",
     speech_preserving=True,
 )
+_MONTH_CAPITALIZATION_RULE = RuleSpec(
+    "ap.dates.month-capitalization",
+    "AP baseline and Florida Politics owner ruling 2026-10-02",
+    speech_preserving=True,
+)
 _ORDINAL_RULE = RuleSpec(
     "ap.dates.calendar-ordinal",
     "AP Stylebook 56th edition, dates entry",
@@ -105,7 +133,19 @@ _WEEKDAY_WINDOW_RULE = RuleSpec(
 )
 
 
+def apply_month_capitalization_to_session(session: EditingSession) -> None:
+    """Normalize a month token when following numerals prove date context."""
+    session.replace_pattern(
+        _MONTH_CAPITALIZATION_RULE,
+        _MONTH_CAPITALIZATION_RE,
+        lambda match, _text: _MONTH_FORM_CANON[
+            match.group("month").casefold().rstrip(".")
+        ],
+    )
+
+
 def apply_date_display_rules_to_session(session: EditingSession) -> None:
+    apply_month_capitalization_to_session(session)
     session.replace_pattern(
         _MONTH_DAY_RULE,
         _SLOPPY_ABBREVIATION_RE,

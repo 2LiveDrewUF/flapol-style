@@ -114,6 +114,23 @@ class ReportingTests(unittest.TestCase):
             [change.rule_id for change in result.changes],
         )
 
+    def test_lowercase_month_report_retains_original_coordinates(self):
+        source = "The meeting is september 30th, 2026."
+        result = apply_main_style_with_report(source)
+        self.assertEqual(result.text, "The meeting is Sept. 30, 2026.")
+        capitalization = next(
+            change
+            for change in result.changes
+            if change.rule_id == "ap.dates.month-capitalization"
+        )
+        self.assertEqual(capitalization.before, "september")
+        self.assertEqual(capitalization.after, "September")
+        self.assertTrue(capitalization.speech_preserving)
+        self.assertEqual(
+            source[capitalization.source_start:capitalization.source_end],
+            "september",
+        )
+
     def test_context_findings_use_original_offsets(self):
         source = "Governor Ron DeSantis spoke in the spring."
         result = apply_main_style_with_report(source)

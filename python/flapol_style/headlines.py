@@ -7,6 +7,7 @@ import json
 from importlib.resources import files
 import re
 
+from .dates import apply_month_capitalization_to_session
 from .numbers import (
     apply_number_sign_rules_to_session,
     number_sign_flags_for_session,
@@ -137,6 +138,7 @@ def apply_headline_rules_to_session(
     apply_office_title_form_rules_to_session(session)
     _apply_sentence_case(session, phrases)
     session.replace_pattern(_US_HEADLINE_RULE, _US_HEADLINE_RE, "U.S.")
+    apply_month_capitalization_to_session(session)
     apply_number_sign_rules_to_session(session)
 
 

@@ -7,10 +7,31 @@ import unittest
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
+from flapol_style import apply_headline_style
 from flapol_style.dates import apply_date_rules
 
 
 class DateRuleTests(unittest.TestCase):
+    def test_lowercase_month_in_proven_date_context_is_normalized(self):
+        self.assertEqual(
+            apply_date_rules(
+                "september 30th, 2026; may 5; JAN 8; sep. 12; "
+                "october, 2026; and jan. 2027"
+            ),
+            "Sept. 30, 2026; May 5; Jan. 8; Sept. 12; "
+            "October 2026; and January 2027",
+        )
+
+    def test_month_homographs_without_date_context_are_untouched(self):
+        source = "Workers may march forward with august confidence."
+        self.assertEqual(apply_date_rules(source), source)
+
+    def test_headline_sentence_case_restores_month_in_date_context(self):
+        self.assertEqual(
+            apply_headline_style("Hearing Set For September 30"),
+            "Hearing set for September 30",
+        )
+
     def test_month_with_day_uses_ap_abbreviation(self):
         self.assertEqual(
             apply_date_rules("January 8, September 12 and March 4"),
@@ -104,6 +125,21 @@ class DateRuleTests(unittest.TestCase):
             apply_date_rules(source, publication_date=date(2026, 1, 1)),
             'She said, “The meeting is Tuesday, Jan. 20, 2026.”',
         )
+
+    def test_lowercase_month_quote_and_literal_boundaries(self):
+        source = (
+            '“september 30th, 2026” and "may 5" '
+            '`september 30th, 2026` https://example.com/september-30'
+        )
+        self.assertEqual(
+            apply_date_rules(source),
+            '“Sept. 30, 2026” and "May 5" '
+            '`september 30th, 2026` https://example.com/september-30',
+        )
+
+    def test_unbalanced_quote_blocks_lowercase_month_normalization(self):
+        source = 'She said, “september 30th, 2026'
+        self.assertEqual(apply_date_rules(source), source)
 
     def test_date_pass_is_idempotent(self):
         source = (

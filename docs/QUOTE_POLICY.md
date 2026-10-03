@@ -26,7 +26,9 @@ Permitted examples include written forms such as lowercase `advisor` to `adviser
 (title-cased `Advisor` is preserved as possible formal-name text),
 `long-time` to `longtime`, `US` to `U.S.`, `8 percent` or `eight percent` to
 `8%`, `4 PM` or `four PM` to `4 p.m.`, and `Governor Ron DeSantis` to
-`Gov. Ron DeSantis`. The `Agriculture Commissioner` title is capitalized inside
+`Gov. Ron DeSantis`. A lowercase month in proven date context may be
+capitalized, such as `september 30` to `September 30`. The `Agriculture
+Commissioner` title is capitalized inside
 quotations, but quoted `Commissioner of Agriculture` ordering is preserved.
 
 Prohibited examples include changing `I don't support the bill` to `I oppose

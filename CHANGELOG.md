@@ -6,6 +6,11 @@ prefix.
 
 ## Unreleased
 
+## 0.1.0a7 — 2026-10-02
+
+- Normalize lowercase or mis-cased month names when a following day or year
+  proves date context, including in headlines and balanced quotations.
+
 ## 0.1.0a6 — 2026-10-02
 
 - Preserve title-cased `Advisor` as possible formal-name text while retaining
