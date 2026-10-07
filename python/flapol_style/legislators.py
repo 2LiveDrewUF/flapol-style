@@ -24,6 +24,16 @@ _PLURAL_RULE = RuleSpec(
     _AUTHORITY,
     speech_preserving=False,
 )
+_IDENTITY_ABBREVIATION_RULE = RuleSpec(
+    "flapol.legislators.identity-backed-title-abbreviation",
+    "Florida Politics owner ruling 2026-10-07",
+    speech_preserving=True,
+)
+_IDENTITY_PLURAL_ABBREVIATION_RULE = RuleSpec(
+    "flapol.legislators.identity-backed-plural-title-abbreviation",
+    "Florida Politics owner ruling 2026-10-07",
+    speech_preserving=True,
+)
 _ATTRIBUTION_RULE = RuleSpec(
     "flapol.legislators.jurisdiction-attribution",
     _AUTHORITY,
@@ -261,6 +271,15 @@ def _level_from_title(title: str) -> str | None:
     return None
 
 
+def _looks_explicitly_legislative(title: str) -> bool:
+    """Limit unresolved findings to forms that present themselves as titles."""
+    normalized = title.casefold()
+    if any(label in normalized for label in ("florida ", "u.s. ", "state ")):
+        return True
+    final_word = title.rsplit(maxsplit=1)[-1]
+    return "." in final_word or final_word[:1].isupper()
+
+
 def _singular_title(chamber: str) -> str:
     return "Rep." if chamber == "house" else "Sen."
 
@@ -343,6 +362,8 @@ def _collect_before_name_findings(
         else:
             records = resolver.lookup(_display_name(match))
             if len(records) != 1:
+                if not _looks_explicitly_legislative(match.group("prefix")):
+                    continue
                 suggestion = (
                     "Confirm the lawmaker's level and chamber before choosing "
                     "Rep./Sen., U.S. Rep./Sen. or state Rep./Sen."
@@ -389,6 +410,10 @@ def _collect_before_name_findings(
                 and {record.chamber for record in records} == {expected_chamber}
             )
             if not unresolved and same_scope:
+                continue
+            if unresolved and not _looks_explicitly_legislative(
+                match.group("prefix")
+            ):
                 continue
             suggestion = (
                 "Use a shared plural title only when every named lawmaker "
@@ -518,6 +543,67 @@ def apply_legislator_rules_to_session(
         _PLURAL_RULE,
         plural_pattern,
         plural_replacement,
+    )
+
+    identity_singular_pattern = re.compile(
+        rf"(?<![\w.])(?P<jurisdiction>{_JURISDICTION})"
+        rf"(?P<title>Representative|Senator)"
+        rf"(?=\s+(?P<name>{name_display})(?![\w]))",
+        re.IGNORECASE,
+    )
+
+    def identity_singular_abbreviation(
+        match: re.Match[str], _text: str
+    ) -> str | None:
+        if _has_historical_modifier(_text, match.start()):
+            return None
+        records = resolver.lookup(_display_name(match))
+        if len(records) != 1:
+            return None
+        identity = records[0]
+        if identity.chamber != _chamber_from_title(match.group("title")):
+            return None
+        return f"{match.group('jurisdiction')}{_singular_title(identity.chamber)}"
+
+    session.replace_pattern(
+        _IDENTITY_ABBREVIATION_RULE,
+        identity_singular_pattern,
+        identity_singular_abbreviation,
+    )
+
+    identity_plural_pattern = re.compile(
+        rf"(?<![\w.])(?P<jurisdiction>{_JURISDICTION})"
+        rf"(?P<title>Representatives|Senators)"
+        rf"(?=\s+(?P<names>{name_list}))",
+        re.IGNORECASE,
+    )
+
+    def identity_plural_abbreviation(
+        match: re.Match[str], _text: str
+    ) -> str | None:
+        if _has_historical_modifier(_text, match.start()):
+            return None
+        records: list[LegislatorIdentity] = []
+        for name_match in resolver.name_re.finditer(match.group("names")):
+            matches = resolver.lookup(name_match.group("name"))
+            if len(matches) != 1:
+                return None
+            records.append(matches[0])
+        expected_chamber = _chamber_from_title(match.group("title"))
+        if (
+            len(records) < 2
+            or {record.chamber for record in records} != {expected_chamber}
+        ):
+            return None
+        return (
+            f"{match.group('jurisdiction')}"
+            f"{_plural_title(expected_chamber)}"
+        )
+
+    session.replace_pattern(
+        _IDENTITY_PLURAL_ABBREVIATION_RULE,
+        identity_plural_pattern,
+        identity_plural_abbreviation,
     )
 
     def attribution_replacement(

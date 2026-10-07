@@ -232,6 +232,14 @@ legislator-jurisdiction-scoping:
   contexts: [main]
   protected_regions: required
   implementations: [python/flapol_style/legislators.py, docs/LEGISLATOR_STYLE_SCOPE.md]
+identity-backed-legislator-title-abbreviation:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/legislators.py, docs/LEGISLATOR_STYLE_SCOPE.md]
 florida-governor-home-state:
   documented: true
   detected: true

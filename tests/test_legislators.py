@@ -222,6 +222,16 @@ class LegislatorStyleTests(unittest.TestCase):
         self.assertTrue(
             all(change.speech_preserving for change in result.changes)
         )
+        second = self.apply(result.text)
+        self.assertEqual(second.text, result.text)
+        self.assertEqual(second.changes, ())
+
+    def test_quote_does_not_abbreviate_an_unknown_identity(self):
+        source = 'She said, "Representative Jane Doe called."'
+        result = self.apply(source)
+        self.assertEqual(result.text, source)
+        self.assertEqual(result.changes, ())
+        self.assertEqual(result.findings, ())
 
     def test_quote_abbreviates_plural_title_without_changing_jurisdiction(self):
         result = self.apply(
@@ -236,7 +246,7 @@ class LegislatorStyleTests(unittest.TestCase):
         self.assertEqual(len(result.changes), 1)
         self.assertEqual(
             result.changes[0].rule_id,
-            "flapol.titles.title-representatives",
+            "flapol.legislators.identity-backed-plural-title-abbreviation",
         )
         self.assertTrue(result.changes[0].speech_preserving)
 
@@ -253,10 +263,10 @@ class LegislatorStyleTests(unittest.TestCase):
     def test_unknown_and_wrong_chamber_identities_are_findings(self):
         unknown = self.apply("Florida Representative Jane Doe spoke.")
         wrong = self.apply("Senator Anna Eskamani spoke.")
-        self.assertEqual(unknown.text, "Florida Rep. Jane Doe spoke.")
+        self.assertEqual(unknown.text, "Florida Representative Jane Doe spoke.")
         self.assertEqual(len(unknown.findings), 1)
         self.assertIn("Confirm the lawmaker's level", unknown.findings[0].suggestion)
-        self.assertEqual(wrong.text, "Sen. Anna Eskamani spoke.")
+        self.assertEqual(wrong.text, "Senator Anna Eskamani spoke.")
         self.assertEqual(len(wrong.findings), 1)
         self.assertIn("identifies Anna V. Eskamani", wrong.findings[0].suggestion)
 
@@ -268,14 +278,14 @@ class LegislatorStyleTests(unittest.TestCase):
         result = self.apply(source)
         self.assertEqual(
             result.text,
-            "Former Florida Rep. Darren Soto met Rep. Anna Eskamani.",
+            "Former Florida Representative Darren Soto met Rep. Anna Eskamani.",
         )
         self.assertEqual(len(result.findings), 1)
         self.assertIn("historical office", result.findings[0].suggestion)
 
     def test_other_state_lawmaker_requires_an_overlay(self):
         result = self.apply("Georgia Representative Jane Doe spoke.")
-        self.assertEqual(result.text, "Georgia Rep. Jane Doe spoke.")
+        self.assertEqual(result.text, "Georgia Representative Jane Doe spoke.")
         self.assertEqual(len(result.findings), 1)
         self.assertIn("Confirm the lawmaker's level", result.findings[0].suggestion)
 
@@ -347,7 +357,7 @@ class LegislatorStyleTests(unittest.TestCase):
             "Florida Representative Jane Doe spoke.",
             overlays=overlays,
         )
-        self.assertEqual(result.text, "Florida Rep. Jane Doe spoke.")
+        self.assertEqual(result.text, "Florida Representative Jane Doe spoke.")
         self.assertEqual(len(result.findings), 1)
         self.assertIn("Confirm the lawmaker's level", result.findings[0].suggestion)
 
@@ -373,7 +383,33 @@ class LegislatorStyleTests(unittest.TestCase):
     def test_legacy_call_without_identity_date_does_not_infer_a_mode(self):
         self.assertEqual(
             apply_main_style("Representative Darren Soto spoke."),
-            "Rep. Darren Soto spoke.",
+            "Representative Darren Soto spoke.",
+        )
+
+    def test_nonlegislative_representatives_are_not_changed_or_flagged(self):
+        sources = (
+            "Santa Rosa County School District representative Joey Harrell spoke.",
+            "The applicant representative Joey Harrell spoke.",
+            "LEAD representatives Brad Weber and Mike Kelly spoke.",
+            "Former District 6 representatives Karl Nurse and Frank Peterman spoke.",
+            "Florida House of Representatives Legislative Fellows Program",
+        )
+        for source in sources:
+            with self.subTest(source=source):
+                result = self.apply(source)
+                self.assertEqual(result.text, source)
+                self.assertEqual(result.changes, ())
+                self.assertEqual(result.findings, ())
+
+    def test_abbreviated_unknown_lawmaker_title_is_preserved_and_flagged(self):
+        source = "Sen. René García discussed the Miami-Dade budget."
+        result = self.apply(source)
+        self.assertEqual(result.text, source)
+        self.assertEqual(result.changes, ())
+        self.assertEqual(len(result.findings), 1)
+        self.assertEqual(
+            result.findings[0].rule_id,
+            "flapol.legislators.jurisdiction-before-name",
         )
 
     def test_edits_retain_source_coordinates_and_text_is_idempotent(self):

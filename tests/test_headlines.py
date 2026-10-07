@@ -71,6 +71,14 @@ class HeadlineRuleTests(unittest.TestCase):
             'Candidate quotes “Commissioner of Agriculture” in new ad',
         )
 
+    def test_full_agriculture_and_consumer_services_title_is_untouched(self):
+        self.assertEqual(
+            apply_headline_style(
+                "Commissioner of Agriculture and Consumer Services"
+            ),
+            "Commissioner of Agriculture and Consumer Services",
+        )
+
     def test_internal_capitals_acronyms_and_money_are_preserved(self):
         self.assertEqual(
             apply_headline_style("DeSantis Says SpaceX Deal Is Worth $547M"),

@@ -97,6 +97,13 @@ _FLAG_PATTERNS = tuple(
         reverse=True,
     )
 )
+_IDENTITY_REQUIRED_TITLE_FLAG_IDS = {
+    "representative-title",
+    "senator-title",
+}
+_FOLLOWED_BY_FULL_NAME_RE = re.compile(
+    rf"\s+{FULL_NAME_DISPLAY_PATTERN}(?:\b|(?<=\*\*))"
+)
 
 
 def apply_capitalization_rules_to_session(session: EditingSession) -> None:
@@ -162,6 +169,11 @@ def capitalization_flags_for_session(session: EditingSession) -> tuple[Finding, 
             for match in pattern.finditer(chunk):
                 found = match.group(0)
                 if found == record["to"]:
+                    continue
+                if (
+                    record["id"] in _IDENTITY_REQUIRED_TITLE_FLAG_IDS
+                    and _FOLLOWED_BY_FULL_NAME_RE.match(chunk, match.end())
+                ):
                     continue
                 candidate = (match.start(), match.end())
                 if any(

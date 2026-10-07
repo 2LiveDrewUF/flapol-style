@@ -171,3 +171,22 @@ look tidier than it was.
 - Consequence: This rule family has no quotation access. Balanced quotations,
   including quoted rankings and social posts, are untouched and unflagged;
   malformed quotations and literal regions fail closed.
+
+## D-016 — Unqualified legislative-title abbreviations require identity
+
+- Status: Accepted; implemented in 0.1.0a8
+- Decision: Do not abbreviate unqualified `Representative`, `Representatives`,
+  `Senator` or `Senators` merely because name-shaped text follows. Require the
+  dated public officeholder book or a caller overlay to resolve the named
+  person or people to the matching chamber. Explicit `U.S.` legislative titles
+  remain eligible for the general title registry because their jurisdiction is
+  stated in the text.
+- Why: Organizational representatives, applicants, former local officials and
+  institutional names can share the same surface pattern. Capitalization-shaped
+  text is not identity proof.
+- Consequence: Identity-proven abbreviation alone is speech-preserving inside
+  balanced quotations, but the rule preserves every spoken jurisdiction word.
+  Unknown or ambiguous title-name forms remain unchanged and are findings only
+  when the text presents the term as a legislative title. The formal phrase
+  `Commissioner of Agriculture and Consumer Services` is also protected from
+  the shorter Agriculture Commissioner ordering rule.

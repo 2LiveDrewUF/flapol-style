@@ -147,6 +147,11 @@ class CapitalizationTests(unittest.TestCase):
         source = "vice president Kamala Harris addressed the general election."
         self.assertEqual(find_capitalization_flags(source), ())
 
+    def test_unresolved_legislative_word_before_name_needs_identity(self):
+        source = "The applicant representative Joey Harrell spoke."
+        self.assertEqual(normalize_capitalization(source), source)
+        self.assertEqual(find_capitalization_flags(source), ())
+
     def test_quotation_is_neither_changed_nor_flagged(self):
         source = 'The general election matters. “It may fall in the spring.”'
         self.assertEqual(

@@ -27,7 +27,8 @@ _FLORIDA_GOVERNOR_HOME_STATE_RULE = RuleSpec(
     speech_preserving=False,
 )
 _COMMISSIONER_OF_AGRICULTURE_RE = re.compile(
-    r"(?<![\w])(?i:Commissioner\s+of\s+Agriculture)(?![\w])"
+    r"(?<![\w])(?i:Commissioner\s+of\s+Agriculture)"
+    r"(?!(?i:\s+and\s+Consumer\s+Services\b))(?![\w])"
 )
 _AGRICULTURE_COMMISSIONER_RE = re.compile(
     r"(?<![\w])(?i:Agriculture\s+Commissioner)(?![\w])"

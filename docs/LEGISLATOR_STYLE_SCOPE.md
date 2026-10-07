@@ -6,14 +6,18 @@ Implemented for the `main` profile in `flapol-style` 0.1.0a5. The public
 officeholder book supplies identity evidence to the document-level convention
 below when a caller provides an explicit officeholder as-of date.
 
-The governing source is Drew's Florida Politics ruling of Sept. 29-Oct. 2,
-2026. Existing title-abbreviation rules remain independently active.
+The governing source is Drew's Florida Politics rulings of Sept. 29-Oct. 7,
+2026. Beginning with 0.1.0a8, unqualified legislative-title abbreviations use
+the same identity proof as the jurisdiction rules instead of the general
+name-shaped title registry.
 
 ## Stable rule families
 
 - `legislator-jurisdiction-before-name`
 - `legislator-jurisdiction-plural`
 - `legislator-jurisdiction-attribution`
+- `identity-backed-legislator-title-abbreviation`
+- `identity-backed-legislator-plural-title-abbreviation`
 
 These rules apply to the `main` profile. Headline treatment is outside this
 scope until separately settled.
@@ -64,9 +68,10 @@ title text or silently continue with stale identities.
 - Use `state Rep.` or `state Sen.` before a Florida state lawmaker's name.
 - Never use `Florida Rep.` or `Florida Sen.` as edited narration.
 
-The long title immediately before a full name is abbreviated in every mode,
-including inside balanced direct quotations. That written rendering is already
-classified as speech-preserving by the existing title rules.
+The long title immediately before a resolved current lawmaker's full name is
+abbreviated in every mode, including inside balanced direct quotations. The
+identity-backed abbreviation is separately classified as speech-preserving;
+identity proof never grants the jurisdiction-changing rules quotation access.
 
 ## Action classes
 
@@ -77,10 +82,10 @@ full name may be normalized to the form required by the document mode. This
 includes removing `Florida`, adding `U.S.` or lowercase `state`, and applying
 the established `Rep.` or `Sen.` abbreviation.
 
-The written plural title is abbreviated before a name, including inside a
-balanced quotation. Outside quotations, its jurisdiction may be normalized
-only when a syntactically closed coordinated list resolves every named person
-to the same legislative level and chamber.
+The written plural title is abbreviated before a syntactically closed list of
+resolved same-chamber lawmakers, including inside a balanced quotation.
+Outside quotations, its jurisdiction may be normalized only when every named
+person also resolves to the same legislative level.
 
 In a state-only or federal-only document, a standalone attribution title may be
 normalized to the corresponding settled form when the attribution structure is
@@ -90,7 +95,7 @@ unambiguous.
 
 Preserve and report instead of guessing when:
 
-- a title-name identity is unknown or ambiguous;
+- text presents an unknown or ambiguous title-name form as legislative;
 - a coordinated list mixes chambers or legislative levels;
 - a mixed document uses a standalone `Representative` or `Senator`
   attribution whose speaker cannot be bound deterministically;
@@ -101,9 +106,9 @@ Preserve and report instead of guessing when:
 ## Quotation and literal boundaries
 
 Inside a balanced direct quotation, preserve spoken jurisdiction words. Thus a
-speaker's `Florida Representative NAME` may receive the already authorized
-`Representative` to `Rep.` rendering, but this rule family must not add, remove
-or replace `Florida`, `state` or `U.S.` inside the quotation.
+speaker's identity-proven `Florida Representative NAME` may receive the
+authorized `Representative` to `Rep.` rendering, but this rule family must not
+add, remove or replace `Florida`, `state` or `U.S.` inside the quotation.
 
 Unbalanced quotations fail closed. Code, literal examples, URLs, email
 addresses and link destinations remain hard-protected.

@@ -6,6 +6,16 @@ prefix.
 
 ## Unreleased
 
+## 0.1.0a8 — 2026-10-07
+
+- Require dated officeholder or caller-overlay identity before abbreviating
+  unqualified `Representative`, `Representatives`, `Senator` or `Senators`,
+  preventing organizational, applicant, local-office and institutional false
+  positives while retaining identity-proven quotation rendering.
+- Preserve the full formal phrase `Commissioner of Agriculture and Consumer
+  Services` instead of applying the shorter Agriculture Commissioner ordering
+  rule.
+
 ## 0.1.0a7 — 2026-10-02
 
 - Normalize lowercase or mis-cased month names when a following day or year

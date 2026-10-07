@@ -26,8 +26,15 @@ class TitleAbbreviationTests(unittest.TestCase):
                 "U.S. Senator Rick Scott and Representative Anna Eskamani."
             ),
             "Gov. Ron DeSantis met Lt. Gov. Jeanette Nuñez, "
-            "U.S. Sen. Rick Scott and Rep. Anna Eskamani.",
+            "U.S. Sen. Rick Scott and Representative Anna Eskamani.",
         )
+
+    def test_unqualified_legislative_title_requires_identity_context(self):
+        source = (
+            "Representative Anna Eskamani met Senators Rick Scott and "
+            "Ashley Moody."
+        )
+        self.assertEqual(abbreviate_titles_before_names(source), source)
 
     def test_c_suite_titles_may_use_initialisms_on_first_reference(self):
         self.assertEqual(
@@ -109,6 +116,13 @@ class OfficeTitleFormTests(unittest.TestCase):
         source = (
             "The USDA Secretary met several agriculture commissioners and the "
             "commissioner of agricultural services."
+        )
+        self.assertEqual(normalize_office_title_forms(source), source)
+
+    def test_full_agriculture_and_consumer_services_title_is_untouched(self):
+        source = (
+            "Commissioner of Agriculture and Consumer Services; "
+            "commissioner of agriculture and consumer services"
         )
         self.assertEqual(normalize_office_title_forms(source), source)
 

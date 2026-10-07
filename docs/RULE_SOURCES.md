@@ -175,10 +175,17 @@ document uses `U.S. Rep.` or `U.S. Sen.` for federal lawmakers and lowercase
 The implementation requires an explicit officeholder as-of date and resolves
 identity from the public base plus caller overlays. Unknown identities,
 mixed-level plural lists, former or historical offices and mixed-document
-standalone attributions become findings instead of guesses. Inside balanced
-direct quotations, spoken jurisdiction words remain unchanged; the existing
-speech-preserving title rules may still abbreviate `Representative` or
-`Senator`. Stale required roster data stops the identity-dependent family.
+standalone attributions become findings instead of guesses. Unqualified
+`Representative`, `Representatives`, `Senator` and `Senators` are no longer
+abbreviated from name-shaped text alone. Inside balanced direct quotations,
+spoken jurisdiction words remain unchanged; an identity-proven,
+speech-preserving rule may abbreviate the long title only. Stale required
+roster data stops the identity-dependent family.
+
+The full formal phrase `Commissioner of Agriculture and Consumer Services` is
+outside the shorter Agriculture Commissioner ordering rule. The package
+preserves that phrase instead of producing the malformed hybrid `Agriculture
+Commissioner and Consumer Services`.
 
 ## Date capitalization
 
