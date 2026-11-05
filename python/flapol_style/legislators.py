@@ -346,14 +346,25 @@ def _split_name_list(value: str) -> tuple[str, ...]:
 def _collect_before_name_findings(
     session: EditingSession,
     resolver: _IdentityResolver,
+    singular_pattern: re.Pattern[str],
 ) -> list[Finding]:
     protected = find_protected_spans(session.text)
+    hard_protected = find_protected_spans(session.text, allow_balanced_quotations=True)
     findings: list[Finding] = []
 
     for match in _GENERIC_SINGULAR_RE.finditer(session.text):
-        end = match.end("name")
-        if _overlaps(match.start(), end, protected):
+        if _overlaps(match.start(), match.end(), protected):
             continue
+        # The name-shaped fallback can stop before a registered quoted
+        # nickname or other punctuation within a full name.
+        registered = singular_pattern.match(session.text, match.start())
+        if registered and registered.end("name") > match.end("name"):
+            if _overlaps(registered.start(), registered.end("name"), hard_protected):
+                continue
+            match = registered
+        elif _overlaps(match.start(), match.end("name"), protected):
+            continue
+        end = match.end("name")
         if _has_historical_modifier(session.text, match.start()):
             suggestion = (
                 "Confirm the historical office and jurisdiction; the current "
@@ -479,11 +490,6 @@ def apply_legislator_rules_to_session(
     else:
         mode = "unresolved"
 
-    findings = [
-        *_collect_before_name_findings(session, resolver),
-        *_collect_attribution_findings(session, mode),
-    ]
-
     name_display = (
         rf"(?:\*\*(?:{resolver.name_pattern})\*\*|"
         rf"(?:{resolver.name_pattern}))"
@@ -493,6 +499,10 @@ def apply_legislator_rules_to_session(
         rf"(?=\s+(?P<name>{name_display})(?![\w]))",
         re.IGNORECASE,
     )
+    findings = [
+        *_collect_before_name_findings(session, resolver, singular_pattern),
+        *_collect_attribution_findings(session, mode),
+    ]
 
     def singular_replacement(match: re.Match[str], _text: str) -> str | None:
         if _has_historical_modifier(_text, match.start()):

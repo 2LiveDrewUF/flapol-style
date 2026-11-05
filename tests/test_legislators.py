@@ -373,12 +373,75 @@ class LegislatorStyleTests(unittest.TestCase):
                 legislator_overlays=(overlay,),
             )
 
-    def test_identity_rules_require_roster_adjudication_when_stale(self):
-        with self.assertRaises(OfficeholderBookStaleError):
+    def test_identity_rules_require_congressional_adjudication_at_term_end(self):
+        with self.assertRaises(OfficeholderBookStaleError) as raised:
             apply_main_style(
                 "Representative Anna Eskamani spoke.",
-                officeholder_as_of=date(2026, 11, 4),
+                officeholder_as_of=date(2027, 1, 3),
             )
+        self.assertEqual(raised.exception.group_id, "florida-congressional-delegation")
+
+    def test_incoming_candidates_do_not_supply_sitting_title_context(self):
+        as_of = date(2026, 11, 5)
+        result = apply_main_style_with_report(
+            "Representative Cory Mills spoke. Representative Ryan Elijah spoke.",
+            officeholder_as_of=as_of,
+        )
+        self.assertEqual(
+            result.text, "U.S. Rep. Cory Mills spoke. Representative Ryan Elijah spoke."
+        )
+        self.assertEqual(len(result.findings), 1)
+
+    def test_current_roster_variants_resolve_through_main_style(self):
+        as_of = date(2026, 11, 5)
+        for title, short, name in (
+            ("Representative", "Rep.", "Jim Mooney"),
+            ("Representative", "Rep.", "James Mooney"),
+            ("Representative", "Rep.", 'James Vernon "Jim" Mooney Jr.'),
+            ("Representative", "Rep.", "James “Jim” Mooney"),
+            ("Representative", "Rep.", "J.J. Grow"),
+            ("Senator", "Sen.", "Thomas J. Leek"),
+            ("Senator", "Sen.", "Thomas Leek"),
+            ("Senator", "Sen.", "Thomas J “Tom” Leek"),
+            ("Senator", "Sen.", "Ralph E. Massullo Jr."),
+            ("Senator", "Sen.", "Jason W. B. Pizzo"),
+        ):
+            with self.subTest(name=name):
+                source = f"Florida {title} {name} spoke."
+                result = apply_main_style_with_report(source, officeholder_as_of=as_of)
+                self.assertEqual(result.text, f"{short} {name} spoke.")
+                self.assertEqual(result.findings, ())
+                change, = result.changes
+                self.assertEqual(change.before, f"Florida {title}")
+                self.assertEqual(change.after, short)
+                self.assertEqual((change.source_start, change.source_end), (0, len(change.before)))
+                repeated = apply_main_style_with_report(result.text, officeholder_as_of=as_of)
+                self.assertEqual(repeated.text, result.text)
+                self.assertEqual(repeated.changes, ())
+
+    def test_registered_nickname_respects_protection_and_exact_identity(self):
+        as_of = date(2026, 11, 5)
+        straight_name = 'James Vernon "Jim" Mooney Jr.'
+        curly_name = "James Vernon “Jim” Mooney Jr."
+        phrase = f"Florida Representative {straight_name}"
+        for source, expected in (
+            (f"“{phrase} spoke,” she said.", f"“Florida Rep. {straight_name} spoke,” she said."),
+            (f'"Florida Representative {curly_name} spoke," she said.',
+             f'"Florida Rep. {curly_name} spoke," she said.'),
+            (f"`{phrase}`", None),
+            ('Florida Representative James Vernon "Jim Mooney spoke.', None),
+            ('Florida Representative James Vernon "Jack" Mooney spoke.', None),
+            ("Florida Senator Thomas X. Leek spoke.", None),
+            ("Florida Representative Monique Miller spoke.", None),
+        ):
+            with self.subTest(source=source):
+                result = apply_main_style_with_report(source, officeholder_as_of=as_of)
+                self.assertEqual(result.text, source if expected is None else expected)
+        wrong_title = f"Florida Senator {straight_name} spoke."
+        result = apply_main_style_with_report(wrong_title, officeholder_as_of=as_of)
+        self.assertEqual(result.text, wrong_title)
+        self.assertEqual(len(result.findings), 1)
+        self.assertIn("as a Representative", result.findings[0].suggestion)
 
     def test_legacy_call_without_identity_date_does_not_infer_a_mode(self):
         self.assertEqual(

@@ -155,12 +155,39 @@ Some Florida agencies use longstanding official `.com` domains. Source
 admission is based on the government office controlling the site, not a
 literal top-level-domain test.
 
-The official Florida House roster assigns the 2024-2026 term an end date of
-Nov. 3, 2026. Consistent with the owner's ruling that a stale book requires
-adjudication, the packaged state-legislator group is valid through that date
-and refuses operational loading beginning Nov. 4. Special elections,
-resignations, deaths and other changes may require an earlier refresh; the
-date is a backstop, not a guarantee that no seat can change beforehand.
+The 2024-2026 legislative snapshot serves dates through Nov. 3, 2026. The
+2026-2028 snapshot was checked Nov. 5, 2026, against the [Florida House
+roster](https://www.flhouse.gov/Representatives) and the [2026-2028 Florida
+Senate roster](https://www.flsenate.gov/Senators/2026-2028). It serves dates
+from Nov. 4, 2026, through the House's listed term end, Nov. 7, 2028.
+House District 33 was listed as pending election and Senate District 39
+was listed as vacant. The Nov. 8, 2028, staleness gate is a backstop.
+Special elections, resignations, deaths and other changes can require an
+earlier refresh.
+
+The Nov. 5, 2026, Florida Politics owner guidance omits middle initials from
+primary names in the refreshed state roster. The roster preserves the
+chambers' names for provenance and derives aliases with and without sourced
+initials, as well as standalone and quoted forms of sourced nicknames.
+These aliases supply identity evidence for the existing title rules.
+
+The incoming U.S. House slate reflects the [Florida Division of Elections'
+unofficial results](https://floridaelectionwatch.gov/FederalOffices/USRepresentative)
+as checked Nov. 5, 2026. The state's [District 10 candidate
+record](https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89909)
+lists Maxwell Frost as unopposed. Districts 7, 9, 26 and 27 are marked
+provisional for a certification check. The [current House
+directory](https://www.house.gov/representatives) supplies the sitting
+roster, including its District 20 vacancy. The [Twentieth
+Amendment](https://constitution.congress.gov/static/files/Literal_Print_of_Constitution_MCT_1.9.26.pdf)
+sets the new House term at noon Jan. 3, 2027. Representatives take the
+oath when the [House organizes](https://history.house.gov/Institution/Origins-Development/Oath-of-Office/).
+
+The incoming executive entries use the [Florida Division of Elections'
+state offices results](https://floridaelectionwatch.gov/StateOffices/) checked
+Nov. 5, 2026. Article IV, section 5 of the [Florida
+Constitution](https://www.flsenate.gov/Laws/Constitution) sets the next
+executive term start on Jan. 5, 2027.
 
 ## State and federal legislator titles
 

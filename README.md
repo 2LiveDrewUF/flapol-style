@@ -130,11 +130,10 @@ application code.
 
 The package also provides a narrow public officeholder base covering Florida's
 statewide executive officers, congressional delegation and state lawmakers.
-Consumers must request a group with an explicit as-of date. The current
-state-legislator snapshot refuses to load beginning Nov. 4, 2026, so expiration
-becomes an adjudication gate rather than a warning that stale identities may be
-used anyway. Private, regional and reporter-specific name books remain caller
-overlays.
+Consumers must request a group with an explicit as-of date. The state
+legislator roster switches to the 2026-2028 snapshot on Nov. 4, 2026, and
+requires fresh adjudication beginning Nov. 8, 2028. Private, regional and
+reporter-specific name books remain caller overlays.
 
 Consumers can call `apply_main_style()` for the stable product-neutral
 pipeline or use the narrower date, word-form and title functions separately.

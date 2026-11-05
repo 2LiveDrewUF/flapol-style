@@ -60,19 +60,29 @@ from flapol_style import load_officeholder_group
 
 legislators = load_officeholder_group(
     "florida-state-legislature",
-    as_of=date(2026, 10, 2),
+    as_of=date(2026, 11, 5),
 )
 ```
 
-The package never substitutes the machine date. The state-legislature snapshot
-is valid through Nov. 3, 2026. On or after Nov. 4,
-`load_officeholder_group()` raises `OfficeholderBookStaleError` instead of
-returning the old identities. In this API, stale means adjudication is required;
-it does not mean “warn and keep going.” The packaged JSON remains inspectable
-for that review.
+The state-legislature group selects the snapshot for the supplied date.
+The 2024-2026 snapshot applies through Nov. 3, 2026, and the 2026-2028
+snapshot applies from Nov. 4, 2026, through Nov. 7, 2028.
+`load_officeholder_group()` raises `OfficeholderBookStaleError` starting
+Nov. 8, 2028, until the next roster is adjudicated and loaded.
 
-Entries include official names, conservative source-derived aliases, office,
+The executive and congressional groups also expose `incoming` from the
+date the transition was recorded. Its `entries` list is reference data for
+the expected term, separate from sitting `entries`. The incoming U.S.
+House records distinguish provisional races, other unofficial leaders and
+the unopposed district. The sitting congressional group requires
+adjudication starting Jan. 3, 2027. The sitting executive group requires
+adjudication starting Jan. 5, 2027.
+
+Entries include primary names, conservative source-derived aliases, office,
 level, chamber or district where applicable, status and source identifiers.
+The refreshed state roster uses primary names without middle initials and
+retains the chamber's listing in `source_name`. Aliases resolve sourced
+initials and nicknames, including straight and curly double-quoted forms.
 Vacant and pending-election seats are recorded separately and never represented
 by a former officeholder. Callers may add private or regional aliases and
 people through their own overlays; those additions do not belong in this base.
@@ -92,7 +102,7 @@ edited = apply_main_style(
 ```
 
 The document mode is state-only, federal-only, mixed or unresolved based on
-lawmakers whose identities resolve in the copy. Exact official names,
+lawmakers whose identities resolve in the copy. Primary names,
 conservative initial-omission variants and explicit aliases are eligible.
 Institutional mentions do not establish a person's level. The legacy call
 without `officeholder_as_of` retains the generic before-name title

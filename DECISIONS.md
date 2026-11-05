@@ -190,3 +190,31 @@ look tidier than it was.
   when the text presents the term as a legislative title. The formal phrase
   `Commissioner of Agriculture and Consumer Services` is also protected from
   the shorter Agriculture Commissioner ordering rule.
+
+## D-017 — Select the state roster by legislative term
+
+- Status: Implemented, Nov. 5, 2026
+- Decision: Preserve the 2024-2026 snapshot for dates through Nov. 3, 2026.
+  Use the refreshed 2026-2028 House and Senate rosters from Nov. 4, 2026,
+  through the House's listed term end on Nov. 7, 2028. Require adjudication
+  starting Nov. 8, 2028, unless a subsequent snapshot covers that date.
+- Decision: Omit middle initials from primary names in the refreshed state
+  roster. Retain official source names and use source-derived aliases for
+  formal, shortened and quoted-nickname forms. These are identity data for the
+  existing legislative-title rules.
+- Consequence: House District 33 is pending election and Senate District 39
+  is vacant as of Nov. 5, 2026. The term boundary is a backstop. Recheck
+  individual seats when official changes are reported.
+
+## D-018 — Record incoming officeholders separately
+
+- Status: Implemented, Nov. 5, 2026
+- Decision: Keep sitting officeholders in `entries` and record incoming
+  officeholders in the group's `incoming` section, with the evidence date
+  and expected start. Mark the four U.S. House races Drew identified as
+  unresolved as provisional. Reconcile results against certification.
+- Consequence: Existing identity rules use sitting officeholders. The
+  current congressional and executive snapshots require adjudication on
+  Jan. 3 and Jan. 5, 2027, respectively. Confirm seating or assumption of
+  office before activating the incoming entries, then preserve the prior
+  sitting roster for historical dates.

@@ -150,6 +150,7 @@ public-officeholder-base:
   contexts: [identity-context]
   protected_regions: not_applicable
   caller_context: explicit_as_of_date
+  notes: State legislative terms have dated snapshots and source-derived name aliases.
   implementations: [python/flapol_style/data/officeholders.json, python/flapol_style/officeholders.py]
 unauthorized-bold-removal:
   documented: true

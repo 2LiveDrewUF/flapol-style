@@ -9,7 +9,7 @@ dated staleness boundary before committing generated data.
 from __future__ import annotations
 
 import argparse
-from datetime import date, datetime
+from datetime import date, timedelta
 import html
 import json
 from pathlib import Path
@@ -35,12 +35,19 @@ SOURCES = {
     "florida-agriculture-commissioner": "https://www.fdacs.gov/About-Us/Meet-Commissioner-Simpson",
     "us-house-florida": "https://www.house.gov/representatives",
     "us-senate-florida": "https://www.senate.gov/states/FL/intro.htm",
-    "florida-house": "https://www.flhouse.gov/Representatives",
-    "florida-senate": "https://www.flsenate.gov/Senators",
+    "florida-house-2026-2028": "https://www.flhouse.gov/Representatives",
+    "florida-senate-2026-2028": "https://www.flsenate.gov/Senators/2026-2028",
     "florida-2026-election-dates": "https://dos.fl.gov/elections/for-voters/election-dates/",
     "florida-legislative-terms": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0100/Sections/0100.041.html",
     "greg-steube": "https://steube.house.gov/",
 }
+
+STATE_LEGISLATURE_ID = "florida-state-legislature"
+STATE_VALID_FROM = "2026-11-04"
+STATE_VALID_THROUGH = "2028-11-07"
+STATE_HOUSE_SOURCE = "florida-house-2026-2028"
+STATE_SENATE_SOURCE = "florida-senate-2026-2028"
+STATE_PARTY_PATTERN = r"Republican|Democrat|No Party Affiliation"
 
 
 def fetch(url: str) -> str:
@@ -113,6 +120,52 @@ def aliases_from_inverted(source_name: str) -> tuple[str, list[str]]:
     return official_name, aliases
 
 
+def state_legislator_names(source_name: str) -> tuple[str, list[str]]:
+    """Keep source-backed variants while omitting initials in the primary name."""
+    surname, given = (part.strip() for part in source_name.split(",", 1))
+    given = re.sub(r"^(?:Dr\.|Hon\.)\s+", "", given)
+    suffix = ""
+    for field in (surname, given):
+        match = re.search(r"(?:,\s*|\s+)(Jr\.|Sr\.|II|III|IV)$", field)
+        if match:
+            suffix = match[1]
+            if field == surname:
+                surname = surname[:match.start()]
+            else:
+                given = given[:match.start()]
+            break
+
+    nickname_match = re.search(r'"([^"]+)"|“([^”]+)”', given)
+    nickname = ""
+    if nickname_match:
+        nickname = (nickname_match[1] or nickname_match[2]).strip()
+        given = f"{given[:nickname_match.start()]} {given[nickname_match.end():]}"
+    if re.search(r'["“”]', given):
+        raise ValueError(f"unrecognized nickname structure: {source_name}")
+    first, *middle = given.split()
+    initial = re.compile(r"[A-Z]\.?")
+    preferred = " ".join([first, *(part for part in middle if not initial.fullmatch(part))])
+    official = " ".join([first, *middle])
+    undotted = " ".join(
+        [first, *(part.rstrip(".") if initial.fullmatch(part) else part for part in middle)]
+    )
+    given_forms = list(dict.fromkeys((preferred, official, undotted, first)))
+    if nickname:
+        formal_forms = tuple(given_forms)
+        given_forms.append(nickname)
+        for formal in formal_forms:
+            given_forms.extend((f'{formal} "{nickname}"', f"{formal} “{nickname}”"))
+
+    name = " ".join(part for part in (preferred, surname, suffix) if part)
+    aliases = dict.fromkeys(
+        " ".join(part for part in (form, surname, ending) if part)
+        for form in given_forms
+        for ending in (suffix, "")
+    )
+    aliases.pop(name)
+    return name, list(aliases)
+
+
 def person_entry(
     *,
     entry_id: str,
@@ -148,6 +201,25 @@ def person_entry(
     if profile_url:
         entry["profile_url"] = profile_url
     return entry
+
+
+def state_legislator_entry(
+    *, chamber: str, district: int, party: str, source_name: str, profile_url: str
+) -> dict[str, object]:
+    name, aliases = state_legislator_names(source_name)
+    return person_entry(
+        entry_id=f"fl-{chamber}-{district}",
+        name=name,
+        level="state",
+        office="representative" if chamber == "house" else "senator",
+        chamber=chamber,
+        district=district,
+        party=party,
+        source_id=STATE_HOUSE_SOURCE if chamber == "house" else STATE_SENATE_SOURCE,
+        source_name=source_name,
+        aliases=aliases,
+        profile_url=profile_url,
+    )
 
 
 def title_text(page: str) -> str:
@@ -305,6 +377,7 @@ def parse_us_senate(page: str) -> list[dict[str, object]]:
 
 def parse_florida_house(page: str) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
     entries: list[dict[str, object]] = []
+    term_end = date.fromisoformat(STATE_VALID_THROUGH).strftime("%m/%d/%y")
     blocks = re.findall(
         r'<a\b[^>]*href="([^"]*details\.aspx\?MemberId=[^"]+)"[^>]*>(.*?)</a>',
         page,
@@ -312,30 +385,22 @@ def parse_florida_house(page: str) -> tuple[list[dict[str, object]], list[dict[s
     )
     for href, block in blocks:
         name_match = re.search(r"<h5[^>]*>(.*?)</h5>", block, flags=re.I | re.S)
+        plain_block = clean_markup(block)
         party_match = re.search(
-            r"<p[^>]*>\s*(Republican|Democrat|No Party Affiliation)\s*&mdash;.*?District:\s*(\d+)",
-            block,
-            flags=re.I | re.S,
+            rf"({STATE_PARTY_PATTERN})\s*—\s*District:\s*(\d+)", plain_block
         )
-        dates = re.search(r"(\d{2}/\d{2}/\d{2})\s*-\s*(\d{2}/\d{2}/\d{2})", clean_markup(block))
-        if not all((name_match, party_match, dates)) or dates.group(2) != "11/03/26":
+        dates = re.search(r"\d{2}/\d{2}/\d{2}\s*-\s*(\d{2}/\d{2}/\d{2})", plain_block)
+        if not all((name_match, party_match, dates)) or dates[1] != term_end:
             continue
         source_name = clean_markup(name_match.group(1))
-        name, aliases = aliases_from_inverted(source_name)
         district = int(party_match.group(2))
         entries.append(
-            person_entry(
-                entry_id=f"fl-house-{district}",
-                name=name,
-                level="state",
-                office="representative",
+            state_legislator_entry(
                 chamber="house",
                 district=district,
                 party=party_match.group(1),
-                source_id="florida-house",
                 source_name=source_name,
-                aliases=aliases,
-                profile_url=urljoin(SOURCES["florida-house"], html.unescape(href)),
+                profile_url=urljoin(SOURCES[STATE_HOUSE_SOURCE], html.unescape(href)),
             )
         )
 
@@ -356,7 +421,7 @@ def parse_florida_house(page: str) -> tuple[list[dict[str, object]], list[dict[s
             "chamber": "house",
             "district": district,
             "status": "pending-election",
-            "source_id": "florida-house",
+            "source_id": STATE_HOUSE_SOURCE,
         }
         for district in pending
     ]
@@ -392,33 +457,91 @@ def parse_florida_senate(page: str) -> tuple[list[dict[str, object]], list[dict[
                     "chamber": "senate",
                     "district": district,
                     "status": "vacant",
-                    "source_id": "florida-senate",
+                    "source_id": STATE_SENATE_SOURCE,
                 }
             )
             continue
         if not link_match:
             raise ValueError(f"member link missing for Florida Senate district {district}")
-        name, aliases = aliases_from_inverted(source_name)
         entries.append(
-            person_entry(
-                entry_id=f"fl-senate-{district}",
-                name=name,
-                level="state",
-                office="senator",
+            state_legislator_entry(
                 chamber="senate",
                 district=district,
                 party=clean_markup(party_cell),
-                source_id="florida-senate",
                 source_name=source_name,
-                aliases=aliases,
-                profile_url=urljoin(SOURCES["florida-senate"], html.unescape(link_match.group(1))),
+                profile_url=urljoin(SOURCES[STATE_SENATE_SOURCE], html.unescape(link_match.group(1))),
             )
         )
     return sorted(entries, key=lambda item: item["district"]), vacancies
 
 
-def build_book(checked_on: str) -> dict[str, object]:
-    pages = {source_id: fetch(url) for source_id, url in SOURCES.items()}
+def state_legislature_group(
+    checked_on: str,
+    house: tuple[list[dict[str, object]], list[dict[str, object]]],
+    senate: tuple[list[dict[str, object]], list[dict[str, object]]],
+) -> dict[str, object]:
+    if not STATE_VALID_FROM <= checked_on <= STATE_VALID_THROUGH:
+        raise ValueError("checked date is outside the supported 2026-2028 state term")
+    for chamber, seat_count, (entries, vacancies) in (
+        ("House", 120, house),
+        ("Senate", 40, senate),
+    ):
+        districts = sorted(row["district"] for row in [*entries, *vacancies])
+        if districts != list(range(1, seat_count + 1)):
+            raise ValueError(
+                f"Florida {chamber} roster must account for each of its {seat_count} districts once"
+            )
+    return {
+        "id": STATE_LEGISLATURE_ID,
+        "verified_as_of": checked_on,
+        "valid_from": STATE_VALID_FROM,
+        "valid_through": STATE_VALID_THROUGH,
+        "stale_from": (date.fromisoformat(STATE_VALID_THROUGH) + timedelta(days=1)).isoformat(),
+        "entries": [*senate[0], *house[0]],
+        "vacancies": [*senate[1], *house[1]],
+    }
+
+
+def update_state_legislature(book: dict[str, object], group: dict[str, object]) -> None:
+    current = next(row for row in book["groups"] if row["id"] == STATE_LEGISLATURE_ID)
+    if current.get("valid_from") != group["valid_from"]:
+        book.setdefault("previous_groups", []).insert(0, current)
+    book["groups"][book["groups"].index(current)] = group
+    source_ids = (STATE_HOUSE_SOURCE, STATE_SENATE_SOURCE)
+    checked_on = group["verified_as_of"]
+    book["sources"] = [
+        *(source for source in book["sources"] if source["id"] not in source_ids),
+        *(source_record(source_id, checked_on) for source_id in source_ids),
+    ]
+    book["verified_as_of"] = max(source["checked_on"] for source in book["sources"])
+
+
+def build_book(checked_on: str, *, legislature_only: bool = False) -> dict[str, object]:
+    book = json.loads(DEFAULT_OUTPUT.read_text(encoding="utf-8"))
+    executive = next(group for group in book["groups"] if group["id"] == "florida-state-executive")
+    congress = next(
+        group for group in book["groups"] if group["id"] == "florida-congressional-delegation"
+    )
+    if not legislature_only:
+        for group in (executive, congress):
+            if group.get("incoming") and checked_on >= group["stale_from"]:
+                raise ValueError(f"adjudicate the {group['id']} transition before a full refresh")
+
+    legislature = state_legislature_group(
+        checked_on,
+        parse_florida_house(fetch(SOURCES[STATE_HOUSE_SOURCE])),
+        parse_florida_senate(fetch(SOURCES[STATE_SENATE_SOURCE])),
+    )
+    update_state_legislature(book, legislature)
+    if legislature_only:
+        return book
+
+    legislature_sources = {STATE_HOUSE_SOURCE, STATE_SENATE_SOURCE}
+    pages = {
+        source_id: fetch(url)
+        for source_id, url in SOURCES.items()
+        if source_id not in legislature_sources
+    }
     election_dates = clean_markup(pages["florida-2026-election-dates"])
     legislative_terms = clean_markup(pages["florida-legislative-terms"])
     if not re.search(r"Election Day:\s*November 3, 2026", election_dates, flags=re.I):
@@ -434,77 +557,33 @@ def build_book(checked_on: str) -> dict[str, object]:
         pages["us-house-florida"], pages["greg-steube"]
     )
     us_senate = parse_us_senate(pages["us-senate-florida"])
-    florida_house, florida_house_vacancies = parse_florida_house(pages["florida-house"])
-    florida_senate, florida_senate_vacancies = parse_florida_senate(pages["florida-senate"])
-
     if len(state_executive) != 5:
         raise ValueError(f"expected 5 statewide officers, found {len(state_executive)}")
     if len(us_house) + len(us_house_vacancies) != 28:
         raise ValueError("U.S. House roster does not account for all 28 Florida districts")
     if len(us_senate) != 2:
         raise ValueError("U.S. Senate roster does not contain two Florida senators")
-    if len(florida_house) + len(florida_house_vacancies) != 120:
-        raise ValueError(
-            "Florida House roster does not account for all 120 districts: "
-            f"{len(florida_house)} active, {len(florida_house_vacancies)} pending"
-        )
-    if len(florida_senate) + len(florida_senate_vacancies) != 40:
-        raise ValueError(
-            "Florida Senate roster does not account for all 40 districts: "
-            f"{len(florida_senate)} active, {len(florida_senate_vacancies)} vacant"
-        )
-
-    source_ids = [
-        "florida-governor",
-        "florida-lieutenant-governor",
-        "florida-attorney-general",
-        "florida-chief-financial-officer",
-        "florida-agriculture-commissioner",
-        "us-house-florida",
-        "us-senate-florida",
-        "florida-house",
-        "florida-senate",
-        "florida-2026-election-dates",
-        "florida-legislative-terms",
-        "greg-steube",
+    book["sources"] = [
+        source_record(source["id"], checked_on) if source["id"] in pages else source
+        for source in book["sources"]
     ]
-    return {
-        "schema_version": 1,
-        "book_id": "florida-public-officeholders",
-        "verified_as_of": checked_on,
-        "sources": [source_record(source_id, checked_on) for source_id in source_ids],
-        "groups": [
-            {
-                "id": "florida-state-executive",
-                "verified_as_of": checked_on,
-                "entries": state_executive,
-                "vacancies": [],
-            },
-            {
-                "id": "florida-congressional-delegation",
-                "verified_as_of": checked_on,
-                "entries": [*us_senate, *us_house],
-                "vacancies": us_house_vacancies,
-            },
-            {
-                "id": "florida-state-legislature",
-                "verified_as_of": checked_on,
-                "valid_through": "2026-11-03",
-                "stale_from": "2026-11-04",
-                "entries": [*florida_senate, *florida_house],
-                "vacancies": [*florida_senate_vacancies, *florida_house_vacancies],
-            },
-        ],
-    }
+    executive.update(verified_as_of=checked_on, entries=state_executive, vacancies=[])
+    congress.update(
+        verified_as_of=checked_on,
+        entries=[*us_senate, *us_house],
+        vacancies=us_house_vacancies,
+    )
+    return book
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--checked-on", required=True, type=checked_date)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--legislature-only", action="store_true")
     args = parser.parse_args()
 
-    book = build_book(args.checked_on)
+    book = build_book(args.checked_on, legislature_only=args.legislature_only)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(
         json.dumps(book, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"

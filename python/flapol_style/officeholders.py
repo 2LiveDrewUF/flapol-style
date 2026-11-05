@@ -48,15 +48,23 @@ def load_officeholder_group(group_id: str, *, as_of: date) -> dict[str, object]:
         raise TypeError("as_of must be an explicit datetime.date")
 
     book = _load_book()
-    for group in book["groups"]:
+    # Try the current snapshot first, then earlier terms for earlier dates.
+    for group in [*book["groups"], *book.get("previous_groups", ())]:
         if group["id"] != group_id:
+            continue
+        valid_from = group.get("valid_from")
+        if valid_from is not None and as_of < date.fromisoformat(valid_from):
             continue
         stale_value = group.get("stale_from")
         if stale_value is not None:
             stale_from = date.fromisoformat(stale_value)
             if as_of >= stale_from:
                 raise OfficeholderBookStaleError(group_id, stale_from, as_of)
-        return deepcopy(group)
+        snapshot = deepcopy(group)
+        incoming = snapshot.get("incoming")
+        if incoming and as_of < date.fromisoformat(incoming["checked_on"]):
+            del snapshot["incoming"]
+        return snapshot
     raise KeyError(f"unknown officeholder group: {group_id}")
 
 

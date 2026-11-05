@@ -6,6 +6,15 @@ prefix.
 
 ## Unreleased
 
+- Refresh the state officeholder roster for the 2026-2028 term, including
+  House District 33 as pending election and Senate District 39 as vacant.
+  Keep the previous snapshot available for dates through Nov. 3, 2026.
+- Use primary names without middle initials in the refreshed state roster
+  and resolve sourced initials and quoted nicknames for legislative titles.
+- Record the incoming U.S. House slate and Florida executive transition
+  separately from the sitting officeholders. Mark four congressional
+  leaders provisional pending certification.
+
 ## 0.1.0a8 — 2026-10-07
 
 - Require dated officeholder or caller-overlay identity before abbreviating

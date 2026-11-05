@@ -24,8 +24,10 @@ scope until separately settled.
 
 ## Identity and document context
 
-Use the dated public officeholder book plus caller-supplied overlays. Determine
-the document mode from lawmakers whose identities resolve in the copy:
+Use the dated public officeholder book plus caller-supplied overlays. The
+2026-2028 state roster includes source-derived aliases for formal and
+shortened names, middle initials and quoted nicknames. Determine the
+document mode from lawmakers whose identities resolve in the copy:
 
 - **State-only:** one or more Florida state lawmakers and no members of
   Congress.
