@@ -22,7 +22,7 @@
 
 ## Current operating baseline
 
-- Package API version: `0.1.0a8`
+- Package API version: `0.1.0a9`
 - Current quote model: rule-level `speech_preserving`, false by default
 - Current release channel: annotated Git tag in the public GitHub repository
 - Hosted services: none

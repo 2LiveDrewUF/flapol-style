@@ -6,6 +6,8 @@ prefix.
 
 ## Unreleased
 
+## 0.1.0a9 — 2026-11-05
+
 - Refresh the state officeholder roster for the 2026-2028 term, including
   House District 33 as pending election and Senate District 39 as vacant.
   Keep the previous snapshot available for dates through Nov. 3, 2026.

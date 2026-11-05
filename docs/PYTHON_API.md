@@ -221,5 +221,5 @@ hard-protected.
 
 ## Versioning
 
-The current API version is alpha `0.1.0a8`. Consumers must pin a released tag
+The current API version is alpha `0.1.0a9`. Consumers must pin a released tag
 or commit. Floating `main` is not a production dependency.

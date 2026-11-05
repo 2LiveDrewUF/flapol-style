@@ -27,9 +27,8 @@ rule coverage. A rule is not considered implemented merely because the human
 guide discusses it. See `coverage/` for the implementation ledger and its
 separate documentation, detection, context and automatic-correction fields.
 
-The Python distribution is currently versioned `0.1.0a8`. A release tag makes
-a version available to consumers; it does not imply that any application has
-adopted it.
+The Python distribution is currently versioned `0.1.0a9`. Consumers can adopt
+the version by pinning its release tag.
 
 See `docs/RULE_SOURCES.md` for the provenance of automatic rules salvaged from
 the legacy formatter and `docs/SALVAGE_LEDGER.md` for accepted, deferred and
