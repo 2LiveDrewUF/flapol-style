@@ -27,8 +27,9 @@
 - Current release channel: annotated Git tag in the public GitHub repository
 - Hosted services: none
 - Managed production systems: none
-- Known downstream consumer candidate: Newsroom Tools, which owns its own
-  integration, testing, deployment and legacy retirement
+- Downstream consumers: refresh the current owning-project inventory at every
+  numbered release; send mandatory notices under D-023. Consumers own their
+  integration, testing, deployment and legacy retirement.
 
 Reobserve drift-prone facts before relying on this snapshot.
 
@@ -37,5 +38,7 @@ Reobserve drift-prone facts before relying on this snapshot.
 - Continue rule-family salvage using `runbooks/add-or-reclassify-rule.md`.
 - Give downstream consumers a released capability matrix and require their own
   shadow comparison before retirement.
+- Complete the mandatory consumer-notification handoff for every new numbered
+  release; do not equate a delivered notice with installed adoption.
 - Add automation only after a manual procedure has repeated enough to be
   boring, bounded and demonstrably recoverable.

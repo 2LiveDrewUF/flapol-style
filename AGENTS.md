@@ -137,6 +137,17 @@ minimum-supported Python installation and installed-package smoke test.
 - Release only from a verified `main` commit using `runbooks/release.md`.
 - Use annotated immutable tags with a `v` prefix.
 - Verify branch CI before tagging and tag CI after pushing the tag.
+- Every published numbered release, including alpha, beta and release-candidate
+  versions, requires a fresh consumer inventory and a release notice to every
+  current consuming project's existing owning chat. Follow
+  `runbooks/downstream-handoff.md` and `docs/RELEASE_NOTIFICATIONS.md`.
+- Drew's Nov. 12, 2026 standing instruction authorizes those release notices;
+  do not ask again for routine notices within that scope. Include the immutable
+  tag/commit, verified status, scope, caller requirements and adoption checks.
+  Refresh the inventory rather than relying on the previous release's list.
+- Record delivery or an explicit unresolved handoff for each consumer. Report
+  notification, acknowledgment and verified adoption separately. This standing
+  notice authority does not authorize consumer deployment or source changes.
 - Never move or delete a published tag to conceal a mistake; supersede it.
 - A release makes capability available. It does not imply consumer adoption.
 

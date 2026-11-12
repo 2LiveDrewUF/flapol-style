@@ -322,3 +322,28 @@ look tidier than it was.
   ending Nov. 26 at midnight. Store raw copy privately; review occurrence
   context, before/after, findings, gaps and editor dispositions. Neither two
   weeks passing nor usage frequency admits a policy or proves safety.
+
+## D-023 — Notify every current consumer on each numbered release
+
+- Status: Accepted, Nov. 12, 2026.
+- Authority: Drew explicitly required FlaPol Style project rules to inform
+  consumers whenever a new numbered release is published.
+- Decision: Make a refreshed consumer inventory and version-specific notice to
+  every current consuming project's existing owning chat a mandatory release
+  closeout step, including alpha, beta and release-candidate versions. Include
+  the maintained inventory owner and separately deployed/wrapped services;
+  the previous release's recipient list is not sufficient.
+- Standing authority: These routine project release notices are authorized
+  without asking Drew again on each release. This does not authorize a new
+  communication channel, new chat, consumer source change, deployment,
+  publication, credential or permission change.
+- Required record: immutable tag/commit and verification, released scope and
+  exclusions, caller requirements, owner adoption checks, and per-consumer
+  delivery or explicit unresolved handoff. Distinguish notification,
+  acknowledgment, adoption in progress and actual verified adoption.
+- Consequence: A release closeout cannot silently omit a known consumer or
+  equate a notice with a runtime upgrade. If tag checks are failed/unresolved,
+  send an accurate status/hold notice and follow up when verified. Ordinary
+  commits and local trial branches are not numbered-release triggers.
+- Procedure: `runbooks/release.md`, `runbooks/downstream-handoff.md` and
+  `docs/RELEASE_NOTIFICATIONS.md`.

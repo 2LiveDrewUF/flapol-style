@@ -6,6 +6,10 @@ prefix.
 
 ## Unreleased
 
+- Require a refreshed consumer inventory and release notices after every
+  numbered release, with standing notice authority and separate delivery versus
+  verified-adoption records.
+
 ## 0.1.0a10 — 2026-11-12
 
 - Preserve supported named institutions, awards and programs across existing
