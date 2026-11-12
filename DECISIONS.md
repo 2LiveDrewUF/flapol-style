@@ -218,3 +218,17 @@ look tidier than it was.
   Jan. 3 and Jan. 5, 2027, respectively. Confirm seating or assumption of
   office before activating the incoming entries, then preserve the prior
   sitting roster for historical dates.
+
+## D-019 — Capitalize both Pro Tempore office titles
+
+- Status: Accepted, Nov. 11, 2026. Implemented for the next release.
+- Decision: In the main/body profile, capitalize the full office titles
+  `Speaker Pro Tempore` and `President Pro Tempore`, with or without a
+  connected name.
+- Authority: Drew's Nov. 11, 2026, Florida Politics owner ruling.
+- Classification: `AUTO_FIX` for either complete title in narration.
+  `flapol.capitalization.speaker-pro-tempore-title` and
+  `flapol.capitalization.president-pro-tempore-title` have
+  `speech_preserving=False`. Quotation and literal protections apply.
+- Evidence: The a9 body processor preserved correctly capitalized input.
+  The admitted change normalizes lowercase and mixed-case full titles.

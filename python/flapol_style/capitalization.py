@@ -112,12 +112,19 @@ def apply_capitalization_rules_to_session(session: EditingSession) -> None:
             RuleSpec(
                 rule_id=f"flapol.capitalization.{record['id']}",
                 authority=record["authority"],
-                speech_preserving=True,
+                speech_preserving=record.get("speech_preserving", False),
             ),
             pattern,
             record["to"],
         )
     for pattern, record in _BEFORE_NAME_PATTERNS:
+        def before_name_replacement(match: re.Match[str], text: str) -> str | None:
+            # An exact title owns its full phrase, including its quote policy.
+            # "Pro Tempore" following "President" is not a person's name.
+            if any(exact.match(text, match.start()) for exact, _ in _EXACT_PATTERNS):
+                return None
+            return record["to"]
+
         session.replace_pattern(
             RuleSpec(
                 rule_id=f"flapol.capitalization.{record['id']}",
@@ -125,7 +132,7 @@ def apply_capitalization_rules_to_session(session: EditingSession) -> None:
                 speech_preserving=True,
             ),
             pattern,
-            record["to"],
+            before_name_replacement,
         )
     for pattern, record in _BODY_PATTERNS:
         session.replace_pattern(

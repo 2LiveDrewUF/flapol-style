@@ -89,6 +89,14 @@ sense. Context-proven capitalization is speech-preserving and may render
 inside balanced quotations. Contextual findings remain excluded from
 quotations, and literal regions remain excluded from both changes and findings.
 
+Drew's Nov. 11, 2026, owner ruling establishes `Speaker Pro Tempore` and
+`President Pro Tempore` in the main/body profile, including standalone
+references. The complete title supplies enough context for automatic
+capitalization. The two rules are explicitly classified
+`speech_preserving=False` and use normal quotation and literal protection.
+The a9 processor already preserved supplied capitals. This ruling adds
+normalization of lowercase and mixed-case versions of the two full titles.
+
 ## Presentation bolding
 
 Florida Politics owner rulings on Aug. 18, 2026, establish body-copy bolding as

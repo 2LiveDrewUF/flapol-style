@@ -204,6 +204,9 @@ authorization to rewrite the text.
 ## Protection and metadata
 
 Ordinary automatic edits and contextual findings exclude direct quotations.
+The main-body title forms `Speaker Pro Tempore` and `President Pro Tempore`
+are normalized only in narration. Their registry records explicitly set
+`speech_preserving=False`.
 An automatic rule may enter a balanced quotation only when its `RuleSpec` is
 explicitly marked `speech_preserving=True`. Markdown link destinations, URLs,
 email addresses, inline code and fenced code remain hard-protected from all

@@ -1,88 +1,116 @@
 {
   "automatic_exact": [
     {
+      "id": "speaker-pro-tempore-title",
+      "from": "speaker pro tempore",
+      "to": "Speaker Pro Tempore",
+      "authority": "Florida Politics owner ruling 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "president-pro-tempore-title",
+      "from": "president pro tempore",
+      "to": "President Pro Tempore",
+      "authority": "Florida Politics owner ruling 2026-11-11",
+      "speech_preserving": false
+    },
+    {
       "id": "ceo-initialism",
       "from": "ceo",
       "to": "CEO",
-      "authority": "Florida Politics main"
+      "authority": "Florida Politics main",
+      "speech_preserving": true
     },
     {
       "id": "cfo-initialism",
       "from": "cfo",
       "to": "CFO",
-      "authority": "Florida Politics main"
+      "authority": "Florida Politics main",
+      "speech_preserving": true
     },
     {
       "id": "coo-initialism",
       "from": "coo",
       "to": "COO",
-      "authority": "Florida Politics main"
+      "authority": "Florida Politics main",
+      "speech_preserving": true
     },
     {
       "id": "cmo-initialism",
       "from": "cmo",
       "to": "CMO",
-      "authority": "Florida Politics main"
+      "authority": "Florida Politics main",
+      "speech_preserving": true
     },
     {
       "id": "general-election",
       "from": "general election",
       "to": "General Election",
-      "authority": "Florida Politics main"
+      "authority": "Florida Politics main",
+      "speech_preserving": true
     },
     {
       "id": "primary-election",
       "from": "primary election",
       "to": "Primary Election",
-      "authority": "Florida Politics main"
+      "authority": "Florida Politics main",
+      "speech_preserving": true
     },
     {
       "id": "special-election",
       "from": "special election",
       "to": "Special Election",
-      "authority": "Florida Politics main"
+      "authority": "Florida Politics main",
+      "speech_preserving": true
     },
     {
       "id": "midterm-election",
       "from": "midterm election",
       "to": "Midterm Election",
-      "authority": "Florida Politics main"
+      "authority": "Florida Politics main",
+      "speech_preserving": true
     },
     {
       "id": "midterm-elections",
       "from": "midterm elections",
       "to": "Midterm Elections",
-      "authority": "Florida Politics main"
+      "authority": "Florida Politics main",
+      "speech_preserving": true
     },
     {
       "id": "midterms",
       "from": "midterms",
       "to": "Midterms",
-      "authority": "Florida Politics owner ruling 2026-08-16"
+      "authority": "Florida Politics owner ruling 2026-08-16",
+      "speech_preserving": true
     },
     {
       "id": "governor-title",
       "from": "governor",
       "to": "Governor",
-      "authority": "Florida Politics owner ruling 2026-10-02"
+      "authority": "Florida Politics owner ruling 2026-10-02",
+      "speech_preserving": true
     },
     {
       "id": "presidential-election",
       "from": "presidential election",
       "to": "Presidential Election",
-      "authority": "Florida Politics main"
+      "authority": "Florida Politics main",
+      "speech_preserving": true
     },
     {
       "id": "election-day",
       "from": "election day",
       "to": "Election Day",
-      "authority": "Florida Politics main"
+      "authority": "Florida Politics main",
+      "speech_preserving": true
     },
     {
       "id": "florida-legislature",
       "from": "florida legislature",
       "to": "Florida Legislature",
-      "authority": "Florida Politics main"
+      "authority": "Florida Politics main",
+      "speech_preserving": true
     }
   ],
   "before_name_titles": [

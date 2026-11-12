@@ -6,6 +6,9 @@ prefix.
 
 ## Unreleased
 
+- Capitalize `Speaker Pro Tempore` and `President Pro Tempore` in body
+  narration, including standalone titles, under the Nov. 11 owner ruling.
+
 ## 0.1.0a9 — 2026-11-05
 
 - Refresh the state officeholder roster for the 2026-2028 term, including

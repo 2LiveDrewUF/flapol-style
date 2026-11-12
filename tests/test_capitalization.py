@@ -6,6 +6,7 @@ import unittest
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
+from flapol_style import apply_main_style, apply_main_style_with_report
 from flapol_style.capitalization import (
     find_capitalization_flags,
     load_capitalization_rules,
@@ -165,6 +166,79 @@ class CapitalizationTests(unittest.TestCase):
             normalize_capitalization('“The general election is next.”'),
             '“The General Election is next.”',
         )
+
+    def test_pro_tempore_office_titles_are_capitalized_in_body_copy(self):
+        source = (
+            "The Speaker pro tempore addressed the chamber. "
+            "The president pro tempore presided."
+        )
+        expected = (
+            "The Speaker Pro Tempore addressed the chamber. "
+            "The President Pro Tempore presided."
+        )
+        result = apply_main_style_with_report(source)
+        self.assertEqual(result.text, expected)
+        self.assertEqual(apply_main_style(source), expected)
+        self.assertEqual(normalize_capitalization(source), expected)
+        self.assertEqual(result.findings, ())
+        self.assertCountEqual(
+            [change.rule_id for change in result.changes],
+            [
+                "flapol.capitalization.speaker-pro-tempore-title",
+                "flapol.capitalization.president-pro-tempore-title",
+            ],
+        )
+        for change in result.changes:
+            self.assertEqual(change.action, "AUTO_FIX")
+            self.assertEqual(source[change.source_start:change.source_end], change.before)
+            self.assertEqual(change.authority, "Florida Politics owner ruling 2026-11-11")
+            self.assertFalse(change.speech_preserving)
+        repeated = apply_main_style_with_report(result.text)
+        self.assertEqual(repeated.text, result.text)
+        self.assertEqual(repeated.changes, ())
+
+    def test_pro_tempore_titles_with_names_and_existing_capitals(self):
+        for office in ("Speaker", "President"):
+            source = f"{office.lower()} PRO TEMPORE Jane Smith spoke."
+            expected = f"{office} Pro Tempore Jane Smith spoke."
+            with self.subTest(office=office):
+                self.assertEqual(apply_main_style(source), expected)
+                result = apply_main_style_with_report(expected)
+                self.assertEqual(result.text, expected)
+                self.assertEqual(result.changes, ())
+                self.assertEqual(result.findings, ())
+
+    def test_pro_tempore_title_capitalization_preserves_protected_regions(self):
+        phrases = (
+            "speaker pro tempore", "president pro tempore",
+            "president Pro Tempore",
+        )
+        for phrase in phrases:
+            for source in (
+                f'"The {phrase} spoke."',
+                f"“The {phrase} spoke.”",
+                f'"The {phrase} spoke.',
+                f"“The {phrase} spoke.",
+                f"`{phrase}`",
+                f"```text\n{phrase}\n```",
+                f"```text\n{phrase}",
+                f"[example](https://example.test/{phrase.replace(' ', '%20')})",
+                f"https://example.test/{phrase.replace(' ', '%20')}",
+                f"{phrase.replace(' ', '.')}@example.test",
+            ):
+                with self.subTest(source=source):
+                    result = apply_main_style_with_report(source)
+                    self.assertEqual(result.text, source)
+                    self.assertEqual(result.changes, ())
+                    self.assertEqual(result.findings, ())
+
+    def test_pro_tempore_rule_requires_a_complete_office_title(self):
+        source = (
+            "They served pro tempore. A speaker pro temporal role. "
+            "A spokesperson pro tempore. The Speaker pro temporelike role. "
+            "The president pro tempore-like role."
+        )
+        self.assertEqual(apply_main_style(source), source)
 
     def test_capitalization_pass_is_idempotent(self):
         source = "attorney general Ashley Moody discussed the general election."
