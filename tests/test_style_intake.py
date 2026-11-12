@@ -118,7 +118,17 @@ class IntakeTests(unittest.TestCase):
         ]
         for source, expected in cases:
             with self.subTest(source=source):
-                self.assert_rendering(source, expected)
+                if source.startswith(("retired", "Army")):
+                    qualifier = ""
+                elif any(rank in source for rank in ["Admiral", "Commander", "Petty Officer", "Junior Grade"]):
+                    qualifier = "retired Navy "
+                elif "Airman" in source or "Chief Master Sergeant" in source:
+                    qualifier = "retired Air Force "
+                elif "Gunnery" in source or "Lance Corporal" in source:
+                    qualifier = "retired Marine Corps "
+                else:
+                    qualifier = "retired Army "
+                self.assert_rendering(qualifier + source, qualifier + expected)
 
     def test_rank_words_are_not_always_military_titles(self):
         cases = [
@@ -221,9 +231,9 @@ class IntakeTests(unittest.TestCase):
                     self.assertEqual(r.findings, ())
 
     def test_source_offsets_after_earlier_shortening(self):
-        source = "Lieutenant Colonel Jane Smith met a no-party-affiliation member at 609 Brickell Avenue. Acme LLC paid."
+        source = "Army Lieutenant Colonel Jane Smith met a no-party-affiliation member at 609 Brickell Avenue. Acme LLC paid."
         r = self.assert_rendering(source,
-            "Lt. Col. Jane Smith met a no-party member at 609 Brickell Ave. Acme LLC paid.")
+            "Army Lt. Col. Jane Smith met a no-party member at 609 Brickell Ave. Acme LLC paid.")
         self.assertEqual([f.found for f in r.findings], ["LLC"])
         for finding in r.findings:
             self.assertEqual(source[finding.start:finding.end], finding.found)

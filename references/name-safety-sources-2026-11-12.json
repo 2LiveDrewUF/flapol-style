@@ -1,0 +1,317 @@
+{
+  "reviewed_on": "2026-11-12",
+  "baseline_commit": "698a4e2",
+  "queries": [
+    "\"General\" \"Institute\"",
+    "\"General\" \"Award\"",
+    "\"Major\" \"Program\"",
+    "\"Admiral\" \"Academy\"",
+    "\"General\" \"Revenue\"",
+    "\"General\" \"Appropriations\"",
+    "\"Captain\" \"Foundation\"",
+    "\"Colonel\" \"Museum\"",
+    "\"Admiral Farragut\"",
+    "\"General Revenue\"",
+    "\"General Government\"",
+    "\"General Aviation\"",
+    "\"Major Projects\"",
+    "\"Private Property\"",
+    "\"Private Activity\"",
+    "\"Parker Gordon Fox\"",
+    "\"General James\"",
+    "\"Colonel\" \"Award\"",
+    "\"Captain\" \"Memorial\"",
+    "\"Ambassador\" \"Program\"",
+    "\"Sergeant\" \"Act\"",
+    "\"Specialist\" \"Center\"",
+    "\"General Contractors\"",
+    "\"General\" \"Medal\"",
+    "\"Governor\" \"Institute\"",
+    "\"Governor\" \"Award\"",
+    "\"Governor\" \"Building\"",
+    "\"Chief Executive Officer\" \"Institute\""
+  ],
+  "selection": "Up to two non-newsletter results per query, otherwise one newsletter; deduplicated, plus three follow-up bodies.",
+  "articles": [
+    {
+      "id": "fp:831845",
+      "url": "https://floridapolitics.com/archives/831845-winners-and-losers-emerging-from-st-petersburgs-election-and-other-tampa-bay-races/",
+      "title": "Winners and losers emerging from St. Petersburg’s election (and other Tampa Bay races)",
+      "published_at": "2026-11-11T01:15:31Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:828222",
+      "url": "https://floridapolitics.com/archives/828222-jared-moskowitz-wins-third-term-besting-republican-challenger-scott-singer-in-cd-25/",
+      "title": "Jared Moskowitz wins third term, besting Republican challenger Scott Singer in CD 25",
+      "published_at": "2026-11-04T01:30:42Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:830182",
+      "url": "https://floridapolitics.com/archives/830182-doj-jso-mci/",
+      "title": "Justice Department awards Jacksonville $73M as part of Model Cities Initiative",
+      "published_at": "2026-11-07T13:51:15Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:832173",
+      "url": "https://floridapolitics.com/archives/832173-pinellas-weighs-flock-regulations-sunshine-law-changes-in-2027-legislative-agenda/",
+      "title": "Pinellas weighs Flock regulations, Sunshine Law changes in 2027 legislative agenda",
+      "published_at": "2026-11-11T16:46:06Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:832174",
+      "url": "https://floridapolitics.com/archives/832174-diego-hernandez-moreno-florida-democrats-must-stop-ignoring-south-florida/",
+      "title": "Diego Hernandez Moreno: Florida Democrats must stop ignoring South Florida",
+      "published_at": "2026-11-11T16:20:53Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:756252",
+      "url": "https://floridapolitics.com/archives/756252-anchoring-floridas-future-florida-ports-tap-fresh-talent-to-boost-statewide-economic-development/",
+      "title": "Anchoring Florida’s future: Florida Ports tap fresh talent to boost statewide economic development",
+      "published_at": "2025-09-15T22:40:30Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:832186",
+      "url": "https://floridapolitics.com/archives/832186-miami-dade-poised-to-set-speed-limits-require-permits-for-sidewalk-delivery-robots/",
+      "title": "Miami-Dade poised to set speed limits, require permits for sidewalk delivery robots",
+      "published_at": "2026-11-11T16:33:42Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:831944",
+      "url": "https://floridapolitics.com/archives/831944-in-shadow-of-amendment-3-jacksonville-moves-forward-on-subsidy-for-downtown-grocery-store-apartments/",
+      "title": "In shadow of Amendment 3, Jacksonville moves forward on subsidy for downtown grocery store, apartments",
+      "published_at": "2026-11-11T02:14:15Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:830233",
+      "url": "https://floridapolitics.com/archives/830233-recount-looms-in-hd-33-as-democrat-dan-mcdow-leads/",
+      "title": "Machine recount set for Tuesday in HD 33, where Dan McDow leads Monique Miller",
+      "published_at": "2026-11-07T17:15:48Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:830023",
+      "url": "https://floridapolitics.com/archives/830023-from-coconut-creek-to-wilton-manors-heres-how-browards-municipal-elections-shook-out/",
+      "title": "From Coconut Creek to Wilton Manors: Here’s how Broward’s municipal elections shook out",
+      "published_at": "2026-11-06T12:30:32Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:826576",
+      "url": "https://floridapolitics.com/archives/826576-eric-metaxas-argues-founding-fathers-faith-informed-their-feelings-on-taxes/",
+      "title": "Eric Metaxas argues Founding Fathers’ faith informed their feelings on taxes",
+      "published_at": "2026-10-23T14:44:14Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:830061",
+      "url": "https://floridapolitics.com/archives/830061-takeaways-from-tallahassee-canopy-community/",
+      "title": "Takeaways from Tallahassee — Canopy community",
+      "published_at": "2026-11-07T11:00:11Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:661671",
+      "url": "https://floridapolitics.com/archives/661671-donald-bowens-lands-all-star-endorsements-in-st-pete-city-council-bid/",
+      "title": "Donald Bowens lands all star endorsements in St. Pete City Council bid",
+      "published_at": "2024-02-26T22:40:35Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:613508",
+      "url": "https://floridapolitics.com/archives/613508-lutheran-church-of-the-cross-day-school-says-goodbye-to-holly-carlson/",
+      "title": "Lutheran Church of the Cross Day School bids farewell to pioneer Holly Carlson",
+      "published_at": "2023-05-20T14:44:49Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:827249",
+      "url": "https://floridapolitics.com/archives/827249-amendment-1-result/",
+      "title": "Amendment 1, which Ron DeSantis opposed, goes down in flames",
+      "published_at": "2026-11-04T01:43:53Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:825045",
+      "url": "https://floridapolitics.com/archives/825045-can-amendment-1-pass-without-ron-desantis-support/",
+      "title": "Can Amendment 1 pass without Ron DeSantis’ support?",
+      "published_at": "2026-10-27T16:00:09Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:827511",
+      "url": "https://floridapolitics.com/archives/827511-democrat-john-lowndes-defeats-incumbent-jason-brodeur-to-flip-sd-10/",
+      "title": "Democrat John Lowndes defeats incumbent Jason Brodeur to flip SD 10",
+      "published_at": "2026-11-04T02:37:03Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:825976",
+      "url": "https://floridapolitics.com/archives/825976-jason-brodeur-fights-to-hold-his-seat-against-challenger-john-lowndes/",
+      "title": "Jason Brodeur fights to hold his seat against challenger John Lowndes",
+      "published_at": "2026-10-26T18:00:02Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:721102",
+      "url": "https://floridapolitics.com/archives/721102-blake-dowling-fly-to-live-live-to-fly-aces-high-in-florida/",
+      "title": "Blake Dowling: Fly to live, live to fly — Aces High in Florida",
+      "published_at": "2025-02-15T10:00:41Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:708072",
+      "url": "https://floridapolitics.com/archives/708072-miami-dade-may-soon-look-into-building-another-airport/",
+      "title": "Miami-Dade may soon look into building another airport",
+      "published_at": "2024-11-15T17:25:55Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:825190",
+      "url": "https://floridapolitics.com/archives/825190-police-and-firefighters-back-nick-coppola-for-open-delray-beach-commission-seat/",
+      "title": "Police and firefighters back Nick Coppola for open Delray Beach Commission seat",
+      "published_at": "2026-10-15T21:15:00Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:820275",
+      "url": "https://floridapolitics.com/archives/820275-hillsborough-approves-24m-usf-uptown-landing-deal-with-mosi-corridor-in-view/",
+      "title": "Hillsborough approves $24M USF Uptown Landing deal with MOSI corridor in view",
+      "published_at": "2026-09-16T16:55:35Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:831951",
+      "url": "https://floridapolitics.com/archives/831951-data-center-moratorium-vote-delayed-until-new-hillsborough-commissioners-take-office/",
+      "title": "Data center moratorium vote delayed until new Hillsborough Commissioners take office",
+      "published_at": "2026-11-10T19:50:58Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:795807",
+      "url": "https://floridapolitics.com/archives/795807-brightline-tax-break-again-on-track-during-budget-session-as-company-faces-cash-concerns/",
+      "title": "Brightline tax break again on track during budget Session as company faces cash concerns",
+      "published_at": "2026-05-11T21:00:49Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:760954",
+      "url": "https://floridapolitics.com/archives/760954-realtors-warn-about-flood-insurance-lapses-as-gop-blasts-jared-moskowitz-darren-soto-over-shutdown/",
+      "title": "Realtors warn about flood insurance lapses as GOP blasts Jared Moskowitz, Darren Soto over shutdown",
+      "published_at": "2025-10-16T22:20:28Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:823480",
+      "url": "https://floridapolitics.com/archives/823480-delegation-for-10-6-26-battleground-offshore-drilling-college-sports-ai-guardrails-pipelines/",
+      "title": "Delegation for 10.6.26: Battleground — offshore drilling — college sports — AI guardrails — pipelines",
+      "published_at": "2026-10-06T18:07:00Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:826551",
+      "url": "https://floridapolitics.com/archives/826551-winner-and-loser-of-the-week-in-florida-politics-week-of-10-18-26/",
+      "title": "Winner and Loser of the Week in Florida politics — Week of 10.18.26",
+      "published_at": "2026-10-25T09:30:27Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:826134",
+      "url": "https://floridapolitics.com/archives/826134-fladem-hope-florida-ad/",
+      "title": "Florida Democrats ad ties Ashley Moody, James Uthmeier to Hope Florida Foundation controversy",
+      "published_at": "2026-10-21T17:55:38Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:832290",
+      "url": "https://floridapolitics.com/archives/832290-last-call-for-11-11-26-a-prime-time-read-of-whats-going-down-in-florida-politics/",
+      "title": "Last Call for 11.11.26 – A prime-time read of what’s going down in Florida politics",
+      "published_at": "2026-11-11T23:00:20Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:823352",
+      "url": "https://floridapolitics.com/archives/823352-browards-municipal-elections-whos-running-and-whats-at-stake/",
+      "title": "Broward’s municipal elections — who’s running, and what’s at stake",
+      "published_at": "2026-10-11T22:00:03Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:830144",
+      "url": "https://floridapolitics.com/archives/830144-delaney-lento-joins-sam-garrisons-team-as-house-press-secretary/",
+      "title": "Delaney Lento joins Sam Garrison’s team as House Press Secretary",
+      "published_at": "2026-11-07T14:00:02Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:830022",
+      "url": "https://floridapolitics.com/archives/830022-sam-garrison-gives-ai-a-full-house-committee-brings-back-public-integrity-and-the-appropriations-name/",
+      "title": "Sam Garrison gives AI a full House committee, brings back Public Integrity and the Appropriations name",
+      "published_at": "2026-11-06T11:45:23Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:832150",
+      "url": "https://floridapolitics.com/archives/832150-usda-more-than-doubles-veteran-hiring-goal-will-name-forest-trails-for-fallen-service-members/",
+      "title": "USDA more than doubles veteran hiring goal, will name forest trails for fallen service members",
+      "published_at": "2026-11-11T14:45:54Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:829621",
+      "url": "https://floridapolitics.com/archives/829621-from-aventura-to-virginia-gardens-here-are-miami-dades-municipal-election-results/",
+      "title": "From Aventura to Virginia Gardens: Here are Miami-Dade’s municipal election results",
+      "published_at": "2026-11-04T19:35:42Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:790033",
+      "url": "https://floridapolitics.com/archives/790033-natalie-milian-orbis-crosses-750k-raised-to-defend-miami-dade-commission-seat/",
+      "title": "Natalie Milian Orbis crosses $750K raised to defend Miami-Dade Commission seat",
+      "published_at": "2026-04-10T17:15:04Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:768290",
+      "url": "https://floridapolitics.com/archives/768290-personnel-note-abc-of-florida-names-richard-backa-as-2026-state-chair/",
+      "title": "Personnel note: ABC of Florida names Richard Backa as 2026 State Chair",
+      "published_at": "2025-12-05T09:15:02Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:830093",
+      "url": "https://floridapolitics.com/archives/830093-delegation-for-11-6-26-above-it-all-power-shift-jaxport-fair-pay-horsepower/",
+      "title": "Delegation for 11.6.26: Above it all — power shift — JAXPORT — fair pay — horsepower",
+      "published_at": "2026-11-06T19:23:38Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:831878",
+      "url": "https://floridapolitics.com/archives/831878-delegation-for-11-10-26-fresh-faces-no-days-off-fema-billions-space-race-star-power/",
+      "title": "Delegation for 11.10.26: Fresh faces — no days off — FEMA billions — space race — Star power",
+      "published_at": "2026-11-10T19:29:41Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:828070",
+      "url": "https://floridapolitics.com/archives/828070-takeaways-from-tallahassee-return-to-sender/",
+      "title": "Takeaways from Tallahassee — Return to sender",
+      "published_at": "2026-10-31T10:00:38Z",
+      "completeness": "complete_source_text"
+    },
+    {
+      "id": "fp:823279",
+      "url": "https://floridapolitics.com/archives/823279-diagnosis-for-10-5-26-checking-the-pulse-of-florida-healthcare-news-and-policy/",
+      "title": "Diagnosis for 10.5.26: Checking the pulse of Florida healthcare news and policy",
+      "published_at": "2026-10-05T20:30:24Z",
+      "completeness": "complete_source_text"
+    }
+  ]
+}

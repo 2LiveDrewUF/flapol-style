@@ -20,6 +20,7 @@ from .reporting import EditingSession, EditResult
 from .titles import (
     apply_title_rules_to_session,
     home_state_title_flags_for_session,
+    military_title_flags_for_session,
 )
 from .words import apply_word_rules_to_session
 from .usage import apply_usage_rules_to_session, usage_flags_for_session
@@ -59,6 +60,7 @@ def apply_main_style_with_report(
                 *legislator_findings,
                 *capitalization_flags_for_session(session),
                 *home_state_title_flags_for_session(session),
+                *military_title_flags_for_session(session),
                 *number_sign_flags_for_session(session),
                 *usage_flags_for_session(session),
             ),

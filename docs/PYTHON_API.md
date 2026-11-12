@@ -1,5 +1,12 @@
 # Python API contract
 
+The Nov. 12 safety refinement requires immediate uniformed-service context for
+military title shortening; unqualified name-shaped matches are review findings.
+Named institutions/programs and explicit civilian representative roles are
+excluded from title changes and legislative-context inference, even when a
+person's name resolves in the public roster. No new caller parameter or people
+registry is introduced. See `NAME_SAFETY_AUDIT_2026-11-12.md` and D-021.
+
 The unreleased Nov. 11 intake adds body-only title/rank/address and no-party
 usage rules plus contextual usage findings to `apply_main_style_with_report`.
 It does not add identity discovery, postal validation, company-entity

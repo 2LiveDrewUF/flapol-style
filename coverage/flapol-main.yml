@@ -509,3 +509,13 @@ adverse-vote-tally-review:
   protected_regions: required
   implementations:
   - python/flapol_style/usage.py
+military-title-context-review:
+  documented: true
+  detected: true
+  detection_mode: contextual
+  auto_fix: false
+  contexts:
+  - main
+  protected_regions: required
+  implementations:
+  - python/flapol_style/titles.py

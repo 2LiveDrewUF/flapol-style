@@ -5,6 +5,24 @@ salvaging product-neutral behavior from the legacy Streamlet formatter. The
 legacy implementation is evidence that a rule was useful; it is not the
 authority that makes the rule correct.
 
+## Nov. 12, 2026 title-use safety refinement
+
+Drew's Nov. 12 institution/award/program audit instruction supersedes the
+name-shaped-only eligibility described in the Nov. 11 military intake below.
+The supplied Fox grant-program name and broader archive research demonstrate
+that even full human names and known officeholder identities can occur inside
+institutional names. Healthcare finance specialist is also a civilian job,
+not evidence of the Army rank Specialist.
+
+Military abbreviation now requires immediate explicit uniformed-service
+context, plus the existing full-name and protected-region checks. Unqualified
+candidates receive review findings. A bounded, mixed-case noun-phrase guard
+protects supported institutional references across title families, and
+legislative inference excludes those references and explicit nonlegislative
+representative roles. No name list or capitalization heuristic grants a rank.
+See D-021 and `NAME_SAFETY_AUDIT_2026-11-12.md`; the archive corroborates and
+stress-tests the owner's direction rather than adopting new editorial rules.
+
 ## Nov. 11, 2026 intake
 
 Drew's Nov. 10 President ruling and Nov. 11 implementation direction establish

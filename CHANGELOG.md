@@ -6,6 +6,10 @@ prefix.
 
 ## Unreleased
 
+- Require local uniformed-service context before automatically abbreviating
+  military rank words. Preserve named institutions, awards and programs across
+  title families, and prevent institutional or explicit civilian-role names
+  from establishing legislative identity context.
 - Add bounded body-copy President and local-office capitalization, named
   Police Department references, approved military ranks and U.S. Amb. before
   full names, numbered street-address abbreviations, rescope/preconstruction

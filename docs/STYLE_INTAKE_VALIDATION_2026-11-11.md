@@ -1,5 +1,10 @@
 # Nov. 11 style intake: implementation and validation
 
+Historical validation at `698a4e2`. The military/title-use safety description
+is superseded by D-021 and `NAME_SAFETY_AUDIT_2026-11-12.md`, following broader
+research into institutional names and civilian rank-word uses. The earlier
+sample and test results below remain a dated record, not a safety guarantee.
+
 This report records the implemented subset of the intake audit, under D-020.
 The release version remains a9 until a separately verified release. These
 changes are local, unreleased main/body behavior; consumer adoption is separate.

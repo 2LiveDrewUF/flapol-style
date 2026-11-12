@@ -10,7 +10,10 @@ from typing import Iterable
 from .officeholders import load_officeholder_group
 from .protected import find_protected_spans
 from .reporting import EditingSession, Finding, RuleSpec
-from .titles import FULL_NAME_DISPLAY_PATTERN
+from .titles import (
+    FULL_NAME_DISPLAY_PATTERN, named_entity_phrase_at,
+    nonlegislative_representative_at,
+)
 
 
 _AUTHORITY = "Florida Politics owner ruling 2026-10-02"
@@ -183,8 +186,23 @@ class _IdentityResolver:
             text, allow_balanced_quotations=True
         )
         found: dict[tuple[str, str, str], LegislatorIdentity] = {}
+        coordinated = re.compile(
+            rf"(?<![\w])(?:{self.name_pattern})(?:\s*,\s*(?:{self.name_pattern}))*"
+            rf"\s*,?\s+and\s+(?:{self.name_pattern})(?![\w])", re.IGNORECASE
+        )
+        entity_lists = [
+            match.span() for match in coordinated.finditer(text)
+            if (named_entity_phrase_at(text, match.end(), name_words=2)
+                or nonlegislative_representative_at(text, match.start()))
+        ]
         for match in self.name_re.finditer(text):
             if _overlaps(match.start(), match.end(), hard_protected):
+                continue
+            if (named_entity_phrase_at(text, match.start())
+                    or named_entity_phrase_at(text, match.end(), name_words=2)
+                    or nonlegislative_representative_at(text, match.start())
+                    or any(match.start() < end and start < match.end()
+                           for start, end in entity_lists)):
                 continue
             if _HISTORICAL_MENTION_RE.search(
                 text[max(0, match.start() - 64):match.start()]
@@ -204,6 +222,24 @@ def _overlaps(start: int, end: int, spans: Iterable[object]) -> bool:
 
 def _has_historical_modifier(text: str, start: int) -> bool:
     return bool(_HISTORICAL_MODIFIER_RE.search(text[max(0, start - 24):start]))
+
+
+def _title_names_entity(match: re.Match[str], text: str) -> bool:
+    group = "name" if "name" in match.re.groupindex else "names"
+    if nonlegislative_representative_at(text, match.start(group)):
+        return True
+    if named_entity_phrase_at(text, match.start(group)):
+        return True
+    if named_entity_phrase_at(text, match.end(group), name_words=2):
+        return True
+    # A shared title can name a joint award/program; test the suffix after
+    # the closed list as well as the first name, without guessing identities.
+    if group == "names":
+        joins = list(re.finditer(r"\band\s+", match.group(group), re.IGNORECASE))
+        if joins and named_entity_phrase_at(text, match.start(group) + joins[-1].end()):
+            return True
+        return named_entity_phrase_at(text, match.end(group), name_words=2)
+    return False
 
 
 def _load_identities(
@@ -365,6 +401,8 @@ def _collect_before_name_findings(
         elif _overlaps(match.start(), match.end("name"), protected):
             continue
         end = match.end("name")
+        if _title_names_entity(match, session.text):
+            continue
         if _has_historical_modifier(session.text, match.start()):
             suggestion = (
                 "Confirm the historical office and jurisdiction; the current "
@@ -398,6 +436,8 @@ def _collect_before_name_findings(
 
     for match in _GENERIC_PLURAL_RE.finditer(session.text):
         end = match.end("names")
+        if _title_names_entity(match, session.text):
+            continue
         if _overlaps(match.start(), end, protected):
             continue
         if _has_historical_modifier(session.text, match.start()):
@@ -505,6 +545,8 @@ def apply_legislator_rules_to_session(
     ]
 
     def singular_replacement(match: re.Match[str], _text: str) -> str | None:
+        if _title_names_entity(match, _text):
+            return None
         if _has_historical_modifier(_text, match.start()):
             return None
         records = resolver.lookup(_display_name(match))
@@ -532,6 +574,8 @@ def apply_legislator_rules_to_session(
     )
 
     def plural_replacement(match: re.Match[str], _text: str) -> str | None:
+        if _title_names_entity(match, _text):
+            return None
         if _has_historical_modifier(_text, match.start()):
             return None
         records: list[LegislatorIdentity] = []
@@ -565,6 +609,8 @@ def apply_legislator_rules_to_session(
     def identity_singular_abbreviation(
         match: re.Match[str], _text: str
     ) -> str | None:
+        if _title_names_entity(match, _text):
+            return None
         if _has_historical_modifier(_text, match.start()):
             return None
         records = resolver.lookup(_display_name(match))
@@ -591,6 +637,8 @@ def apply_legislator_rules_to_session(
     def identity_plural_abbreviation(
         match: re.Match[str], _text: str
     ) -> str | None:
+        if _title_names_entity(match, _text):
+            return None
         if _has_historical_modifier(_text, match.start()):
             return None
         records: list[LegislatorIdentity] = []

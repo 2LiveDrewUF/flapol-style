@@ -268,3 +268,32 @@ look tidier than it was.
 - Archive usage is corroboration and a regression source, not independent
   authority. See `docs/STYLE_INTAKE_VALIDATION_2026-11-11.md` for the sample,
   observed false positives and validation limits.
+
+## D-021 — Prove the title use, not merely the name shape
+
+- Status: Accepted and implemented for the next release, Nov. 12, 2026.
+- Authority: Drew's instruction to broaden institution/award/program research
+  and avoid repeating the generic Representative failure; his supplied Staff
+  Sergeant Parker Gordon Fox Suicide Prevention Grant Program example.
+- Supersedes D-020's name-shaped-only eligibility for military abbreviations.
+  A matched full name must have immediate, explicit service/rank context,
+  such as Army, Navy, FHP or police. Retirement alone, capitalization and a
+  service mentioned elsewhere do not establish the occurrence's role.
+- Unqualified eligible rank words remain unchanged and produce
+  `flapol.titles.military-context-required` findings. Known civilian occupations
+  and supported nonperson noun phrases are preserved without being treated as
+  military titles. No new people registry or inferred rank/service is added.
+- A shared bounded noun-phrase guard protects supported institutional,
+  award, program and other nonperson name frames across abbreviation families.
+  It handles mixed case, soft line wraps, initials, suffixes and quoted
+  nicknames; unresolved overlong noun phrases fail closed.
+- A current lawmaker's name inside a named institution does not authorize
+  title shortening, jurisdiction insertion or inference of the document's
+  state/federal mode. Explicit company/union/legal/campaign representative
+  roles likewise do not establish legislative title use merely because their
+  names match a current lawmaker.
+- All prior quotation and literal protections remain in force; this ruling
+  grants no new quotation access. Main/body scope only; no release or consumer
+  adoption is implied.
+- See `docs/NAME_SAFETY_AUDIT_2026-11-12.md` and the public source index under
+  `references/` for research, reproduced failures, tests and limitations.

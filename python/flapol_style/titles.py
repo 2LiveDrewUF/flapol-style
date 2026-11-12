@@ -90,32 +90,149 @@ _NONPERSON_NAME_RE = re.compile(
     r"League|Magistrate|Manager|Secretary|Conference|Motors|Services|Store|Street|Avenue|Boulevard|Road|Court|"
     r"Drive|Trial|Order)\b", re.IGNORECASE
 )
-_NAMED_INSTITUTION_RE = re.compile(
-    r"\b(?:Act|Award|Program|Centre|Center|Hospital|Library|School|Bridge|"
-    r"Highway|Park|Hall|Building|Memorial|Foundation|Fund)\b"
+_ENTITY_HEADS = frozenset({
+    "academy", "institute", "institution", "university", "college", "school",
+    "award", "medal", "prize", "program", "programme", "scholarship", "act",
+    "fund", "trust", "foundation", "endowment", "association", "society", "coalition", "declaration",
+    "council", "commission", "committee", "subcommittee", "authority", "agency",
+    "department", "division", "bureau", "museum", "memorial", "library",
+    "building", "bridge", "highway", "trail", "hall", "park", "center", "centre", "hospital",
+    "street", "avenue", "boulevard", "road", "airport", "stadium", "arena", "campus", "courthouse",
+    "company", "corporation", "corp", "inc", "llc", "group", "partners",
+    "holdings", "management", "services", "solutions", "rum", "whiskey",
+    "vodka", "spirits", "bonds", "rights",
+})
+_AMBIGUOUS_ENTITY_HEADS = frozenset({"hall", "park", "center", "centre"})
+_ENTITY_CLAUSE_BOUNDARIES = frozenset({
+    "said", "says", "spoke", "told", "testified", "met", "served", "serves",
+    "received", "receives", "announced", "announces", "will", "would", "has",
+    "had", "is", "was", "who", "whose", "and", "or", "with", "at", "from",
+    "for", "to", "in", "on", "of", "about", "a", "an", "the",
+})
+_ENTITY_WORD_RE = re.compile(r"[^\W\d_][\w’'\-]*", re.UNICODE)
+_UNIFORMED_CONTEXT_RE = re.compile(
+    r"\b(?:Army|Navy|Air Force|Marine Corps|Marines?|Coast Guard|Space Force|"
+    r"Police(?: Department)?|Fire(?: Department)?|FHP|Florida Highway Patrol|"
+    r"Sheriff['’]s Office)(?:[ \t\r\n]+(?:Reserve|veteran|attorney|retired))*[ \t\r\n]+$",
+    re.IGNORECASE,
 )
-_BUSINESS_NAME_RE = re.compile(
-    r"\b(?:Partners|Equity|Holdings|Capital|Management|Services|Solutions|"
-    r"Company|Corporation|Corp|LLC|Inc|Group|Associates|Rum|Whiskey|Vodka|Spirits)\b"
+_CIVILIAN_SPECIALIST_RE = re.compile(
+    r"\b(?:finance|financial|healthcare|marketing|communications|media|technical|"
+    r"medical|education|information technology)[ \t]+$", re.IGNORECASE
 )
+_NONLEGISLATIVE_REPRESENTATIVE_RE = re.compile(
+    r"\b(?:applicant|company|corporate|firm|union|client|customer|sales|legal|"
+    r"campaign|media|press|marketing|business|association|agency)\s+"
+    r"(?:(?:U\.S\.|Florida|state)\s+)?(?:representatives?|reps\.)\s*$",
+    re.IGNORECASE,
+)
+
+
+def nonlegislative_representative_at(text: str, name_start: int) -> bool:
+    prefix = text[max(0, name_start - 100):name_start].rstrip().removesuffix("**").rstrip()
+    return bool(_NONLEGISLATIVE_REPRESENTATIVE_RE.search(prefix))
+
+
+def named_entity_phrase_at(text: str, start: int, *, name_words: int = 0) -> bool:
+    """Recognize a bounded noun phrase, including mixed-case official names.
+
+    Stop before a new clause: a person who spoke about a program is not the
+    program. This protects all title families, not an ever-growing name list.
+    """
+    tail = text[start:]
+    previous_end = 0
+    previous_word = ""
+    for index, word in enumerate(_ENTITY_WORD_RE.finditer(tail)):
+        if index >= 20:
+            return True  # An overlong unresolved noun phrase fails closed.
+        gap = tail[previous_end:word.start()].replace("**", "")
+        token = word.group().casefold()
+        head = token
+        if head not in _ENTITY_HEADS and head.endswith("ies"):
+            head = head[:-3] + "y"
+        elif head not in _ENTITY_HEADS and head.endswith("s"):
+            head = head[:-1]
+        if re.search(r"\n[ \t\r]*\n", gap):
+            break
+        if gap.strip():
+            initial_period = gap.strip() == "." and len(previous_word) == 1
+            suffix_punctuation = (set(gap.strip()) <= {",", "."}
+                                  and (token in {"jr", "sr"}
+                                       or previous_word in {"jr", "sr"}))
+            nickname_quotes = index >= 1 and set(gap.strip()) <= {'"', '“', '”'}
+            if not initial_period and not suffix_punctuation and not nickname_quotes:
+                break
+        if index + name_words >= 2 and token in _ENTITY_CLAUSE_BOUNDARIES:
+            break
+        if head in _ENTITY_HEADS:
+            if head not in _AMBIGUOUS_ENTITY_HEADS or index + name_words >= 2:
+                return True
+        previous_end = word.end()
+        previous_word = token
+    return False
+
+
+def _named_entity_follows(match: re.Match[str], text: str) -> bool:
+    return named_entity_phrase_at(text, match.end())
+
+
+def _nonmilitary_use(match: re.Match[str], text: str,
+                     record: dict[str, str]) -> bool:
+    prefix = text[max(0, match.start() - 60):match.start()]
+    if record["from"] == "General" and _CIVILIAN_GENERAL_PREFIX_RE.search(prefix):
+        return True
+    if record["from"] == "Specialist" and _CIVILIAN_SPECIALIST_RE.search(prefix):
+        return True
+    name = text[match.end():].lstrip().removeprefix("**")
+    return bool(_NONPERSON_NAME_RE.match(name))
+
+
+def _uniformed_context(match: re.Match[str], text: str) -> bool:
+    # Capitalized name-shaped words do not prove a rank. Qualify this exact
+    # occurrence; mentioning the Army elsewhere cannot authorize every match.
+    context = _UNIFORMED_CONTEXT_RE.search(text[max(0, match.start() - 90):match.start()])
+    return bool(context and not re.search(r"\n[ \t\r]*\n", context.group()))
 
 
 def _title_replacement(match: re.Match[str], text: str,
                        record: dict[str, str]) -> str | None:
+    if (_named_entity_follows(match, text)
+            or nonlegislative_representative_at(text, match.end())):
+        return None
     if record["class"] == "military":
-        prefix = text[max(0, match.start() - 35):match.start()]
-        if record["from"] == "General" and _CIVILIAN_GENERAL_PREFIX_RE.search(prefix):
-            return None
-        name = text[match.end():].lstrip().removeprefix("**")
-        if _NONPERSON_NAME_RE.match(name):
-            return None
-        name_run = re.match(FULL_NAME_PATTERN, name)
-        if name_run and _BUSINESS_NAME_RE.search(name_run.group().split()[-1]):
-            return None
-        if (name_run and len(name_run.group().split()) >= 3
-                and _NAMED_INSTITUTION_RE.search(name_run.group().split()[-1])):
+        if _nonmilitary_use(match, text, record) or not _uniformed_context(match, text):
             return None
     return record["to"]
+
+
+def military_title_flags_for_session(session: EditingSession) -> tuple[Finding, ...]:
+    """Keep unqualified rank-like title candidates for review, not rewriting."""
+    text = session.text
+    protected = find_protected_spans(text)
+    occupied: list[tuple[int, int]] = []
+    findings: list[Finding] = []
+    for pattern, record in _ABBREVIATION_RULES:
+        if record["class"] != "military":
+            continue
+        for match in pattern.finditer(text):
+            start, end = match.span()
+            if any(start < right and left < end for left, right in occupied):
+                continue
+            occupied.append((start, end))
+            if (match.group() == record["to"]
+                    or any(start < span.end and span.start < end for span in protected)
+                    or _named_entity_follows(match, text)
+                    or _nonmilitary_use(match, text, record)
+                    or _uniformed_context(match, text)):
+                continue
+            source_start, source_end = session.source_span(start, end)
+            findings.append(Finding(
+                "flapol.titles.military-context-required", "FLAG", match.group(),
+                f"Confirm a uniformed-service title before using {record['to']}",
+                source_start, source_end, "warning",
+                "Florida Politics owner safety clarification 2026-11-12",
+            ))
+    return tuple(findings)
 
 
 def apply_office_title_form_rules_to_session(session: EditingSession) -> None:
