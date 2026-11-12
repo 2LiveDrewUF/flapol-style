@@ -1,12 +1,90 @@
 [
-  {"id": "title-lieutenant-governor", "from": "Lieutenant Governor", "to": "Lt. Gov.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
-  {"id": "title-us-representatives", "from": "U.S. Representatives", "to": "U.S. Reps.", "class": "public", "authority": "Florida Politics owner ruling 2026-10-02", "speech_preserving": true},
-  {"id": "title-us-senators", "from": "U.S. Senators", "to": "U.S. Sens.", "class": "public", "authority": "Florida Politics owner ruling 2026-10-02", "speech_preserving": true},
-  {"id": "title-us-representative", "from": "U.S. Representative", "to": "U.S. Rep.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
-  {"id": "title-us-senator", "from": "U.S. Senator", "to": "U.S. Sen.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
-  {"id": "title-governor", "from": "Governor", "to": "Gov.", "class": "public", "authority": "Florida Politics main", "speech_preserving": true},
-  {"id": "title-chief-executive-officer", "from": "Chief Executive Officer", "to": "CEO", "class": "corporate", "authority": "Florida Politics main", "speech_preserving": false},
-  {"id": "title-chief-financial-officer", "from": "Chief Financial Officer", "to": "CFO", "class": "corporate", "authority": "Florida Politics main", "speech_preserving": false},
-  {"id": "title-chief-operating-officer", "from": "Chief Operating Officer", "to": "COO", "class": "corporate", "authority": "Florida Politics main", "speech_preserving": false},
-  {"id": "title-chief-marketing-officer", "from": "Chief Marketing Officer", "to": "CMO", "class": "corporate", "authority": "Florida Politics main", "speech_preserving": false}
+  {
+    "id": "title-lieutenant-governor",
+    "from": "Lieutenant Governor",
+    "to": "Lt. Gov.",
+    "class": "public",
+    "authority": "Florida Politics main",
+    "speech_preserving": true
+  },
+  {
+    "id": "title-us-representatives",
+    "from": "U.S. Representatives",
+    "to": "U.S. Reps.",
+    "class": "public",
+    "authority": "Florida Politics owner ruling 2026-10-02",
+    "speech_preserving": true
+  },
+  {
+    "id": "title-us-senators",
+    "from": "U.S. Senators",
+    "to": "U.S. Sens.",
+    "class": "public",
+    "authority": "Florida Politics owner ruling 2026-10-02",
+    "speech_preserving": true
+  },
+  {
+    "id": "title-us-representative",
+    "from": "U.S. Representative",
+    "to": "U.S. Rep.",
+    "class": "public",
+    "authority": "Florida Politics main",
+    "speech_preserving": true
+  },
+  {
+    "id": "title-us-senator",
+    "from": "U.S. Senator",
+    "to": "U.S. Sen.",
+    "class": "public",
+    "authority": "Florida Politics main",
+    "speech_preserving": true
+  },
+  {
+    "id": "title-governor",
+    "from": "Governor",
+    "to": "Gov.",
+    "class": "public",
+    "authority": "Florida Politics main",
+    "speech_preserving": true
+  },
+  {
+    "id": "title-chief-executive-officer",
+    "from": "Chief Executive Officer",
+    "to": "CEO",
+    "class": "corporate",
+    "authority": "Florida Politics main",
+    "speech_preserving": false
+  },
+  {
+    "id": "title-chief-financial-officer",
+    "from": "Chief Financial Officer",
+    "to": "CFO",
+    "class": "corporate",
+    "authority": "Florida Politics main",
+    "speech_preserving": false
+  },
+  {
+    "id": "title-chief-operating-officer",
+    "from": "Chief Operating Officer",
+    "to": "COO",
+    "class": "corporate",
+    "authority": "Florida Politics main",
+    "speech_preserving": false
+  },
+  {
+    "id": "title-chief-marketing-officer",
+    "from": "Chief Marketing Officer",
+    "to": "CMO",
+    "class": "corporate",
+    "authority": "Florida Politics main",
+    "speech_preserving": false
+  },
+  {
+    "id": "title-us-ambassador",
+    "from": "U.S. Ambassador",
+    "to": "U.S. Amb.",
+    "class": "public",
+    "authority": "Florida Politics owner ruling 2026-11-11; published house usage",
+    "speech_preserving": false
+  }
 ]

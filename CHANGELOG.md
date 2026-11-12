@@ -6,6 +6,27 @@ prefix.
 
 ## Unreleased
 
+## 0.1.0a10 — 2026-11-12
+
+- Preserve supported named institutions, awards and programs across existing
+  title families; exclude institutional or explicit civilian representative
+  roles from legislative identity context.
+- Add bounded body-copy President and local-office capitalization, named
+  Police Department and supplied U.S. Amb. before
+  full names, numbered street-address abbreviations, rescope/preconstruction
+  forms and the clarified no-party voter/member wording.
+- Add advisory review findings for corporate designators and first-reference
+  NPA voter/member/candidate forms. New rules preserve quotations and literals;
+  no headline or presentation behavior is added.
+- Capitalize `Speaker Pro Tempore` and `President Pro Tempore` in body
+  narration, including standalone titles, under the Nov. 11 owner ruling.
+- Add checksum-pinned project-local Windows verification with Ruby, jq and
+  CI-matched Vale. Record the 16-example review and pending variations for Peter.
+- Hold military-rank expansion, inferred Police Department short references
+  and the other new broad/contextual diagnostics outside this release for
+  natural-copy observation. Additional offices and Pro Tem forms remain
+  reference-only. See `docs/A10_SCOPE.md`; release does not imply consumer adoption.
+
 ## 0.1.0a9 — 2026-11-05
 
 - Refresh the state officeholder roster for the 2026-2028 term, including

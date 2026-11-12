@@ -1,0 +1,11 @@
+numbered-street-type-abbreviation:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts:
+  - main
+  protected_regions: required
+  speech_preserving: false
+  implementations:
+  - python/flapol_style/usage.py

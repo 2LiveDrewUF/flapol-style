@@ -160,6 +160,12 @@ jurisdiction can be normalized automatically. Ambiguous seasons, standalone
 titles, shortened governmental bodies and organization names are reported for
 contextual review instead of being blindly uppercased.
 
+The a10 body-copy additions also normalize the specifically adopted complete
+office titles in standalone uses. See [a10 scope](docs/A10_SCOPE.md) for those
+forms, advisory findings, and the experimental rules deliberately excluded
+from this release. Unresolved variations for Peter are recorded separately in
+[the review questions](docs/PETER_STYLE_QUESTIONS_2026-11-12.md).
+
 The main pipeline also provides protected automatic forms for `COVID`, `U.S.`,
 the gender-neutral `Chair`, numeral plus `%`, and lowercase punctuated
 `a.m.`/`p.m.`. The separate
@@ -176,6 +182,13 @@ Run its tests with:
 ```sh
 python3 -m unittest discover -s tests -p 'test_*.py'
 ```
+
+For the complete local checks, run `bash scripts/verify.sh`. On Windows,
+`scripts/verify.ps1 -Bootstrap` installs checksum-pinned portable Ruby, jq and
+Vale under ignored `build/`, then runs that same Bash verifier. Later runs need
+only `scripts/verify.ps1`. Supply `-Python` if the default Python command is
+unavailable; the runner avoids the Windows `python3` Store alias and changes
+only its process environment. See [Windows verification](docs/WINDOWS_VERIFICATION.md).
 
 Install the development package with:
 

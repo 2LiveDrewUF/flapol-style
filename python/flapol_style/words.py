@@ -27,7 +27,8 @@ def _project_case(
 ) -> str:
     # A title-cased word may be part of a formal name. Individual registry
     # rules can preserve that form when the text alone cannot prove otherwise.
-    if preserve_title_case and source[:1].isupper() and source[1:].islower():
+    if preserve_title_case and (source.istitle() or
+                               (source[:1].isupper() and source[1:].islower())):
         return source
     # A title-cased phrase may be part of a verified formal name, such as the
     # Health Care District of Palm Beach County. Without entity metadata, fail

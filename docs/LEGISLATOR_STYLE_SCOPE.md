@@ -11,6 +11,13 @@ The governing source is Drew's Florida Politics rulings of Sept. 29-Oct. 7,
 the same identity proof as the jurisdiction rules instead of the general
 name-shaped title registry.
 
+The Nov. 12, 2026 D-021 refinement also requires an eligible person reference.
+A matching lawmaker name within a supported institution, scholarship, award or
+program name neither authorizes title changes nor contributes a legislative
+level to the document. Explicit company, union, legal and similar civilian
+representative roles are preserved even if the same name appears in the roster.
+Identity matching alone does not establish the role of that occurrence.
+
 ## Stable rule families
 
 - `legislator-jurisdiction-before-name`

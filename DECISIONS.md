@@ -218,3 +218,107 @@ look tidier than it was.
   Jan. 3 and Jan. 5, 2027, respectively. Confirm seating or assumption of
   office before activating the incoming entries, then preserve the prior
   sitting roster for historical dates.
+
+## D-019 — Capitalize both Pro Tempore office titles
+
+- Status: Accepted, Nov. 11, 2026. Implemented for the next release.
+- Decision: In the main/body profile, capitalize the full office titles
+  `Speaker Pro Tempore` and `President Pro Tempore`, with or without a
+  connected name.
+- Authority: Drew's Nov. 11, 2026, Florida Politics owner ruling.
+- Classification: `AUTO_FIX` for either complete title in narration.
+  `flapol.capitalization.speaker-pro-tempore-title` and
+  `flapol.capitalization.president-pro-tempore-title` have
+  `speech_preserving=False`. Quotation and literal protections apply.
+- Evidence: The a9 body processor preserved correctly capitalized input.
+  The admitted change normalizes lowercase and mixed-case full titles.
+
+## D-020 — Admit bounded Nov. 11 style intake
+
+- Status: Accepted and implemented for the next release, Nov. 11, 2026.
+- Authority: Drew's Nov. 10 President ruling and Nov. 11 implementation
+  instructions and clarification, informed by Peter's review corrections.
+- Main/body automatic changes: President and explicit compound/plural forms;
+  City Manager, City Attorney, Council Member and Board Member, including
+  plural and singular -elect forms; named Police Department and narrowly
+  supported definite references; approved military title forms before a full
+  name; U.S. Ambassador to U.S. Amb. before a full name; numbered-address
+  Avenue, Boulevard and Street; rescope inflections and preconstruction;
+  no-party-affiliation voter/member to no-party voter/member; and the exact
+  paired phrase third- and no-party voters.
+- Preserve the stable President and Vice President IDs when promoting their
+  narration behavior from findings to automatic changes. Previously permitted
+  before-full-name quotation rendering retains its existing separate IDs and
+  permission. All new and newly broadened automatic behavior has
+  `speech_preserving=False`. No headline or presentation behavior is added.
+- Council, unresolved Police Department, generic Commissioner/Deputy/Sergeant,
+  Fiscal Year, internal City of, corporate suffixes, unsupported first-reference
+  NPA voter/member/candidate uses, legal intervener and a narrow adverse-vote
+  tally pattern remain findings. Their suggestions are not automatic fixes.
+- NPA is second-reference style. The Pizzo first-reference example was an
+  individual writer override, not a general rule. Do not automatically expand
+  or insert NPA, invent third-party voters, or rewrite a quoted source's term.
+- Corporate designators ordinarily disappear in narration, but legal-entity
+  distinctions can require retention. This tranche flags rather than deletes.
+- Title matching remains conservative name-shaped-text matching, not identity
+  verification. Judicial titles, obvious nonperson names and named facilities,
+  awards and programs receive explicit guards. Numeric warrant grades,
+  unsupported Space Force specialist variants and surname-only military
+  references remain unchanged pending stronger context or verified mappings.
+- Archive usage is corroboration and a regression source, not independent
+  authority. See `docs/STYLE_INTAKE_VALIDATION_2026-11-11.md` for the sample,
+  observed false positives and validation limits.
+
+## D-021 — Prove the title use, not merely the name shape
+
+- Status: Accepted and implemented for the next release, Nov. 12, 2026.
+- Authority: Drew's instruction to broaden institution/award/program research
+  and avoid repeating the generic Representative failure; his supplied Staff
+  Sergeant Parker Gordon Fox Suicide Prevention Grant Program example.
+- Supersedes D-020's name-shaped-only eligibility for military abbreviations.
+  A matched full name must have immediate, explicit service/rank context,
+  such as Army, Navy, FHP or police. Retirement alone, capitalization and a
+  service mentioned elsewhere do not establish the occurrence's role.
+- Unqualified eligible rank words remain unchanged and produce
+  `flapol.titles.military-context-required` findings. Known civilian occupations
+  and supported nonperson noun phrases are preserved without being treated as
+  military titles. No new people registry or inferred rank/service is added.
+- A shared bounded noun-phrase guard protects supported institutional,
+  award, program and other nonperson name frames across abbreviation families.
+  It handles mixed case, soft line wraps, initials, suffixes and quoted
+  nicknames; unresolved overlong noun phrases fail closed.
+- A current lawmaker's name inside a named institution does not authorize
+  title shortening, jurisdiction insertion or inference of the document's
+  state/federal mode. Explicit company/union/legal/campaign representative
+  roles likewise do not establish legislative title use merely because their
+  names match a current lawmaker.
+- All prior quotation and literal protections remain in force; this ruling
+  grants no new quotation access. Main/body scope only; no release or consumer
+  adoption is implied.
+- See `docs/NAME_SAFETY_AUDIT_2026-11-12.md` and the public source index under
+  `references/` for research, reproduced failures, tests and limitations.
+
+## D-022 — Release the ready a10 subset; observe the remainder locally
+
+- Status: Accepted, Nov. 12, 2026. Explicit owner release authorization.
+- Authority: Drew directed publication of the additions assessed as ready,
+  local testing of the others, and a two-week Newsroom Tools capture alongside
+  natural Draft Room experience. Drew will seek Peter's guidance on the
+  inconsistent artifact variations; absence of criticism admits no new rule.
+- Decision: Release the exact D-019 titles and the ready D-020 body forms,
+  named Police Department, address/spelling/no-party forms, supplied U.S. Amb.,
+  NPA/corporate advisory findings and D-021 protections for existing title and
+  legislative rules. See `docs/A10_SCOPE.md` for the enumerated contract.
+- Activation boundary: D-020/D-021 military expansion and its rank-context
+  finding, inferred police short references and the other new broad/contextual
+  diagnostics are not in a10. Their existing IDs remain reserved. This later
+  decision supersedes the earlier intended next-release activation, not the
+  underlying preferred spellings or safety research.
+- Additional local offices and Pro Tem forms remain reference-only. No new
+  quote access or consumer adoption is authorized. The tested experimental
+  source remains separately available locally; the release is assembled from
+  the previous main baseline with the selected additions only.
+- Evaluation: Newsroom Tools owns capture for Nov. 12-25, 2026 (America/New_York),
+  ending Nov. 26 at midnight. Store raw copy privately; review occurrence
+  context, before/after, findings, gaps and editor dispositions. Neither two
+  weeks passing nor usage frequency admits a policy or proves safety.

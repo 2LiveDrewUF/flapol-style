@@ -64,12 +64,13 @@ def load_title_abbreviations() -> tuple[dict[str, str], ...]:
 
 def _compile_rules() -> tuple[tuple[re.Pattern[str], dict[str, str]], ...]:
     rules: list[tuple[re.Pattern[str], dict[str, str]]] = []
-    for record in load_title_abbreviations():
+    for record in sorted(load_title_abbreviations(),
+                         key=lambda item: len(item["from"]), reverse=True):
         title = record["from"]
         rules.append(
             (
                 re.compile(
-                    rf"(?<![\w.])(?i:{re.escape(title)})"
+                    rf"(?<![\w.\-])(?i:{re.escape(title)})"
                     rf"(?=\s+{FULL_NAME_DISPLAY_PATTERN}(?:\b|(?<=\*\*)))",
                 ),
                 record,
@@ -79,6 +80,89 @@ def _compile_rules() -> tuple[tuple[re.Pattern[str], dict[str, str]], ...]:
 
 
 _ABBREVIATION_RULES = _compile_rules()
+
+_ENTITY_HEADS = frozenset({
+    "academy", "institute", "institution", "university", "college", "school",
+    "award", "medal", "prize", "program", "programme", "scholarship", "act",
+    "fund", "trust", "foundation", "endowment", "association", "society", "coalition", "declaration",
+    "council", "commission", "committee", "subcommittee", "authority", "agency",
+    "department", "division", "bureau", "museum", "memorial", "library",
+    "building", "bridge", "highway", "trail", "hall", "park", "center", "centre", "hospital",
+    "street", "avenue", "boulevard", "road", "airport", "stadium", "arena", "campus", "courthouse",
+    "company", "corporation", "corp", "inc", "llc", "group", "partners",
+    "holdings", "management", "services", "solutions", "rum", "whiskey",
+    "vodka", "spirits", "bonds", "rights",
+})
+_AMBIGUOUS_ENTITY_HEADS = frozenset({"hall", "park", "center", "centre"})
+_ENTITY_CLAUSE_BOUNDARIES = frozenset({
+    "said", "says", "spoke", "told", "testified", "met", "served", "serves",
+    "received", "receives", "announced", "announces", "will", "would", "has",
+    "had", "is", "was", "who", "whose", "and", "or", "with", "at", "from",
+    "for", "to", "in", "on", "of", "about", "a", "an", "the",
+})
+_ENTITY_WORD_RE = re.compile(r"[^\W\d_][\w’'\-]*", re.UNICODE)
+_NONLEGISLATIVE_REPRESENTATIVE_RE = re.compile(
+    r"\b(?:applicant|company|corporate|firm|union|client|customer|sales|legal|"
+    r"campaign|media|press|marketing|business|association|agency)\s+"
+    r"(?:(?:U\.S\.|Florida|state)\s+)?(?:representatives?|reps\.)\s*$",
+    re.IGNORECASE,
+)
+
+
+def nonlegislative_representative_at(text: str, name_start: int) -> bool:
+    prefix = text[max(0, name_start - 100):name_start].rstrip().removesuffix("**").rstrip()
+    return bool(_NONLEGISLATIVE_REPRESENTATIVE_RE.search(prefix))
+
+
+def named_entity_phrase_at(text: str, start: int, *, name_words: int = 0) -> bool:
+    """Recognize a bounded noun phrase, including mixed-case official names.
+
+    Stop before a new clause: a person who spoke about a program is not the
+    program. This protects all title families, not an ever-growing name list.
+    """
+    tail = text[start:]
+    previous_end = 0
+    previous_word = ""
+    for index, word in enumerate(_ENTITY_WORD_RE.finditer(tail)):
+        if index >= 20:
+            return True  # An overlong unresolved noun phrase fails closed.
+        gap = tail[previous_end:word.start()].replace("**", "")
+        token = word.group().casefold()
+        head = token
+        if head not in _ENTITY_HEADS and head.endswith("ies"):
+            head = head[:-3] + "y"
+        elif head not in _ENTITY_HEADS and head.endswith("s"):
+            head = head[:-1]
+        if re.search(r"\n[ \t\r]*\n", gap):
+            break
+        if gap.strip():
+            initial_period = gap.strip() == "." and len(previous_word) == 1
+            suffix_punctuation = (set(gap.strip()) <= {",", "."}
+                                  and (token in {"jr", "sr"}
+                                       or previous_word in {"jr", "sr"}))
+            nickname_quotes = index >= 1 and set(gap.strip()) <= {'"', '“', '”'}
+            if not initial_period and not suffix_punctuation and not nickname_quotes:
+                break
+        if index + name_words >= 2 and token in _ENTITY_CLAUSE_BOUNDARIES:
+            break
+        if head in _ENTITY_HEADS:
+            if head not in _AMBIGUOUS_ENTITY_HEADS or index + name_words >= 2:
+                return True
+        previous_end = word.end()
+        previous_word = token
+    return False
+
+
+def _named_entity_follows(match: re.Match[str], text: str) -> bool:
+    return named_entity_phrase_at(text, match.end())
+
+
+def _title_replacement(match: re.Match[str], text: str,
+                       record: dict[str, str]) -> str | None:
+    if (_named_entity_follows(match, text)
+            or nonlegislative_representative_at(text, match.end())):
+        return None
+    return record["to"]
 
 
 def apply_office_title_form_rules_to_session(session: EditingSession) -> None:
@@ -157,7 +241,7 @@ def apply_title_rules_to_session(session: EditingSession) -> None:
                 speech_preserving=record["speech_preserving"],
             ),
             pattern,
-            record["to"],
+            lambda match, text, item=record: _title_replacement(match, text, item),
         )
 
 
@@ -172,7 +256,7 @@ def abbreviate_titles_before_names(text: str) -> str:
                 speech_preserving=record["speech_preserving"],
             ),
             pattern,
-            record["to"],
+            lambda match, text, item=record: _title_replacement(match, text, item),
         )
     return session.text
 

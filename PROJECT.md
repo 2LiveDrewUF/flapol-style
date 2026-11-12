@@ -2,7 +2,7 @@
 
 ## Status
 
-Active. The public deterministic style kit is at `v0.1.0a9`. Consumers manage
+Active. The public deterministic style kit is at `v0.1.0a10`. Consumers manage
 their own adoption.
 
 ## Ownership and placement

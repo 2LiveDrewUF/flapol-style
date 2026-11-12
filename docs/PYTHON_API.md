@@ -1,5 +1,19 @@
 # Python API contract
 
+Version a10 protects named institutions/programs and explicit civilian
+representative roles from title shortening and legislative-context inference,
+even when a person's name resolves in the public roster. No new caller
+parameter or people registry is introduced. The experimental military title
+expansion and rank-context findings are not included. See D-022 and `A10_SCOPE.md`.
+
+The released subset of the Nov. 11 intake adds body-only title/address and
+no-party usage rules, plus NPA/corporate review findings, to `apply_main_style_with_report`.
+It does not add identity discovery, postal validation, company-entity
+resolution or automatic NPA expansion. Findings may contain explanatory review
+suggestions rather than replacement text; they must never be applied as edits.
+See `A10_SCOPE.md` for current scope. The historical intake/audit reports also
+describe experiments that D-022 deliberately holds outside this release.
+
 The package exposes two main entry points:
 
 ```python
@@ -204,6 +218,9 @@ authorization to rewrite the text.
 ## Protection and metadata
 
 Ordinary automatic edits and contextual findings exclude direct quotations.
+The main-body title forms `Speaker Pro Tempore` and `President Pro Tempore`
+are normalized only in narration. Their registry records explicitly set
+`speech_preserving=False`.
 An automatic rule may enter a balanced quotation only when its `RuleSpec` is
 explicitly marked `speech_preserving=True`. Markdown link destinations, URLs,
 email addresses, inline code and fenced code remain hard-protected from all

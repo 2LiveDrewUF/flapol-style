@@ -5,6 +5,79 @@ salvaging product-neutral behavior from the legacy Streamlet formatter. The
 legacy implementation is evidence that a rule was useful; it is not the
 authority that makes the rule correct.
 
+## Nov. 12, 2026 title-use safety refinement
+
+Release boundary: Drew's later Nov. 12 instruction, D-022, selects the a10
+subset in `A10_SCOPE.md`. The research below describes the full local candidate;
+military mappings/context findings, inferred police short references and other
+held diagnostics are not implemented in a10. Additional variations in the
+16-example artifact remain questions in `PETER_STYLE_QUESTIONS_2026-11-12.md`.
+
+Drew's Nov. 12 institution/award/program audit instruction supersedes the
+name-shaped-only eligibility described in the Nov. 11 military intake below.
+The supplied Fox grant-program name and broader archive research demonstrate
+that even full human names and known officeholder identities can occur inside
+institutional names. Healthcare finance specialist is also a civilian job,
+not evidence of the Army rank Specialist.
+
+The experimental military abbreviation requires immediate explicit uniformed-service
+context, plus the existing full-name and protected-region checks; its unqualified
+candidates receive local review findings. A bounded, mixed-case noun-phrase guard
+protects supported institutional references across title families, and
+legislative inference excludes those references and explicit nonlegislative
+representative roles. No name list or capitalization heuristic grants a rank.
+See D-021 and `NAME_SAFETY_AUDIT_2026-11-12.md`; the archive corroborates and
+stress-tests the owner's direction rather than adopting new editorial rules.
+
+## Nov. 11, 2026 intake
+
+Drew's Nov. 10 President ruling and Nov. 11 implementation direction establish
+the body-copy title inventory and conservative action split in D-020. Peter's
+review corrections and the published examples in the validation report
+corroborate the forms; they do not grant additional automatic behavior.
+
+- President and explicit compound/plural forms, City Manager, City Attorney,
+  Council Member and Board Member are automatic narration capitalization.
+  Commissioner and Deputy require a supported before-full-name context;
+  standalone forms, Council and Fiscal Year diagnostics remain local experiments.
+- A named Police Department is automatic in a10. The experimental inference
+  for later definite references and its unresolved-reference findings are held
+  outside the release, even if a single earlier agency is named.
+- Numbered-address Avenue, Boulevard and Street use Ave., Blvd. and St.
+  This is the AP addresses rule, confirmed by Drew and corroborated by the
+  [VA AP-style reference](https://digital.va.gov/oit-brand-system/ap-styles/).
+  Road, Drive and other street types are not shortened. Directional-name
+  interpretation, mailing-label rendering and postal validation are excluded.
+- Approved military forms are public factual mappings, cross-checked against
+  the [MHS May 1, 2026 rank tables](https://health.mil/Reference-Center/Publications/2026/05/01/MHS-Style-Guide)
+  and the [Army AP rank reference](https://api.army.mil/e2/c/downloads/293960.pdf).
+  Longest titles run first. The package does not inherit unrelated MHS house
+  departures or inconsistent warrant-grade deletions, guess service/grade,
+  or convert administrative abbreviations such as LTC. Numeric warrant
+  grades and unsupported specialist variants remain unchanged.
+- U.S. Ambassador before a full name becomes U.S. Amb. as a house form.
+  The source must already identify the U.S.; no nationality is inferred.
+- Peter's airport-story corrections, confirmed by the Nov. 11 implementation
+  direction, establish rescope/rescoped/rescopes/rescoping and preconstruction.
+  [Merriam-Webster](https://www.merriam-webster.com/dictionary/preconstruction)
+  lists both preconstruction and pre-construction; the unhyphenated preference
+  here is the adopted house choice, not a claim that the variant is nonexistent.
+  Title-cased possible formal names are preserved.
+- Drew's Nov. 11 clarification supersedes the earlier NPA intake inference:
+  use no-party voter/member and ordinarily third- and no-party voters when
+  both groups are discussed. NPA is second-reference style. The first-reference
+  Pizzo case was a writer override. The processor never automatically inserts
+  or expands NPA and does not invent an unmentioned third-party group.
+- Corporate designators are ordinarily omitted, but their removal can erase a
+  legal distinction. Only findings are implemented in a10. Legal intervener,
+  internal City of and the narrow adverse vote-tally findings remain local.
+
+Every new automatic rule above has `speech_preserving=False`; literals and
+uncertain structures remain protected. The existing President/Vice President
+before-full-name quotation rendering keeps its prior rule IDs and permission.
+These additions affect only the main/body pipeline. See
+`STYLE_INTAKE_VALIDATION_2026-11-11.md` for evidence, tests and limitations.
+
 ## Word forms
 
 | Registry rule | Governing source |
@@ -88,6 +161,14 @@ and POLITICO remain findings when the string alone cannot prove the intended
 sense. Context-proven capitalization is speech-preserving and may render
 inside balanced quotations. Contextual findings remain excluded from
 quotations, and literal regions remain excluded from both changes and findings.
+
+Drew's Nov. 11, 2026, owner ruling establishes `Speaker Pro Tempore` and
+`President Pro Tempore` in the main/body profile, including standalone
+references. The complete title supplies enough context for automatic
+capitalization. The two rules are explicitly classified
+`speech_preserving=False` and use normal quotation and literal protection.
+The a9 processor already preserved supplied capitals. This ruling adds
+normalization of lowercase and mixed-case versions of the two full titles.
 
 ## Presentation bolding
 
@@ -213,6 +294,15 @@ The full formal phrase `Commissioner of Agriculture and Consumer Services` is
 outside the shorter Agriculture Commissioner ordering rule. The package
 preserves that phrase instead of producing the malformed hybrid `Agriculture
 Commissioner and Consumer Services`.
+
+## FP+ second review: reference-only observations
+
+The Nov. 12, 2026, second review of all 16 examples in the FP+ Story Engine
+developer artifact adds reference-only observations and a proposed title
+inventory, recorded in `A10_READINESS_2026-11-12.md`. It does not admit new
+capitalization rules from uncriticized text. Official local-government and
+legislative sources support retaining a verified Pro Tem office form; any
+additional house capitalization scope still requires adoption.
 
 ## Date capitalization
 
