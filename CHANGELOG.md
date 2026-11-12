@@ -6,6 +6,11 @@ prefix.
 
 ## Unreleased
 
+- Add a checksum-pinned project-local Windows runner for the complete Bash
+  verifier, including Ruby, jq and CI-matched Vale. Record the second FP+
+  artifact review and a10 scope recommendations without admitting additional
+  observed titles as rules.
+
 - Require local uniformed-service context before automatically abbreviating
   military rank words. Preserve named institutions, awards and programs across
   title families, and prevent institutional or explicit civilian-role names

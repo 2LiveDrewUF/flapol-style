@@ -289,6 +289,15 @@ outside the shorter Agriculture Commissioner ordering rule. The package
 preserves that phrase instead of producing the malformed hybrid `Agriculture
 Commissioner and Consumer Services`.
 
+## FP+ second review: reference-only observations
+
+The Nov. 12, 2026, second review of all 16 examples in the FP+ Story Engine
+developer artifact adds reference-only observations and a proposed title
+inventory, recorded in `A10_READINESS_2026-11-12.md`. It does not admit new
+capitalization rules from uncriticized text. Official local-government and
+legislative sources support retaining a verified Pro Tem office form; any
+additional house capitalization scope still requires adoption.
+
 ## Date capitalization
 
 Florida Politics owner guidance on Oct. 2, 2026, makes lowercase or otherwise

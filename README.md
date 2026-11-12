@@ -177,6 +177,13 @@ Run its tests with:
 python3 -m unittest discover -s tests -p 'test_*.py'
 ```
 
+For the complete local checks, run `bash scripts/verify.sh`. On Windows,
+`scripts/verify.ps1 -Bootstrap` installs checksum-pinned portable Ruby, jq and
+Vale under ignored `build/`, then runs that same Bash verifier. Later runs need
+only `scripts/verify.ps1`. Supply `-Python` if the default Python command is
+unavailable; the runner avoids the Windows `python3` Store alias and changes
+only its process environment. See [Windows verification](docs/WINDOWS_VERIFICATION.md).
+
 Install the development package with:
 
 ```sh

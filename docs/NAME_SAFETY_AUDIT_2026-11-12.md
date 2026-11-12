@@ -87,6 +87,9 @@ form manually. No exhaustive institution-name registry is claimed.
 Local checks include the complete Python regression suite, JSON/coverage
 validation, syntax and whitespace checks, the 40-body replay and a built-package
 installation smoke test. The required Bash verifier is run with an explicit
-Python route; it passes tests and syntax, then stops because jq is absent.
-Ruby and Vale are also unavailable locally. Branch/tag CI and minimum-supported
-Python verification remain release requirements; they are not reported as passed.
+Python route. Its initial run stopped at missing jq, with Ruby and Vale also
+absent. Later on Nov. 12, the checksum-pinned project-local Windows runner
+resolved those prerequisites: the full Bash verifier passed, including all
+238 tests, Ruby coverage checks and five Vale fixtures. See
+`WINDOWS_VERIFICATION.md`. Branch/tag CI and minimum-supported Python
+verification remain separate release requirements.
