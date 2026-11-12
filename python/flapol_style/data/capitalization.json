@@ -111,33 +111,167 @@
       "to": "Florida Legislature",
       "authority": "Florida Politics main",
       "speech_preserving": true
+    },
+    {
+      "id": "president-title",
+      "from": "president",
+      "to": "President",
+      "authority": "Florida Politics owner rulings 2026-11-10 and 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "presidents-title",
+      "from": "presidents",
+      "to": "Presidents",
+      "authority": "Florida Politics owner rulings 2026-11-10 and 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "vice-president-title",
+      "from": "vice president",
+      "to": "Vice President",
+      "authority": "Florida Politics owner rulings 2026-11-10 and 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "vice-presidents-title",
+      "from": "vice presidents",
+      "to": "Vice Presidents",
+      "authority": "Florida Politics owner rulings 2026-11-10 and 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "president-elect-title",
+      "from": "president-elect",
+      "to": "President-elect",
+      "authority": "Florida Politics owner rulings 2026-11-10 and 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "president-designate-title",
+      "from": "president-designate",
+      "to": "President-designate",
+      "authority": "Florida Politics owner rulings 2026-11-10 and 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "vice-president-elect-title",
+      "from": "vice president-elect",
+      "to": "Vice President-elect",
+      "authority": "Florida Politics owner rulings 2026-11-10 and 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "city-manager-title",
+      "from": "city manager",
+      "to": "City Manager",
+      "authority": "Florida Politics owner rulings 2026-11-10 and 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "city-managers-title",
+      "from": "city managers",
+      "to": "City Managers",
+      "authority": "Florida Politics owner rulings 2026-11-10 and 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "city-attorney-title",
+      "from": "city attorney",
+      "to": "City Attorney",
+      "authority": "Florida Politics owner rulings 2026-11-10 and 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "city-attorneys-title",
+      "from": "city attorneys",
+      "to": "City Attorneys",
+      "authority": "Florida Politics owner rulings 2026-11-10 and 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "council-member-title",
+      "from": "council member",
+      "to": "Council Member",
+      "authority": "Florida Politics owner rulings 2026-11-10 and 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "council-members-title",
+      "from": "council members",
+      "to": "Council Members",
+      "authority": "Florida Politics owner rulings 2026-11-10 and 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "board-member-title",
+      "from": "board member",
+      "to": "Board Member",
+      "authority": "Florida Politics owner rulings 2026-11-10 and 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "board-members-title",
+      "from": "board members",
+      "to": "Board Members",
+      "authority": "Florida Politics owner rulings 2026-11-10 and 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "city-manager-elect-title",
+      "from": "city manager-elect",
+      "to": "City Manager-elect",
+      "authority": "Florida Politics owner ruling 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "city-attorney-elect-title",
+      "from": "city attorney-elect",
+      "to": "City Attorney-elect",
+      "authority": "Florida Politics owner ruling 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "council-member-elect-title",
+      "from": "council member-elect",
+      "to": "Council Member-elect",
+      "authority": "Florida Politics owner ruling 2026-11-11",
+      "speech_preserving": false
+    },
+    {
+      "id": "board-member-elect-title",
+      "from": "board member-elect",
+      "to": "Board Member-elect",
+      "authority": "Florida Politics owner ruling 2026-11-11",
+      "speech_preserving": false
     }
   ],
   "before_name_titles": [
-    {"id": "president-before-name", "from": "President", "to": "President", "authority": "Florida Politics main"},
-    {"id": "vice-president-before-name", "from": "Vice President", "to": "Vice President", "authority": "Florida Politics main"},
-    {"id": "first-lady-before-name", "from": "First Lady", "to": "First Lady", "authority": "Florida Politics main"},
-    {"id": "second-lady-before-name", "from": "Second Lady", "to": "Second Lady", "authority": "Florida Politics owner ruling 2026-08-16"},
-    {"id": "attorney-general-before-name", "from": "Attorney General", "to": "Attorney General", "authority": "Florida Politics main"},
-    {"id": "mayor-before-name", "from": "Mayor", "to": "Mayor", "authority": "Florida Politics main"},
-    {"id": "managing-partner-before-name", "from": "Managing Partner", "to": "Managing Partner", "authority": "Florida Politics main"},
-    {"id": "director-before-name", "from": "Director", "to": "Director", "authority": "Florida Politics main"},
-    {"id": "chair-before-name", "from": "Chair", "to": "Chair", "authority": "Florida Politics main"}
+    {"id": "president-before-name", "from": "President", "to": "President", "authority": "Florida Politics main", "speech_preserving": true},
+    {"id": "vice-president-before-name", "from": "Vice President", "to": "Vice President", "authority": "Florida Politics main", "speech_preserving": true},
+    {"id": "first-lady-before-name", "from": "First Lady", "to": "First Lady", "authority": "Florida Politics main", "speech_preserving": true},
+    {"id": "second-lady-before-name", "from": "Second Lady", "to": "Second Lady", "authority": "Florida Politics owner ruling 2026-08-16", "speech_preserving": true},
+    {"id": "attorney-general-before-name", "from": "Attorney General", "to": "Attorney General", "authority": "Florida Politics main", "speech_preserving": true},
+    {"id": "mayor-before-name", "from": "Mayor", "to": "Mayor", "authority": "Florida Politics main", "speech_preserving": true},
+    {"id": "managing-partner-before-name", "from": "Managing Partner", "to": "Managing Partner", "authority": "Florida Politics main", "speech_preserving": true},
+    {"id": "director-before-name", "from": "Director", "to": "Director", "authority": "Florida Politics main", "speech_preserving": true},
+    {"id": "chair-before-name", "from": "Chair", "to": "Chair", "authority": "Florida Politics main", "speech_preserving": true},
+    {"id": "commissioner-before-name", "from": "Commissioner", "to": "Commissioner", "authority": "Florida Politics owner ruling 2026-11-11", "speech_preserving": false},
+    {"id": "deputy-before-name", "from": "Deputy", "to": "Deputy", "authority": "Florida Politics owner ruling 2026-11-11", "speech_preserving": false}
   ],
   "governmental_bodies": [
-    {"id": "named-county-commission", "from": "County Commission", "to": "County Commission", "authority": "Florida Politics main"},
-    {"id": "named-city-commission", "from": "City Commission", "to": "City Commission", "authority": "Florida Politics main"},
-    {"id": "named-city-council", "from": "City Council", "to": "City Council", "authority": "Florida Politics main"},
-    {"id": "named-school-board", "from": "School Board", "to": "School Board", "authority": "Florida Politics main"},
-    {"id": "named-school-district", "from": "School District", "to": "School District", "authority": "Florida Politics main"}
+    {"id": "named-county-commission", "from": "County Commission", "to": "County Commission", "authority": "Florida Politics main", "speech_preserving": true},
+    {"id": "named-city-commission", "from": "City Commission", "to": "City Commission", "authority": "Florida Politics main", "speech_preserving": true},
+    {"id": "named-city-council", "from": "City Council", "to": "City Council", "authority": "Florida Politics main", "speech_preserving": true},
+    {"id": "named-school-board", "from": "School Board", "to": "School Board", "authority": "Florida Politics main", "speech_preserving": true},
+    {"id": "named-school-district", "from": "School District", "to": "School District", "authority": "Florida Politics main", "speech_preserving": true},
+    {"id": "named-police-department", "from": "Police Department", "to": "Police Department", "authority": "Florida Politics owner ruling 2026-11-11", "speech_preserving": false}
   ],
   "context_flags": [
     {"id": "season-spring", "from": "spring", "to": "Spring"},
     {"id": "season-summer", "from": "summer", "to": "Summer"},
     {"id": "season-fall", "from": "fall", "to": "Fall"},
     {"id": "season-winter", "from": "winter", "to": "Winter"},
-    {"id": "president-title", "from": "president", "to": "President"},
-    {"id": "vice-president-title", "from": "vice president", "to": "Vice President"},
     {"id": "first-lady-title", "from": "first lady", "to": "First Lady"},
     {"id": "second-lady-title", "from": "second lady", "to": "Second Lady"},
     {"id": "attorney-general-title", "from": "attorney general", "to": "Attorney General"},
@@ -158,7 +292,16 @@
     {"id": "school-district", "from": "school district", "to": "School District"},
     {"id": "the-process", "from": "the process", "to": "The Process"},
     {"id": "visit-florida", "from": "visit florida", "to": "VISIT FLORIDA"},
-    {"id": "politico", "from": "politico", "to": "POLITICO"}
+    {"id": "politico", "from": "politico", "to": "POLITICO"},
+    {"id": "council-short-form", "from": "council", "to": "Council", "authority": "Florida Politics owner ruling 2026-11-11"},
+    {"id": "police-department", "from": "police department", "to": "Police Department", "authority": "Florida Politics owner ruling 2026-11-11"},
+    {"id": "commissioner-context", "from": "commissioner", "to": "Commissioner", "authority": "Florida Politics owner ruling 2026-11-11; context review required"},
+    {"id": "commissioners-context", "from": "commissioners", "to": "Commissioners", "authority": "Florida Politics owner ruling 2026-11-11; context review required"},
+    {"id": "deputy-context", "from": "deputy", "to": "Deputy", "authority": "Florida Politics owner ruling 2026-11-11; context review required"},
+    {"id": "deputies-context", "from": "deputies", "to": "Deputies", "authority": "Florida Politics owner ruling 2026-11-11; context review required"},
+    {"id": "sergeant-context", "from": "sergeant", "to": "Sergeant", "authority": "Florida Politics owner ruling 2026-11-11; context review required"},
+    {"id": "fiscal-year-context", "from": "fiscal year", "to": "Fiscal Year", "authority": "Florida Politics owner ruling 2026-11-11; context review required"},
+    {"id": "fiscal-years-context", "from": "fiscal years", "to": "Fiscal Years", "authority": "Florida Politics owner ruling 2026-11-11; context review required"}
   ],
   "unresolved_legacy": []
 }

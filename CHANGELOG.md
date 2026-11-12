@@ -6,6 +6,14 @@ prefix.
 
 ## Unreleased
 
+- Add bounded body-copy President and local-office capitalization, named
+  Police Department references, approved military ranks and U.S. Amb. before
+  full names, numbered street-address abbreviations, rescope/preconstruction
+  forms and the clarified no-party voter/member wording.
+- Add review findings for ambiguous local bodies and titles, corporate
+  designators, first-reference NPA voter/member/candidate forms, legal
+  intervener, internal City of and adverse vote-tally order. New rules preserve
+  quotations and literals; no headline or presentation behavior is added.
 - Capitalize `Speaker Pro Tempore` and `President Pro Tempore` in body
   narration, including standalone titles, under the Nov. 11 owner ruling.
 

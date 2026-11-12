@@ -377,3 +377,135 @@ link-bolding:
   contexts: [presentation]
   protected_regions: required
   implementations: [python/flapol_style/presentation.py]
+capitalize-president-narration:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts:
+  - main
+  protected_regions: required
+  speech_preserving: false
+  implementations:
+  - python/flapol_style/capitalization.py
+  - python/flapol_style/data/capitalization.json
+capitalize-local-office-phrases:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts:
+  - main
+  protected_regions: required
+  speech_preserving: false
+  implementations:
+  - python/flapol_style/capitalization.py
+  - python/flapol_style/data/capitalization.json
+capitalize-named-police-department:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts:
+  - main
+  protected_regions: required
+  speech_preserving: false
+  implementations:
+  - python/flapol_style/capitalization.py
+military-titles-before-full-name:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts:
+  - main
+  protected_regions: required
+  speech_preserving: false
+  implementations:
+  - python/flapol_style/titles.py
+  - python/flapol_style/data/title_abbreviations.json
+us-ambassador-before-full-name:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts:
+  - main
+  protected_regions: required
+  speech_preserving: false
+  implementations:
+  - python/flapol_style/titles.py
+  - python/flapol_style/data/title_abbreviations.json
+rescope-preconstruction-forms:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts:
+  - main
+  protected_regions: required
+  speech_preserving: false
+  implementations:
+  - python/flapol_style/words.py
+  - python/flapol_style/data/word_preferences.json
+no-party-voter-member-forms:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: true
+  contexts:
+  - main
+  protected_regions: required
+  speech_preserving: false
+  implementations:
+  - python/flapol_style/usage.py
+npa-first-reference-review:
+  documented: true
+  detected: true
+  detection_mode: contextual
+  auto_fix: false
+  contexts:
+  - main
+  protected_regions: required
+  implementations:
+  - python/flapol_style/usage.py
+corporate-designator-review:
+  documented: true
+  detected: true
+  detection_mode: contextual
+  auto_fix: false
+  contexts:
+  - main
+  protected_regions: required
+  implementations:
+  - python/flapol_style/usage.py
+legal-intervenor-review:
+  documented: true
+  detected: true
+  detection_mode: contextual
+  auto_fix: false
+  contexts:
+  - main
+  protected_regions: required
+  implementations:
+  - python/flapol_style/usage.py
+city-of-capitalization-review:
+  documented: true
+  detected: true
+  detection_mode: contextual
+  auto_fix: false
+  contexts:
+  - main
+  protected_regions: required
+  implementations:
+  - python/flapol_style/usage.py
+adverse-vote-tally-review:
+  documented: true
+  detected: true
+  detection_mode: contextual
+  auto_fix: false
+  contexts:
+  - main
+  protected_regions: required
+  implementations:
+  - python/flapol_style/usage.py

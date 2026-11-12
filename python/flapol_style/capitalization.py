@@ -121,7 +121,11 @@ def apply_capitalization_rules_to_session(session: EditingSession) -> None:
         def before_name_replacement(match: re.Match[str], text: str) -> str | None:
             # An exact title owns its full phrase, including its quote policy.
             # "Pro Tempore" following "President" is not a person's name.
-            if any(exact.match(text, match.start()) for exact, _ in _EXACT_PATTERNS):
+            if any(
+                owned is not None and owned.end() > match.end()
+                for exact, _ in _EXACT_PATTERNS
+                for owned in [exact.match(text, match.start())]
+            ):
                 return None
             return record["to"]
 
@@ -129,7 +133,7 @@ def apply_capitalization_rules_to_session(session: EditingSession) -> None:
             RuleSpec(
                 rule_id=f"flapol.capitalization.{record['id']}",
                 authority=record["authority"],
-                speech_preserving=True,
+                speech_preserving=record.get("speech_preserving", False),
             ),
             pattern,
             before_name_replacement,
@@ -139,13 +143,50 @@ def apply_capitalization_rules_to_session(session: EditingSession) -> None:
             RuleSpec(
                 rule_id=f"flapol.capitalization.{record['id']}",
                 authority=record["authority"],
-                speech_preserving=True,
+                speech_preserving=record.get("speech_preserving", False),
             ),
             pattern,
             lambda match, _text, body=record["to"]: (
                 f"{match.group(1)} {body}"
             ),
         )
+    _capitalize_police_references(session)
+
+
+_POLICE_REFERENCE_RE = re.compile(
+    r"(?i:\bthe\s+)(?P<body>police[ \t]+department)"
+    r"(?=[ \t]+(?i:said|says|announced|reported|confirmed|released|"
+    r"investigated|arrested|responded|will|has|had|is|was)\b)"
+)
+
+
+def _capitalize_police_references(session: EditingSession) -> None:
+    # A definite reference is safe only after one named, unquoted agency.
+    protected = find_protected_spans(session.text)
+    named_pattern = next(
+        pattern for pattern, record in _BODY_PATTERNS
+        if record["id"] == "named-police-department"
+    )
+    named = [
+        match for match in named_pattern.finditer(session.text)
+        if not any(match.start() < span.end and span.start < match.end()
+                   for span in protected)
+    ]
+    if len({match.group(1).casefold() for match in named}) != 1:
+        return
+    first_end = named[0].end()
+
+    def replace(match: re.Match[str], _text: str) -> str | None:
+        if match.start() < first_end:
+            return None
+        return match.group(0)[:match.start("body") - match.start()] + "Police Department"
+
+    session.replace_pattern(
+        RuleSpec("flapol.capitalization.police-department-reference",
+                 "Florida Politics owner ruling 2026-11-11"),
+        _POLICE_REFERENCE_RE,
+        replace,
+    )
 
 
 def normalize_capitalization(text: str) -> str:

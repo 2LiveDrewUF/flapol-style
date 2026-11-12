@@ -64,12 +64,13 @@ def load_title_abbreviations() -> tuple[dict[str, str], ...]:
 
 def _compile_rules() -> tuple[tuple[re.Pattern[str], dict[str, str]], ...]:
     rules: list[tuple[re.Pattern[str], dict[str, str]]] = []
-    for record in load_title_abbreviations():
+    for record in sorted(load_title_abbreviations(),
+                         key=lambda item: len(item["from"]), reverse=True):
         title = record["from"]
         rules.append(
             (
                 re.compile(
-                    rf"(?<![\w.])(?i:{re.escape(title)})"
+                    rf"(?<![\w.\-])(?i:{re.escape(title)})"
                     rf"(?=\s+{FULL_NAME_DISPLAY_PATTERN}(?:\b|(?<=\*\*)))",
                 ),
                 record,
@@ -79,6 +80,42 @@ def _compile_rules() -> tuple[tuple[re.Pattern[str], dict[str, str]], ...]:
 
 
 _ABBREVIATION_RULES = _compile_rules()
+
+_CIVILIAN_GENERAL_PREFIX_RE = re.compile(
+    r"\b(?:Attorney|Solicitor|Inspector|Surgeon|Postmaster|Secretary|"
+    r"Director|Consul|Adjutant)[ -]+$", re.IGNORECASE
+)
+_NONPERSON_NAME_RE = re.compile(
+    r"^(?:Assembly|Counsel|Dynamics|Electric|Election|General|Hospital|"
+    r"League|Magistrate|Manager|Secretary|Conference|Motors|Services|Store|Street|Avenue|Boulevard|Road|Court|"
+    r"Drive|Trial|Order)\b", re.IGNORECASE
+)
+_NAMED_INSTITUTION_RE = re.compile(
+    r"\b(?:Act|Award|Program|Centre|Center|Hospital|Library|School|Bridge|"
+    r"Highway|Park|Hall|Building|Memorial|Foundation|Fund)\b"
+)
+_BUSINESS_NAME_RE = re.compile(
+    r"\b(?:Partners|Equity|Holdings|Capital|Management|Services|Solutions|"
+    r"Company|Corporation|Corp|LLC|Inc|Group|Associates|Rum|Whiskey|Vodka|Spirits)\b"
+)
+
+
+def _title_replacement(match: re.Match[str], text: str,
+                       record: dict[str, str]) -> str | None:
+    if record["class"] == "military":
+        prefix = text[max(0, match.start() - 35):match.start()]
+        if record["from"] == "General" and _CIVILIAN_GENERAL_PREFIX_RE.search(prefix):
+            return None
+        name = text[match.end():].lstrip().removeprefix("**")
+        if _NONPERSON_NAME_RE.match(name):
+            return None
+        name_run = re.match(FULL_NAME_PATTERN, name)
+        if name_run and _BUSINESS_NAME_RE.search(name_run.group().split()[-1]):
+            return None
+        if (name_run and len(name_run.group().split()) >= 3
+                and _NAMED_INSTITUTION_RE.search(name_run.group().split()[-1])):
+            return None
+    return record["to"]
 
 
 def apply_office_title_form_rules_to_session(session: EditingSession) -> None:
@@ -157,7 +194,7 @@ def apply_title_rules_to_session(session: EditingSession) -> None:
                 speech_preserving=record["speech_preserving"],
             ),
             pattern,
-            record["to"],
+            lambda match, text, item=record: _title_replacement(match, text, item),
         )
 
 
@@ -172,7 +209,7 @@ def abbreviate_titles_before_names(text: str) -> str:
                 speech_preserving=record["speech_preserving"],
             ),
             pattern,
-            record["to"],
+            lambda match, text, item=record: _title_replacement(match, text, item),
         )
     return session.text
 

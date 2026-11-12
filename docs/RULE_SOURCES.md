@@ -5,6 +5,55 @@ salvaging product-neutral behavior from the legacy Streamlet formatter. The
 legacy implementation is evidence that a rule was useful; it is not the
 authority that makes the rule correct.
 
+## Nov. 11, 2026 intake
+
+Drew's Nov. 10 President ruling and Nov. 11 implementation direction establish
+the body-copy title inventory and conservative action split in D-020. Peter's
+review corrections and the published examples in the validation report
+corroborate the forms; they do not grant additional automatic behavior.
+
+- President and explicit compound/plural forms, City Manager, City Attorney,
+  Council Member and Board Member are automatic narration capitalization.
+  Commissioner and Deputy require a supported before-full-name context;
+  standalone forms, Council and Fiscal Year remain contextual findings.
+- A named Police Department is automatic; a later definite reference is
+  automatic only with one unquoted named agency and a supported predicate.
+  Generic, unresolved or multiple-agency references remain findings.
+- Numbered-address Avenue, Boulevard and Street use Ave., Blvd. and St.
+  This is the AP addresses rule, confirmed by Drew and corroborated by the
+  [VA AP-style reference](https://digital.va.gov/oit-brand-system/ap-styles/).
+  Road, Drive and other street types are not shortened. Directional-name
+  interpretation, mailing-label rendering and postal validation are excluded.
+- Approved military forms are public factual mappings, cross-checked against
+  the [MHS May 1, 2026 rank tables](https://health.mil/Reference-Center/Publications/2026/05/01/MHS-Style-Guide)
+  and the [Army AP rank reference](https://api.army.mil/e2/c/downloads/293960.pdf).
+  Longest titles run first. The package does not inherit unrelated MHS house
+  departures or inconsistent warrant-grade deletions, guess service/grade,
+  or convert administrative abbreviations such as LTC. Numeric warrant
+  grades and unsupported specialist variants remain unchanged.
+- U.S. Ambassador before a full name becomes U.S. Amb. as a house form.
+  The source must already identify the U.S.; no nationality is inferred.
+- Peter's airport-story corrections, confirmed by the Nov. 11 implementation
+  direction, establish rescope/rescoped/rescopes/rescoping and preconstruction.
+  [Merriam-Webster](https://www.merriam-webster.com/dictionary/preconstruction)
+  lists both preconstruction and pre-construction; the unhyphenated preference
+  here is the adopted house choice, not a claim that the variant is nonexistent.
+  Title-cased possible formal names are preserved.
+- Drew's Nov. 11 clarification supersedes the earlier NPA intake inference:
+  use no-party voter/member and ordinarily third- and no-party voters when
+  both groups are discussed. NPA is second-reference style. The first-reference
+  Pizzo case was a writer override. The processor never automatically inserts
+  or expands NPA and does not invent an unmentioned third-party group.
+- Corporate designators are ordinarily omitted, but their removal can erase a
+  legal distinction. Only findings are implemented. Legal intervener, internal
+  City of and the narrow adverse vote-tally pattern likewise request review.
+
+Every new automatic rule above has `speech_preserving=False`; literals and
+uncertain structures remain protected. The existing President/Vice President
+before-full-name quotation rendering keeps its prior rule IDs and permission.
+These additions affect only the main/body pipeline. See
+`STYLE_INTAKE_VALIDATION_2026-11-11.md` for evidence, tests and limitations.
+
 ## Word forms
 
 | Registry rule | Governing source |

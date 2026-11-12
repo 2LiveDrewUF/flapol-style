@@ -71,5 +71,50 @@
     "authority": "AP update 2026-04-27",
     "action": "AUTO_FIX",
     "speech_preserving": true
+  },
+  {
+    "id": "preconstruction",
+    "from": "pre-construction",
+    "to": "preconstruction",
+    "authority": "Florida Politics owner ruling 2026-11-11; Peter review corrections",
+    "action": "AUTO_FIX",
+    "speech_preserving": false,
+    "preserve_title_case": true
+  },
+  {
+    "id": "rescope",
+    "from": "re-scope",
+    "to": "rescope",
+    "authority": "Florida Politics owner ruling 2026-11-11; Peter review corrections",
+    "action": "AUTO_FIX",
+    "speech_preserving": false,
+    "preserve_title_case": true
+  },
+  {
+    "id": "rescoped",
+    "from": "re-scoped",
+    "to": "rescoped",
+    "authority": "Florida Politics owner ruling 2026-11-11; Peter review corrections",
+    "action": "AUTO_FIX",
+    "speech_preserving": false,
+    "preserve_title_case": true
+  },
+  {
+    "id": "rescopes",
+    "from": "re-scopes",
+    "to": "rescopes",
+    "authority": "Florida Politics owner ruling 2026-11-11; Peter review corrections",
+    "action": "AUTO_FIX",
+    "speech_preserving": false,
+    "preserve_title_case": true
+  },
+  {
+    "id": "rescoping",
+    "from": "re-scoping",
+    "to": "rescoping",
+    "authority": "Florida Politics owner ruling 2026-11-11; Peter review corrections",
+    "action": "AUTO_FIX",
+    "speech_preserving": false,
+    "preserve_title_case": true
   }
 ]

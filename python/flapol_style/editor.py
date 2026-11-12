@@ -22,6 +22,7 @@ from .titles import (
     home_state_title_flags_for_session,
 )
 from .words import apply_word_rules_to_session
+from .usage import apply_usage_rules_to_session, usage_flags_for_session
 
 
 def apply_main_style_with_report(
@@ -46,6 +47,7 @@ def apply_main_style_with_report(
             "officeholder_as_of is required when legislator_overlays are supplied"
         )
     apply_word_rules_to_session(session)
+    apply_usage_rules_to_session(session)
     apply_title_rules_to_session(session)
     apply_capitalization_rules_to_session(session)
     apply_mechanical_rules_to_session(session)
@@ -58,6 +60,7 @@ def apply_main_style_with_report(
                 *capitalization_flags_for_session(session),
                 *home_state_title_flags_for_session(session),
                 *number_sign_flags_for_session(session),
+                *usage_flags_for_session(session),
             ),
             key=lambda item: (item.start, item.end, item.rule_id),
         )

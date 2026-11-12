@@ -232,3 +232,39 @@ look tidier than it was.
   `speech_preserving=False`. Quotation and literal protections apply.
 - Evidence: The a9 body processor preserved correctly capitalized input.
   The admitted change normalizes lowercase and mixed-case full titles.
+
+## D-020 — Admit bounded Nov. 11 style intake
+
+- Status: Accepted and implemented for the next release, Nov. 11, 2026.
+- Authority: Drew's Nov. 10 President ruling and Nov. 11 implementation
+  instructions and clarification, informed by Peter's review corrections.
+- Main/body automatic changes: President and explicit compound/plural forms;
+  City Manager, City Attorney, Council Member and Board Member, including
+  plural and singular -elect forms; named Police Department and narrowly
+  supported definite references; approved military title forms before a full
+  name; U.S. Ambassador to U.S. Amb. before a full name; numbered-address
+  Avenue, Boulevard and Street; rescope inflections and preconstruction;
+  no-party-affiliation voter/member to no-party voter/member; and the exact
+  paired phrase third- and no-party voters.
+- Preserve the stable President and Vice President IDs when promoting their
+  narration behavior from findings to automatic changes. Previously permitted
+  before-full-name quotation rendering retains its existing separate IDs and
+  permission. All new and newly broadened automatic behavior has
+  `speech_preserving=False`. No headline or presentation behavior is added.
+- Council, unresolved Police Department, generic Commissioner/Deputy/Sergeant,
+  Fiscal Year, internal City of, corporate suffixes, unsupported first-reference
+  NPA voter/member/candidate uses, legal intervener and a narrow adverse-vote
+  tally pattern remain findings. Their suggestions are not automatic fixes.
+- NPA is second-reference style. The Pizzo first-reference example was an
+  individual writer override, not a general rule. Do not automatically expand
+  or insert NPA, invent third-party voters, or rewrite a quoted source's term.
+- Corporate designators ordinarily disappear in narration, but legal-entity
+  distinctions can require retention. This tranche flags rather than deletes.
+- Title matching remains conservative name-shaped-text matching, not identity
+  verification. Judicial titles, obvious nonperson names and named facilities,
+  awards and programs receive explicit guards. Numeric warrant grades,
+  unsupported Space Force specialist variants and surname-only military
+  references remain unchanged pending stronger context or verified mappings.
+- Archive usage is corroboration and a regression source, not independent
+  authority. See `docs/STYLE_INTAKE_VALIDATION_2026-11-11.md` for the sample,
+  observed false positives and validation limits.

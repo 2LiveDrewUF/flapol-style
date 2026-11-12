@@ -238,7 +238,12 @@ class CapitalizationTests(unittest.TestCase):
             "A spokesperson pro tempore. The Speaker pro temporelike role. "
             "The president pro tempore-like role."
         )
-        self.assertEqual(apply_main_style(source), source)
+        # President is now always capitalized in narration; the incomplete
+        # Pro Tempore phrase still does not acquire the full title styling.
+        self.assertEqual(
+            apply_main_style(source),
+            source.replace("president pro tempore-like", "President pro tempore-like"),
+        )
 
     def test_capitalization_pass_is_idempotent(self):
         source = "attorney general Ashley Moody discussed the general election."

@@ -1,5 +1,12 @@
 # Python API contract
 
+The unreleased Nov. 11 intake adds body-only title/rank/address and no-party
+usage rules plus contextual usage findings to `apply_main_style_with_report`.
+It does not add identity discovery, postal validation, company-entity
+resolution or automatic NPA expansion. Findings may contain explanatory review
+suggestions rather than replacement text; they must never be applied as edits.
+See `STYLE_INTAKE_VALIDATION_2026-11-11.md` for exact scope and limitations.
+
 The package exposes two main entry points:
 
 ```python
