@@ -242,7 +242,17 @@ roster](https://www.flhouse.gov/Representatives) and the [2026-2028 Florida
 Senate roster](https://www.flsenate.gov/Senators/2026-2028). It serves dates
 from Nov. 4, 2026, through the House's listed term end, Nov. 7, 2028.
 House District 33 was listed as pending election and Senate District 39
-was listed as vacant. The Nov. 8, 2028, staleness gate is a backstop.
+was listed as vacant in that initial snapshot. A Nov. 13 recheck of both
+complete official rosters found 120 House members and 39 senators, with only
+Senate District 39 vacant. The House now lists
+[Daniel R. McDow for District 33](https://www.flhouse.gov/Sections/Representatives/details.aspx?LegislativeTermId=92&MemberId=5120),
+with the same Nov. 4, 2026 term start. Drew's Nov. 13 instruction establishes
+Dan McDow as the preferred name. Formal names and derived quoted-nickname
+aliases remain identity evidence; they do not authorize rewriting the name
+used in copy. The public `officeholder_name_preferences.json` record applies
+only to the exact seat and official source name, so a future occupant cannot
+inherit the preference merely by winning that district.
+The Nov. 8, 2028, staleness gate is a backstop.
 Special elections, resignations, deaths and other changes can require an
 earlier refresh.
 

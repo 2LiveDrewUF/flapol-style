@@ -53,14 +53,14 @@ class OfficeholderBookTests(unittest.TestCase):
             "florida-congressional-delegation", as_of=date(2026, 10, 2)
         )
         legislature = load_officeholder_group(
-            "florida-state-legislature", as_of=date(2026, 11, 5)
+            "florida-state-legislature", as_of=date(2026, 11, 13)
         )
         self.assertEqual(len(delegation["entries"]), 29)
         self.assertEqual(len(delegation["vacancies"]), 1)
-        self.assertEqual(len(legislature["entries"]), 158)
+        self.assertEqual(len(legislature["entries"]), 159)
         self.assertEqual(
             {(row["chamber"], row["district"], row["status"]) for row in legislature["vacancies"]},
-            {("house", 33, "pending-election"), ("senate", 39, "vacant")},
+            {("senate", 39, "vacant")},
         )
         for chamber, seat_count in (("house", 120), ("senate", 40)):
             districts = sorted(
@@ -83,7 +83,7 @@ class OfficeholderBookTests(unittest.TestCase):
         before_names = {entry["id"]: entry["name"] for entry in before["entries"]}
         after_names = {entry["id"]: entry["name"] for entry in after["entries"]}
         self.assertEqual(before_names["fl-house-33"], "Monique Miller")
-        self.assertNotIn("fl-house-33", after_names)
+        self.assertEqual(after_names["fl-house-33"], "Dan McDow")
         self.assertEqual(before_names["fl-house-67"], "Fentrice Driskell")
         self.assertEqual(after_names["fl-senate-16"], "Fentrice Driskell")
 
@@ -98,6 +98,34 @@ class OfficeholderBookTests(unittest.TestCase):
             )
         self.assertEqual(raised.exception.group_id, "florida-state-legislature")
         self.assertIn("adjudicate and refresh", str(raised.exception))
+
+    def test_district_33_familiar_and_formal_names_survive_a_refresh(self):
+        group = load_officeholder_group(
+            "florida-state-legislature", as_of=date(2026, 11, 13)
+        )
+        entry = next(row for row in group["entries"] if row["id"] == "fl-house-33")
+        self.assertEqual(entry["name"], "Dan McDow")
+        self.assertEqual(entry["source_name"], "McDow, Daniel R.")
+        self.assertTrue({"Daniel McDow", "Daniel R. McDow", "Daniel R McDow",
+                         'Daniel "Dan" McDow', 'Daniel R. “Dan” McDow'} <= set(entry["aliases"]))
+        regenerated = REFRESH["state_legislator_entry"](
+            chamber="house", district=33, party="Democrat",
+            source_name="McDow, Daniel R.", profile_url=entry["profile_url"],
+        )
+        self.assertEqual(regenerated, entry)
+
+    def test_familiar_name_preference_never_transfers_to_another_identity(self):
+        make_entry = REFRESH["state_legislator_entry"]
+        for chamber, district, source_name, expected in (
+            ("house", 33, "Miller, Monique", "Monique Miller"),
+            ("house", 34, "McDow, Daniel R.", "Daniel McDow"),
+            ("senate", 33, "McDow, Daniel R.", "Daniel McDow"),
+        ):
+            with self.subTest(chamber=chamber, district=district, source_name=source_name):
+                entry = make_entry(chamber=chamber, district=district, party="Democrat",
+                                   source_name=source_name, profile_url="https://www.flhouse.gov/Representatives")
+                self.assertEqual(entry["name"], expected)
+                self.assertNotIn("Dan McDow", entry["aliases"])
 
     def test_as_of_date_is_explicit_and_not_a_timestamp(self):
         with self.assertRaises(TypeError):
@@ -214,7 +242,7 @@ class OfficeholderBookTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "each of its 120 districts once"):
             REFRESH["state_legislature_group"](
                 "2026-11-05",
-                (houses, [vacancies["house"]]),
+                (houses, []),
                 (senators, [vacancies["senate"]]),
             )
 

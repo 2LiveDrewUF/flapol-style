@@ -347,3 +347,29 @@ look tidier than it was.
   commits and local trial branches are not numbered-release triggers.
 - Procedure: `runbooks/release.md`, `runbooks/downstream-handoff.md` and
   `docs/RELEASE_NOTIFICATIONS.md`.
+
+## D-024 — Resolve House District 33 to Dan McDow
+
+- Status: Accepted and implemented for a11, Nov. 13, 2026. Drew explicitly
+  authorized the a11 release and consumer bump notices after reviewing the update.
+- Authority: Drew instructed the name book to reflect Dan McDow's House
+  District 33 win. The official House roster and District 33 profile now list
+  Daniel R. McDow; both chamber rosters were checked Nov. 13.
+- Decision: Replace the pending-election record with the state House identity
+  Dan McDow. Retain Daniel McDow, dotted/undotted middle-initial forms and
+  derived straight/curly quoted-nickname aliases. Aliases supply identity
+  evidence to existing rules; they do not rewrite a person's name in copy.
+- Durability: A public familiar-name preference is keyed by stable seat ID and
+  the exact official source name. A future member of District 33, another
+  district or another chamber cannot inherit the preference from the seat or
+  name alone. The roster refresh preserves it for the matching identity.
+- Dates: Keep the official House term boundary of Nov. 4, 2026; the historical
+  pre-Nov. 4 roster still identifies Monique Miller. Keep the current term's
+  Nov. 8, 2028 staleness gate. Do not change the executive/congressional
+  transition dates or their provisional entries.
+- Verified inventory: 120 House members, 39 senators and Senate District 39 as
+  the sole state vacancy. Comparison found no other identity/party/seat changes.
+  This resolves D-017's initial District 33 pending listing, not its history.
+- No new transformation ID, quotation permission or experimental rule is added.
+  The published a10 tag remains immutable; this change ships in a11 with the
+  D-023 consumer notification handoff. No held local experiments are included.

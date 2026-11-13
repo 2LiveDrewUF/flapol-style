@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "book_id": "florida-public-officeholders",
-  "verified_as_of": "2026-11-05",
+  "verified_as_of": "2026-11-13",
   "sources": [
     {
       "id": "florida-governor",
@@ -66,12 +66,12 @@
     {
       "id": "florida-house-2026-2028",
       "url": "https://www.flhouse.gov/Representatives",
-      "checked_on": "2026-11-05"
+      "checked_on": "2026-11-13"
     },
     {
       "id": "florida-senate-2026-2028",
       "url": "https://www.flsenate.gov/Senators/2026-2028",
-      "checked_on": "2026-11-05"
+      "checked_on": "2026-11-13"
     },
     {
       "id": "florida-2026-state-election-results",
@@ -1101,7 +1101,7 @@
     },
     {
       "id": "florida-state-legislature",
-      "verified_as_of": "2026-11-05",
+      "verified_as_of": "2026-11-13",
       "valid_from": "2026-11-04",
       "valid_through": "2028-11-07",
       "stale_from": "2028-11-08",
@@ -2212,6 +2212,31 @@
           "district": 32,
           "party": "Republican",
           "profile_url": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=5064&LegislativeTermId=92"
+        },
+        {
+          "id": "fl-house-33",
+          "name": "Dan McDow",
+          "aliases": [
+            "Daniel McDow",
+            "Daniel R. McDow",
+            "Daniel R McDow",
+            "Daniel \"Dan\" McDow",
+            "Daniel “Dan” McDow",
+            "Daniel R. \"Dan\" McDow",
+            "Daniel R. “Dan” McDow",
+            "Daniel R \"Dan\" McDow",
+            "Daniel R “Dan” McDow"
+          ],
+          "jurisdiction": "Florida",
+          "level": "state",
+          "office": "representative",
+          "status": "active",
+          "source_id": "florida-house-2026-2028",
+          "source_name": "McDow, Daniel R.",
+          "chamber": "house",
+          "district": 33,
+          "party": "Democrat",
+          "profile_url": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=5120&LegislativeTermId=92"
         },
         {
           "id": "fl-house-34",
@@ -3600,15 +3625,6 @@
           "district": 39,
           "status": "vacant",
           "source_id": "florida-senate-2026-2028"
-        },
-        {
-          "id": "fl-house-33",
-          "jurisdiction": "Florida",
-          "level": "state",
-          "chamber": "house",
-          "district": 33,
-          "status": "pending-election",
-          "source_id": "florida-house-2026-2028"
         }
       ]
     }

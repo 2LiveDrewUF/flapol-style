@@ -20,6 +20,7 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "python" / "flapol_style" / "data" / "officeholders.json"
+NAME_PREFERENCES = DEFAULT_OUTPUT.with_name("officeholder_name_preferences.json")
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -207,8 +208,20 @@ def state_legislator_entry(
     *, chamber: str, district: int, party: str, source_name: str, profile_url: str
 ) -> dict[str, object]:
     name, aliases = state_legislator_names(source_name)
+    # A seat alone is not identity: an owner-approved familiar name applies
+    # only while the chamber's exact source name still matches that person.
+    preferences = json.loads(NAME_PREFERENCES.read_text(encoding="utf-8"))
+    if preferences.get("schema_version") != 1:
+        raise ValueError("unsupported officeholder-name preference schema")
+    entry_id = f"fl-{chamber}-{district}"
+    for preference in preferences["preferences"]:
+        if preference["id"] == entry_id and preference["source_name"] == source_name:
+            aliases = list(dict.fromkeys([name, *aliases, *preference["aliases"]]))
+            name = preference["name"]
+            aliases = [alias for alias in aliases if alias != name]
+            break
     return person_entry(
-        entry_id=f"fl-{chamber}-{district}",
+        entry_id=entry_id,
         name=name,
         level="state",
         office="representative" if chamber == "house" else "senator",

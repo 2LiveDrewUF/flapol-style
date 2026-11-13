@@ -6,6 +6,14 @@ prefix.
 
 ## Unreleased
 
+## 0.1.0a11 — 2026-11-13
+
+- Resolve House District 33 to Dan McDow after checking the official chamber
+  rosters on Nov. 13, 2026. Keep Daniel/middle-initial/quoted-nickname aliases
+  and preserve the familiar name on future exact-identity roster refreshes.
+  The state book now contains all 120 House members and 39 senators, with
+  Senate District 39 the only vacant state seat.
+
 - Require a refreshed consumer inventory and release notices after every
   numbered release, with standing notice authority and separate delivery versus
   verified-adoption records.

@@ -12,6 +12,7 @@ from flapol_style import (
     OfficeholderBookStaleError,
     apply_main_style,
     apply_main_style_with_report,
+    load_officeholder_group,
     resolve_legislator_context,
 )
 
@@ -448,6 +449,76 @@ class LegislatorStyleTests(unittest.TestCase):
             apply_main_style("Representative Darren Soto spoke."),
             "Representative Darren Soto spoke.",
         )
+
+    def test_mcdow_formal_familiar_and_quoted_names_resolve_without_name_rewriting(self):
+        group = load_officeholder_group(
+            "florida-state-legislature", as_of=date(2026, 11, 13)
+        )
+        entry = next(row for row in group["entries"] if row["id"] == "fl-house-33")
+        for name in [entry["name"], *entry["aliases"]]:
+            with self.subTest(name=name):
+                source = f"Representative {name} spoke."
+                result = apply_main_style_with_report(source, officeholder_as_of=date(2026, 11, 13))
+                self.assertEqual(result.text, f"Rep. {name} spoke.")
+                self.assertEqual(result.findings, ())
+                for change in result.changes:
+                    self.assertEqual(source[change.source_start:change.source_end], change.before)
+                again = apply_main_style_with_report(result.text, officeholder_as_of=date(2026, 11, 13))
+                self.assertEqual(again.text, result.text)
+                self.assertEqual(again.changes, ())
+
+    def test_mcdow_uses_official_term_boundary_and_mixed_jurisdiction(self):
+        for as_of, expected in (
+            (date(2026, 11, 3), "Representative Dan McDow spoke."),
+            (date(2026, 11, 4), "Rep. Dan McDow spoke."),
+            (date(2026, 11, 13), "Rep. Dan McDow spoke."),
+        ):
+            with self.subTest(as_of=as_of):
+                self.assertEqual(apply_main_style("Representative Dan McDow spoke.",
+                                                 officeholder_as_of=as_of), expected)
+        result = apply_main_style_with_report(
+            "Representative Dan McDow met Senator Rick Scott.",
+            officeholder_as_of=date(2026, 11, 13),
+        )
+        self.assertEqual(result.text, "state Rep. Dan McDow met U.S. Sen. Rick Scott.")
+        self.assertEqual(result.findings, ())
+
+    def test_mcdow_identity_keeps_literal_and_malformed_quote_protection(self):
+        as_of = date(2026, 11, 13)
+        for source in (
+            "`Representative Dan McDow`",
+            "```text\nRepresentative Dan McDow spoke.\n```",
+            "```text\nRepresentative Dan McDow spoke.",
+            '[reference](https://example.test/Representative%20Dan%20McDow)',
+            '"Representative Dan McDow spoke.',
+            '“Representative Dan McDow spoke.',
+            'Representative Daniel "Dan McDow spoke.',
+        ):
+            with self.subTest(source=source):
+                self.assertEqual(apply_main_style(source, officeholder_as_of=as_of), source)
+        for source, expected in (
+            ('"Florida Representative Dan McDow spoke," she said.',
+             '"Florida Rep. Dan McDow spoke," she said.'),
+            ('“Florida Representative Daniel R. McDow spoke,” she said.',
+             '“Florida Rep. Daniel R. McDow spoke,” she said.'),
+        ):
+            self.assertEqual(apply_main_style(source, officeholder_as_of=as_of), expected)
+
+    def test_mcdow_registration_does_not_turn_an_institution_or_occupation_into_a_title(self):
+        as_of = date(2026, 11, 13)
+        for source in (
+            "The Representative Dan McDow Institute opened.",
+            'The Representative Daniel R. “Dan” McDow scholarship program opened.',
+            "The company representative Dan McDow spoke.",
+            "Representative Daniel X. McDow spoke.",
+        ):
+            with self.subTest(source=source):
+                self.assertEqual(apply_main_style(source, officeholder_as_of=as_of), source)
+        source = "Senator Dan McDow spoke."
+        result = apply_main_style_with_report(source, officeholder_as_of=as_of)
+        self.assertEqual(result.text, source)
+        self.assertEqual(len(result.findings), 1)
+        self.assertIn("Representative", result.findings[0].suggestion)
 
     def test_nonlegislative_representatives_are_not_changed_or_flagged(self):
         sources = (
