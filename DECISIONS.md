@@ -388,5 +388,3 @@ look tidier than it was.
 - Confirmation does not move an incoming entry into the sitting roster.
   Preserve D-018's Jan. 3 congressional and Jan. 5 executive adjudication gates.
   Dan McDow's state House identity remains as released in a11.
-- Public election data is attributed to the official government records.
-  No news organization is the registry authority.
