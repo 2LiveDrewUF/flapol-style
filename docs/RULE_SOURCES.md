@@ -262,12 +262,18 @@ chambers' names for provenance and derives aliases with and without sourced
 initials, as well as standalone and quoted forms of sourced nicknames.
 These aliases supply identity evidence for the existing title rules.
 
-The incoming U.S. House slate reflects the [Florida Division of Elections'
-unofficial results](https://floridaelectionwatch.gov/FederalOffices/USRepresentative)
-as checked Nov. 5, 2026. The state's [District 10 candidate
-record](https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89909)
-lists Maxwell Frost as unopposed. Districts 7, 9, 26 and 27 are marked
-provisional for a certification check. The [current House
+The initial incoming U.S. House slate reflects the [Florida Division of
+Elections' public returns](https://floridaelectionwatch.gov/FederalOffices/USRepresentative)
+checked Nov. 5, 2026. That historical snapshot retains Districts 7, 9, 26
+and 27 as provisional. A Nov. 18, 2026 check of the state's official returns
+confirmed all 27 contested winners, including Ryan Elijah, Darren Soto,
+Mario Diaz-Balart and Maria Elvira Salazar; their election results were
+certified Nov. 17. The state's [District 10 candidate
+record](https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89909),
+rechecked Nov. 18, lists Maxwell Frost as unopposed. The current snapshot
+records the contested results as certified and preserves the unopposed status
+for District 10. Confirmation does not activate an incoming member or change
+the January adjudication gate. The [current House
 directory](https://www.house.gov/representatives) supplies the sitting
 roster, including its District 20 vacancy. The [Twentieth
 Amendment](https://constitution.congress.gov/static/files/Literal_Print_of_Constitution_MCT_1.9.26.pdf)

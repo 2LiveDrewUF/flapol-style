@@ -6,6 +6,16 @@ prefix.
 
 ## Unreleased
 
+## 0.1.0a12 — 2026-11-18
+
+- Confirm the incoming U.S. House slate against the state's official public
+  election returns: 27 contested winners, including the four previously
+  provisional districts, and Maxwell Frost's unopposed District 10 record.
+  Preserve the earlier provisional snapshot for historical dates.
+- Keep incoming members separate from the sitting delegation and retain the
+  Jan. 3, 2027 adjudication gate. Dan McDow and his formal/nickname aliases
+  remain in the state House book from a11. No style rule changes are included.
+
 ## 0.1.0a11 — 2026-11-13
 
 - Resolve House District 33 to Dan McDow after checking the official chamber

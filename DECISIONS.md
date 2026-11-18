@@ -373,3 +373,20 @@ look tidier than it was.
 - No new transformation ID, quotation permission or experimental rule is added.
   The published a10 tag remains immutable; this change ships in a11 with the
   D-023 consumer notification handoff. No held local experiments are included.
+
+## D-025 — Confirm election results without seating incoming members
+
+- Status: Implemented, Nov. 18, 2026.
+- Authority: Drew's Nov. 18 direction; Florida Division of Elections public
+  official U.S. House returns and District 10 candidate record checked that day.
+- Decision: Record all 27 contested incoming U.S. House winners as certified
+  Nov. 17, 2026, including the four previously provisional districts. Keep
+  Maxwell Frost's unopposed status. Retain preferred names and aliases.
+- Preserve the earlier congressional snapshot through Nov. 17. The refreshed
+  snapshot begins Nov. 18, its evidence date; historical queries must not gain
+  later confirmation metadata.
+- Confirmation does not move an incoming entry into the sitting roster.
+  Preserve D-018's Jan. 3 congressional and Jan. 5 executive adjudication gates.
+  Dan McDow's state House identity remains as released in a11.
+- Public election data is attributed to the official government records.
+  No news organization is the registry authority.

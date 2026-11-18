@@ -158,6 +158,47 @@ class OfficeholderBookTests(unittest.TestCase):
         with self.assertRaises(OfficeholderBookStaleError):
             load_officeholder_group(group_id, as_of=date(2027, 1, 3))
 
+    def test_certified_incoming_slate_preserves_sitting_members_and_january_gate(self):
+        group_id = "florida-congressional-delegation"
+        before = load_officeholder_group(group_id, as_of=date(2026, 11, 17))
+        current = load_officeholder_group(group_id, as_of=date(2026, 11, 18))
+        self.assertEqual(current["entries"], before["entries"])
+        self.assertEqual(current["vacancies"], before["vacancies"])
+        self.assertEqual(current["valid_from"], "2026-11-18")
+        self.assertEqual(current["incoming"]["checked_on"], "2026-11-18")
+        slate = {row["district"]: row for row in current["incoming"]["entries"]}
+        certified = {seat for seat, row in slate.items()
+                     if row["election_status"] == "certified"}
+        self.assertEqual(certified, set(range(1, 29)) - {10})
+        for seat in certified:
+            self.assertEqual(slate[seat]["certified_on"], "2026-11-17")
+        self.assertEqual(slate[10]["election_status"], "unopposed")
+        self.assertNotIn("certified_on", slate[10])
+        self.assertEqual(
+            {seat: slate[seat]["name"] for seat in (7, 9, 26, 27)},
+            {7: "Ryan Elijah", 9: "Darren Soto",
+             26: "Mario Diaz-Balart", 27: "Maria Elvira Salazar"},
+        )
+        self.assertTrue(all(row["status"] == "incoming" for row in slate.values()))
+        sitting = {row["district"]: row["name"] for row in current["entries"]
+                   if row.get("chamber") == "house"}
+        self.assertEqual(sitting[7], "Cory Mills")
+        self.assertEqual(current["incoming"]["expected_start"], "2027-01-03")
+        self.assertEqual(current["stale_from"], "2027-01-03")
+        with self.assertRaises(OfficeholderBookStaleError):
+            load_officeholder_group(group_id, as_of=date(2027, 1, 3))
+
+    def test_confirmation_does_not_backdate_into_the_provisional_snapshot(self):
+        group_id = "florida-congressional-delegation"
+        for day in (date(2026, 11, 5), date(2026, 11, 17)):
+            with self.subTest(as_of=day):
+                group = load_officeholder_group(group_id, as_of=day)
+                slate = {row["district"]: row for row in group["incoming"]["entries"]}
+                self.assertEqual(group["incoming"]["checked_on"], "2026-11-05")
+                self.assertTrue(all(slate[seat]["election_status"] == "provisional"
+                                    for seat in (7, 9, 26, 27)))
+                self.assertTrue(all("certified_on" not in row for row in slate.values()))
+
     def test_executive_transition_lists_successors_before_the_january_gate(self):
         group_id = "florida-state-executive"
         group = load_officeholder_group(group_id, as_of=date(2027, 1, 4))
