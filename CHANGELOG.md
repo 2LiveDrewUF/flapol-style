@@ -6,6 +6,14 @@ prefix.
 
 ## Unreleased
 
+## 0.1.0a13 — 2026-11-19
+
+- Flag numbered House Bill/House bill and Senate Bill/Senate bill references
+  in body narration, suggesting HB/SB even on first reference. Preserve
+  quotations, generic bill prose and literals; no automatic shortening.
+- No held local style trials, new name-book entries, headline or presentation
+  behavior, linking or quotation capitalization changes are included.
+
 ## 0.1.0a12 — 2026-11-18
 
 - Confirm the incoming U.S. House slate against the state's official public

@@ -5,6 +5,21 @@ salvaging product-neutral behavior from the legacy Streamlet formatter. The
 legacy implementation is evidence that a rule was useful; it is not the
 authority that makes the rule correct.
 
+## Numbered bill references
+
+Drew's Nov. 19, 2026 owner ruling requires HB/SB even on first reference in
+narration. The exact House/Senate Bill or bill label followed immediately
+by horizontal whitespace and a complete one- to four-digit number now produces
+an error-severity FLAG suggesting HB/SB; it does not automatically change copy.
+The stable ID is `flapol.usage.numbered-bill-abbreviation`, main/body only.
+Generic bill prose without a number is outside the rule. Quote access is
+explicitly false: quoted wording and supplied Bill/bill case are preserved,
+and quote-case policy remains reserved for judgment. Literal and malformed
+structure protection is unchanged. See D-027 and the bounded
+[archive audit](BILL_REFERENCE_AUDIT_2026-11-19.md), which corroborates the
+ruling with 13 established-writer articles rather than treating publication
+frequency as independent authority. This addition is included in 0.1.0a13.
+
 ## Nov. 12, 2026 title-use safety refinement
 
 Release boundary: Drew's later Nov. 12 instruction, D-022, selects the a10

@@ -44,6 +44,11 @@ link destinations remain hard-protected even when they appear inside a direct
 quotation. Unbalanced or structurally uncertain quotation markup fails closed;
 no rule, including a speech-preserving rule, may mutate the uncertain span.
 
+The numbered-bill abbreviation finding likewise stays outside quotations.
+House bill/Senate bill wording and the supplied Bill/bill case remain exactly
+as quoted, without an HB/SB finding. The Nov. 19, 2026 ruling does not admit
+quote capitalization changes; that question remains reserved for judgment.
+
 Every permitted in-quote mutation uses the ordinary structured reporting path.
 Its edit record includes the rule ID, before and after forms, original and
 working locations, authority and `speech_preserving=True` classification.

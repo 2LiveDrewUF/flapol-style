@@ -505,3 +505,12 @@ abbreviation-institution-name-protection:
   contexts: [main]
   protected_regions: required
   implementations: [python/flapol_style/titles.py, python/flapol_style/legislators.py]
+
+numbered-bill-abbreviation:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: false
+  contexts: [main]
+  protected_regions: required
+  implementations: [python/flapol_style/usage.py]

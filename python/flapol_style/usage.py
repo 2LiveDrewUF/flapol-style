@@ -9,6 +9,17 @@ from .reporting import EditingSession, Finding, RuleSpec
 
 
 _AUTHORITY = "Florida Politics owner ruling 2026-11-11"
+_NUMBERED_BILL_RULE = RuleSpec(
+    "flapol.usage.numbered-bill-abbreviation",
+    "Florida Politics owner ruling 2026-11-19; archive audit 2026-11-19",
+    action="FLAG",
+    severity="error",
+    speech_preserving=False,
+)
+_NUMBERED_BILL_RE = re.compile(
+    r"(?<![\w-])(?P<chamber>House|Senate)[ \t]+[Bb]ill[ \t]+"
+    r"(?P<number>[0-9]{1,4})(?![\w]|[.,/\-][0-9])"
+)
 _NO_PARTY_RE = re.compile(
     r"(?<![\w-])(?P<prefix>no[- ]party[- ]affiliation)[ \t]+"
     r"(?P<noun>voters?|members?)(?![\w-])", re.IGNORECASE
@@ -82,12 +93,25 @@ def usage_flags_for_session(session: EditingSession) -> tuple[Finding, ...]:
 
     findings: list[Finding] = []
 
-    def flag(rule_id: str, start: int, end: int, suggestion: str) -> None:
+    def flag(
+        rule_id: str, start: int, end: int, suggestion: str, *,
+        authority: str = _AUTHORITY, severity: str = "warning"
+    ) -> None:
         source_start, source_end = session.source_span(start, end)
         findings.append(Finding(
             rule_id, "FLAG", text[start:end], suggestion,
-            source_start, source_end, "warning", _AUTHORITY,
+            source_start, source_end, severity, authority,
         ))
+
+    for match in _NUMBERED_BILL_RE.finditer(text):
+        if visible(match.start(), match.end()):
+            abbreviation = "HB" if match.group("chamber") == "House" else "SB"
+            flag(
+                _NUMBERED_BILL_RULE.rule_id, match.start(), match.end(),
+                f"{abbreviation} {match.group('number')}",
+                authority=_NUMBERED_BILL_RULE.authority,
+                severity=_NUMBERED_BILL_RULE.severity,
+            )
 
     antecedents = [m for m in _NO_PARTY_ANTECEDENT_RE.finditer(text)
                    if visible(m.start(), m.end())]

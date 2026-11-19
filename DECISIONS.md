@@ -388,3 +388,28 @@ look tidier than it was.
 - Confirmation does not move an incoming entry into the sitting roster.
   Preserve D-018's Jan. 3 congressional and Jan. 5 executive adjudication gates.
   Dan McDow's state House identity remains as released in a11.
+
+## D-027 — Flag expanded numbered bill references in narration
+
+- Status: Accepted for 0.1.0a13, Nov. 19, 2026.
+- Authority: Drew's Nov. 19 instruction that numbered House bill/Senate bill
+  forms are errors and should be at least flagged, conditional on an archive
+  sanity check. The bounded 13-article audit corroborates HB/SB on first
+  numbered reference; it does not establish perfect historical compliance.
+- Decision: In main/body narration, flag House/Senate followed by Bill or
+  bill and a complete one- to four-digit ASCII number. Suggest HB/SB with
+  the same digits. Use the stable ID flapol.usage.numbered-bill-abbreviation,
+  FLAG action and error severity. Automatic shortening is not enabled.
+- Preserve generic House bill/Senate bill prose, existing HB/SB and
+  unsupported numeric constructions. This rule does not add bill linking or
+  extend headline/presentation behavior.
+- Quotation classification: speech_preserving=False. Preserve spoken House
+  bill/Senate bill wording and its supplied capitalization without a finding
+  inside balanced direct quotations. Drew reserved quoted Bill/bill case for
+  judgment; no quote-case change is admitted here. Uncertain quote structure,
+  code, URLs, email addresses and link destinations remain hard-protected.
+- Validation and corroboration: docs/BILL_REFERENCE_AUDIT_2026-11-19.md and
+  tests/test_bills.py. Drew subsequently requested committing this change
+  and relaying it to the project manager to coordinate updates to all
+  consumers. Commit, release publication and verified adoption remain
+  separate states; the audit and local implementation did not deploy it.

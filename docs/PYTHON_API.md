@@ -215,6 +215,12 @@ Each `Finding` contains a stable rule ID, `FLAG` action, found and suggested
 forms, original-source offsets, severity and authority. A finding is not an
 authorization to rewrite the text.
 
+The 0.1.0a13 main/body finding `flapol.usage.numbered-bill-abbreviation`
+reports expanded House/Senate Bill or bill labels before complete one- to
+four-digit numbers with error severity and an HB/SB suggestion. It preserves
+generic bill prose, quotations (including Bill/bill case) and literals. It
+does not shorten copy automatically or add links; see D-027.
+
 ## Protection and metadata
 
 Ordinary automatic edits and contextual findings exclude direct quotations.
@@ -238,5 +244,5 @@ hard-protected.
 
 ## Versioning
 
-The current API version is alpha `0.1.0a9`. Consumers must pin a released tag
+The current API version is alpha `0.1.0a13`. Consumers must pin a released tag
 or commit. Floating `main` is not a production dependency.
