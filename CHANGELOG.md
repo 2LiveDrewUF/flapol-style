@@ -4,7 +4,7 @@ This project follows semantic versioning. Release tags use a `v` prefix; the
 Python distribution exposes the corresponding PEP 440 version without that
 prefix.
 
-## Unreleased
+## 0.1.0a16 — 2026-11-19
 
 - Preserve word-form percentages at the start of a body sentence, paragraph,
   or delimited passage. The word-form percent rule still applies within

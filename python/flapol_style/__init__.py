@@ -41,7 +41,7 @@ from .titles import (
 )
 from .words import load_word_preferences, normalize_word_forms
 
-__version__ = "0.1.0a15"
+__version__ = "0.1.0a16"
 
 __all__ = [
     "ProtectedSpan",

@@ -443,7 +443,7 @@ look tidier than it was.
 
 ## D-029 — Preserve spelled-out percentages at body sentence openings
 
-- Status: Local correction prepared Nov. 19, 2026.
+- Status: Accepted for 0.1.0a16, Nov. 19, 2026.
 - Authority: AP percent entry's sentence-opening exception, corroborated by
   the published AP Coronavirus Topical Guide. A Nov. 19 Florida Politics
   polling-copy report reproduced the unwanted conversion in a14 and a15.
