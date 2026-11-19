@@ -39,6 +39,74 @@ class MechanicalRuleTests(unittest.TestCase):
             "Support was 8%, up 4 percentage points.",
         )
 
+    def test_spelled_out_percent_at_a_body_sentence_start_has_no_review_item(self):
+        cases = (
+            "Thirty-six percent favored it.",
+            "The poll was released. Ninety-one percent supported it.",
+            "The poll closed! Fifty-three percent favored it.",
+            "How many responded? Ninety-nine percent did.",
+            "Survey results\n\nFifty-three percent also supported it.",
+            "Survey results\n\u2063\nFifty-three percent also supported it.",
+            "Survey results\r\n \u2063 \r\nOne hundred and six per cent was reported.",
+            "The choice was called “Option A.” Thirty-six percent favored it.",
+            "The poll closed at 6 p.m. Thirty-six percent favored it.",
+            "They hesitated… Thirty-six percent had already voted.",
+        )
+        for source in cases:
+            with self.subTest(source=source):
+                result = apply_main_style_with_report(source)
+                self.assertEqual(result.text, source)
+                self.assertEqual(result.changes, ())
+                self.assertEqual(result.findings, ())
+
+    def test_percent_edits_keep_original_offsets_across_passages(self):
+        source = (
+            "📊 The US survey closed.\n\u2063\n"
+            "Thirty-six percent favored it. In the survey, fifty-three percent "
+            "also supported the amendment. Support reached 8 percent."
+        )
+        result = apply_main_style_with_report(source)
+        self.assertEqual(
+            result.text,
+            "📊 The U.S. survey closed.\n\u2063\n"
+            "Thirty-six percent favored it. In the survey, 53% "
+            "also supported the amendment. Support reached 8%.",
+        )
+        by_rule = {change.rule_id: change for change in result.changes}
+        for rule, before, after in (
+            ("ap.numbers.spoken-percent-symbol", "fifty-three percent", "53%"),
+            ("ap.numbers.percent-symbol", "8 percent", "8%"),
+        ):
+            change = by_rule[rule]
+            self.assertEqual((change.before, change.after), (before, after))
+            self.assertEqual(change.source_start, source.index(before))
+            self.assertEqual(source[change.source_start:change.source_end], before)
+        repeated = apply_main_style_with_report(result.text)
+        self.assertEqual(repeated.text, result.text)
+        self.assertEqual(repeated.changes, ())
+        self.assertEqual(result.findings, ())
+
+    def test_spoken_percent_with_continuation_and_literal_text(self):
+        for prefix in ("At 6 p.m. ", "The poll found\n", "In the survey, "):
+            with self.subTest(prefix=prefix):
+                self.assertEqual(
+                    normalize_mechanical_forms(f"{prefix}thirty-six percent favored it."),
+                    f"{prefix}36% favored it.",
+                )
+        for source in (
+            "'Thirty-six percent voted.'",
+            "‘Thirty-six percent voted.’",
+            '“Thirty-six percent voted.',
+            "`Thirty-six percent`",
+            "[survey](Thirty-six percent)",
+            "https://example.com/thirty-six-percent",
+        ):
+            with self.subTest(source=source):
+                result = apply_main_style_with_report(source)
+                self.assertEqual(result.text, source)
+                self.assertEqual(result.changes, ())
+                self.assertEqual(result.findings, ())
+
     def test_invalid_meridiem_hours_are_not_legitimized(self):
         source = "The log says 13 PM and 9:75 AM."
         self.assertEqual(normalize_mechanical_forms(source), source)
@@ -73,6 +141,20 @@ class MechanicalRuleTests(unittest.TestCase):
                 source[change.source_start:change.source_end],
                 change.before,
             )
+
+    def test_sentence_start_guard_preserves_double_quote_rendering(self):
+        for opening, closing in (('"', '"'), ("“", "”")):
+            with self.subTest(opening=opening):
+                lead = f"She said, {opening}The survey closed. "
+                tail = f" supported it.{closing}"
+                result = apply_main_style_with_report(
+                    lead + "Thirty-six percent" + tail
+                )
+                self.assertEqual(result.text, lead + "36%" + tail)
+                change, = result.changes
+                self.assertTrue(change.speech_preserving)
+                self.assertEqual(change.source_start, len(lead))
+                self.assertEqual(change.before, "Thirty-six percent")
 
     def test_literal_regions_inside_quote_remain_hard_protected(self):
         source = '“US `US` https://example.com/US eight percent”'

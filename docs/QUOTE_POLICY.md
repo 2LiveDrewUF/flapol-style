@@ -46,6 +46,10 @@ capitalized, such as `september 30` to `September 30`. The `Agriculture
 Commissioner` title is capitalized inside
 quotations, but quoted `Commissioner of Agriculture` ordering is preserved.
 
+The body sentence-opening exception for word-form percentages applies to
+narration. In balanced double quotations, the existing speech-preserving
+transcript rendering can still convert those percentages.
+
 Prohibited examples include changing `I don't support the bill` to `I oppose
 the bill`, removing `kind of`, or changing `We ain't doing that` to `We aren't
 doing that`.

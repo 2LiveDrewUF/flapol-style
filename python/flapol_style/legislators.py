@@ -10,6 +10,7 @@ from typing import Iterable
 from .officeholders import load_officeholder_group
 from .protected import find_protected_spans
 from .reporting import EditingSession, Finding, RuleSpec
+from .sentence_boundaries import starts_body_sentence
 from .titles import (
     FULL_NAME_DISPLAY_PATTERN, named_entity_phrase_at,
     nonlegislative_representative_at,
@@ -71,14 +72,6 @@ _ATTRIBUTION_RE = re.compile(
     rf"(?<![\w])(?P<article>the\s+)"
     rf"(?P<prefix>{_JURISDICTION}{_SINGULAR_TITLE})"
     rf"(?=\s+said\b)",
-    re.IGNORECASE,
-)
-# Blank lines and a separately delimited passage both start fresh prose.
-_PARAGRAPH_BOUNDARY_RE = re.compile(r"\n[ \t]*(?:\u2063[ \t]*)?\r?\n\s*\Z")
-_AMBIGUOUS_PERIOD_RE = re.compile(
-    r"\.{2,}$|\b(?:[a-z]\.)+$|"
-    r"\b(?:mr|mrs|ms|mx|dr|prof|rev|hon|gov|lt|sen|sens|rep|reps|"
-    r"st|mt|ft|capt|sgt|col|gen|jr|sr|no|vs|inc|ltd|co|etc)\.$",
     re.IGNORECASE,
 )
 _SUFFIXES = {"jr", "sr", "ii", "iii", "iv"}
@@ -340,26 +333,11 @@ def _long_title(chamber: str) -> str:
 
 
 def _state_qualifier(match: re.Match[str], text: str) -> str:
-    preceding = text[:match.start()]
-    if preceding.endswith(("**", "__")):
-        preceding = preceding[:-2]
-    if not preceding.strip() or _PARAGRAPH_BOUNDARY_RE.search(preceding):
+    sentence_start = starts_body_sentence(text, match.start())
+    if sentence_start:
         return "State"
-
-    preceding = preceding.rstrip()
-    closes_quote = preceding.endswith(('"', "”", "'", "’"))
-    punctuation = preceding[:-1] if closes_quote else preceding
-    # A period in an abbreviation or a question/exclamation inside a quote
-    # may be followed by more of the same sentence. Keep supplied casing
-    # when the punctuation leaves the boundary ambiguous.
-    if (
-        _AMBIGUOUS_PERIOD_RE.search(punctuation)
-        or punctuation.endswith("…")
-        or (closes_quote and punctuation.endswith(("?", "!")))
-    ):
+    if sentence_start is None:
         return "State" if re.match(r"State\s", match.group("prefix")) else "state"
-    if punctuation.endswith((".", "!", "?")):
-        return "State"
     return "state"
 
 

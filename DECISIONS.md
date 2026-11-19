@@ -440,3 +440,19 @@ look tidier than it was.
 - Evidence and bounds: docs/SINGLE_QUOTE_DEFECT_2026-11-19.md and
   tests/test_single_quotes.py. This adds protection, not quotation editing,
   automatic bill shortening or quote capitalization authority.
+
+## D-029 — Preserve spelled-out percentages at body sentence openings
+
+- Status: Local correction prepared Nov. 19, 2026.
+- Authority: AP percent entry's sentence-opening exception, corroborated by
+  the published AP Coronavirus Topical Guide. A Nov. 19 Florida Politics
+  polling-copy report reproduced the unwanted conversion in a14 and a15.
+- Decision: In body narration, preserve a recognized word-form percentage
+  at clear sentence, paragraph and standalone passage starts. At an
+  ambiguous break, preserve a capitalized word-form percentage. A single
+  soft line wrap is treated as a continuation.
+- Keep the speech-preserving transcript scope of
+  `ap.numbers.spoken-percent-symbol` in balanced double quotations. The
+  existing numeral-plus-percent rule has its own trigger.
+- Evidence: tests/test_mechanics.py covers no-op openers, continuation,
+  protected spans, source offsets and replay.

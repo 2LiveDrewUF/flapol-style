@@ -4,6 +4,12 @@ This project follows semantic versioning. Release tags use a `v` prefix; the
 Python distribution exposes the corresponding PEP 440 version without that
 prefix.
 
+## Unreleased
+
+- Preserve word-form percentages at the start of a body sentence, paragraph,
+  or delimited passage. The word-form percent rule still applies within
+  sentences and in its established transcript-rendering context.
+
 ## 0.1.0a15 — 2026-11-19
 
 - Keep the state qualifier in mixed legislative coverage and capitalize it

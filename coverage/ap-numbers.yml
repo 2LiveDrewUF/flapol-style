@@ -12,6 +12,7 @@ spoken-number-percent-sign:
   detection_mode: python
   auto_fix: true
   contexts: [main]
+  notes: Preserve word-form percentages at sentence openings in narration.
   protected_regions: required
   implementations: [python/flapol_style/mechanics.py]
 general-one-through-nine:

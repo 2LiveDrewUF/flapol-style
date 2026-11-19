@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import re
 
+from .protected import find_protected_spans
 from .reporting import EditingSession, RuleSpec
+from .sentence_boundaries import starts_body_sentence
 
 
 _COVID_RE = re.compile(r"\bCOVID-19\b", re.IGNORECASE)
@@ -132,20 +134,35 @@ def _spoken_number_value(source: str) -> int | None:
     return None
 
 
+def _apply_spoken_percent_rule(session: EditingSession) -> None:
+    protected = None
+
+    def replacement(match: re.Match[str], text: str) -> str | None:
+        nonlocal protected
+        number = match.group(1)
+        start = match.start()
+        sentence_start = starts_body_sentence(text, start)
+        # Supplied capitalization can identify a possible start after an
+        # abbreviation or ellipsis. Preserve the words when in doubt.
+        if sentence_start or (sentence_start is None and number[0].isupper()):
+            if protected is None:
+                protected = find_protected_spans(text)
+            # The editing session has already excluded hard-protected regions.
+            # A remaining protected match belongs to a balanced double quote.
+            if not any(span.start <= start < span.end for span in protected):
+                return None
+        value = _spoken_number_value(number)
+        return f"{value}%" if value is not None else None
+
+    session.replace_pattern(_SPOKEN_PERCENT_RULE, _SPOKEN_PERCENT_RE, replacement)
+
+
 def apply_mechanical_rules_to_session(session: EditingSession) -> None:
     session.replace_pattern(_COVID_RULE, _COVID_RE, "COVID")
     session.replace_pattern(_US_RULE, _US_RE, "U.S.")
     session.replace_pattern(_CHAIR_RULE, _CHAIR_RE, "Chair")
     session.replace_pattern(_PERCENT_RULE, _PERCENT_RE, r"\1%")
-    session.replace_pattern(
-        _SPOKEN_PERCENT_RULE,
-        _SPOKEN_PERCENT_RE,
-        lambda match, _text: (
-            f"{value}%"
-            if (value := _spoken_number_value(match.group(1))) is not None
-            else None
-        ),
-    )
+    _apply_spoken_percent_rule(session)
     session.replace_pattern(
         _TIME_RULE,
         _TIME_RE,
