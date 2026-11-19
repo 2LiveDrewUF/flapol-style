@@ -250,6 +250,7 @@ legislator-jurisdiction-scoping:
   auto_fix: true
   contexts: [main]
   protected_regions: required
+  notes: Mixed-document State/state casing follows sentence and paragraph position.
   implementations: [python/flapol_style/legislators.py, docs/LEGISLATOR_STYLE_SCOPE.md]
 identity-backed-legislator-title-abbreviation:
   documented: true

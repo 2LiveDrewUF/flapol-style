@@ -74,6 +74,91 @@ class LegislatorStyleTests(unittest.TestCase):
             )
         )
 
+    def test_mixed_senate_titles_follow_sentence_and_passage_boundaries(self):
+        names = "Alexis Calatayud spoke."
+        federal = "\n\u2063\nU.S. Sen. Rick Scott attended."
+        cases = [
+            ("", "State Sen.", "State Sen."),
+            ("", "Senator", "State Sen."),
+            ("", "state Sen.", "State Sen."),
+            ("The meeting ended. ", "State Sen.", "State Sen."),
+            ("The meeting ended. ", "Sen.", "State Sen."),
+            ("The meeting ended! ", "Sen.", "State Sen."),
+            ("“The meeting ended.” ", "Sen.", "State Sen."),
+            ("Unpunctuated paragraph heading\n\n", "Sen.", "State Sen."),
+            ("Unpunctuated passage\n\u2063\n", "Sen.", "State Sen."),
+            ("Unpunctuated passage\r\n\u2063\r\n", "State Senator", "State Sen."),
+            ("The panel heard from ", "State Sen.", "state Sen."),
+            ("The panel heard from\n", "Sen.", "state Sen."),
+            ("At 6 p.m. ", "Sen.", "state Sen."),
+            ("The meeting ended at 6 p.m. ", "State Sen.", "State Sen."),
+            ("“Why?” ", "state Sen.", "state Sen."),
+        ]
+        for lead, before, after in cases:
+            with self.subTest(lead=lead, before=before):
+                source = f"{lead}{before} {names}{federal}"
+                result = apply_main_style_with_report(
+                    source, officeholder_as_of=date(2026, 11, 19)
+                )
+                self.assertEqual(result.text, f"{lead}{after} {names}{federal}")
+                if before == after:
+                    self.assertEqual(result.changes, ())
+                else:
+                    change, = result.changes
+                    self.assertEqual(change.rule_id,
+                                     "flapol.legislators.jurisdiction-before-name")
+                    self.assertEqual((change.before, change.after), (before, after))
+                    self.assertFalse(change.speech_preserving)
+                    self.assertEqual(change.source_start, len(lead))
+                    self.assertEqual(source[change.source_start:change.source_end], before)
+                repeated = apply_main_style_with_report(
+                    result.text, officeholder_as_of=date(2026, 11, 19)
+                )
+                self.assertEqual(repeated.text, result.text)
+                self.assertEqual(repeated.changes, ())
+
+    def test_mixed_house_and_plural_titles_use_the_same_sentence_casing(self):
+        for title, expected, names in [
+            ("Rep.", "Rep.", "Dan McDow"),
+            ("Representatives", "Reps.", "Dan McDow and Jim Mooney"),
+            ("Senators", "Sens.", "Alexis Calatayud and Carlos Guillermo Smith"),
+        ]:
+            for lead, qualifier in [("It ended. ", "State"), ("They heard from ", "state")]:
+                with self.subTest(title=title, lead=lead):
+                    federal = " U.S. Sen. Rick Scott attended."
+                    source = f"{lead}{title} {names} earlier.{federal}"
+                    result = apply_main_style_with_report(
+                        source, officeholder_as_of=date(2026, 11, 19)
+                    )
+                    self.assertEqual(
+                        result.text, f"{lead}{qualifier} {expected} {names} earlier.{federal}"
+                    )
+                    change, = result.changes
+                    self.assertEqual(source[change.source_start:change.source_end], title)
+                    self.assertTrue(change.rule_id.startswith("flapol.legislators.jurisdiction-"))
+
+    def test_state_only_control_and_mixed_protected_title_casing(self):
+        source = "State Sen. Alexis Calatayud spoke."
+        result = apply_main_style_with_report(
+            source, officeholder_as_of=date(2026, 11, 19)
+        )
+        self.assertEqual(result.text, "Sen. Alexis Calatayud spoke.")
+
+        for opening, closing in [
+            ('"', '"'), ("“", "”"), ("'", "'"), ("‘", "’"),
+            ("\x60", "\x60"), ("“", ""),
+        ]:
+            with self.subTest(opening=opening, closing=closing):
+                source = (
+                    f"U.S. Sen. Rick Scott spoke. {opening}"
+                    f"state Sen. Alexis Calatayud spoke.{closing}"
+                )
+                result = apply_main_style_with_report(
+                    source, officeholder_as_of=date(2026, 11, 19)
+                )
+                self.assertEqual(result.text, source)
+                self.assertEqual(result.changes, ())
+
     def test_middle_initial_may_be_omitted_when_identity_stays_unambiguous(self):
         context = resolve_legislator_context(
             "Representative Anna Eskamani spoke.",
@@ -121,7 +206,7 @@ class LegislatorStyleTests(unittest.TestCase):
         )
         self.assertEqual(
             result.text,
-            "state Reps. Anna Eskamani and Fentrice Driskell met "
+            "State Reps. Anna Eskamani and Fentrice Driskell met "
             "U.S. Rep. Darren Soto.",
         )
 
@@ -258,7 +343,7 @@ class LegislatorStyleTests(unittest.TestCase):
         )
         self.assertEqual(
             result.text,
-            '“Rep. Darren Soto called.” state Rep. Anna Eskamani answered.',
+            '“Rep. Darren Soto called.” State Rep. Anna Eskamani answered.',
         )
 
     def test_unknown_and_wrong_chamber_identities_are_findings(self):
@@ -480,7 +565,7 @@ class LegislatorStyleTests(unittest.TestCase):
             "Representative Dan McDow met Senator Rick Scott.",
             officeholder_as_of=date(2026, 11, 13),
         )
-        self.assertEqual(result.text, "state Rep. Dan McDow met U.S. Sen. Rick Scott.")
+        self.assertEqual(result.text, "State Rep. Dan McDow met U.S. Sen. Rick Scott.")
         self.assertEqual(result.findings, ())
 
     def test_mcdow_identity_keeps_literal_and_malformed_quote_protection(self):

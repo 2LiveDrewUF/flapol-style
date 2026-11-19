@@ -17,14 +17,17 @@ from .titles import (
 
 
 _AUTHORITY = "Florida Politics owner ruling 2026-10-02"
+_BEFORE_NAME_AUTHORITY = (
+    "Florida Politics owner rulings 2026-10-02 and 2026-11-19"
+)
 _SINGULAR_RULE = RuleSpec(
     "flapol.legislators.jurisdiction-before-name",
-    _AUTHORITY,
+    _BEFORE_NAME_AUTHORITY,
     speech_preserving=False,
 )
 _PLURAL_RULE = RuleSpec(
     "flapol.legislators.jurisdiction-plural",
-    _AUTHORITY,
+    _BEFORE_NAME_AUTHORITY,
     speech_preserving=False,
 )
 _IDENTITY_ABBREVIATION_RULE = RuleSpec(
@@ -68,6 +71,14 @@ _ATTRIBUTION_RE = re.compile(
     rf"(?<![\w])(?P<article>the\s+)"
     rf"(?P<prefix>{_JURISDICTION}{_SINGULAR_TITLE})"
     rf"(?=\s+said\b)",
+    re.IGNORECASE,
+)
+# Blank lines and a separately delimited passage both start fresh prose.
+_PARAGRAPH_BOUNDARY_RE = re.compile(r"\n[ \t]*(?:\u2063[ \t]*)?\r?\n\s*\Z")
+_AMBIGUOUS_PERIOD_RE = re.compile(
+    r"\.{2,}$|\b(?:[a-z]\.)+$|"
+    r"\b(?:mr|mrs|ms|mx|dr|prof|rev|hon|gov|lt|sen|sens|rep|reps|"
+    r"st|mt|ft|capt|sgt|col|gen|jr|sr|no|vs|inc|ltd|co|etc)\.$",
     re.IGNORECASE,
 )
 _SUFFIXES = {"jr", "sr", "ii", "iii", "iv"}
@@ -328,21 +339,37 @@ def _long_title(chamber: str) -> str:
     return "Representative" if chamber == "house" else "Senator"
 
 
-def _singular_target(identity: LegislatorIdentity, mode: str) -> str:
-    title = _singular_title(identity.chamber)
-    if identity.level == "federal":
-        return f"U.S. {title}"
-    if mode == "mixed":
-        return f"state {title}"
-    return title
+def _state_qualifier(match: re.Match[str], text: str) -> str:
+    preceding = text[:match.start()]
+    if preceding.endswith(("**", "__")):
+        preceding = preceding[:-2]
+    if not preceding.strip() or _PARAGRAPH_BOUNDARY_RE.search(preceding):
+        return "State"
+
+    preceding = preceding.rstrip()
+    closes_quote = preceding.endswith(('"', "”", "'", "’"))
+    punctuation = preceding[:-1] if closes_quote else preceding
+    # A period in an abbreviation or a question/exclamation inside a quote
+    # may be followed by more of the same sentence. Keep supplied casing
+    # when the punctuation leaves the boundary ambiguous.
+    if (
+        _AMBIGUOUS_PERIOD_RE.search(punctuation)
+        or punctuation.endswith("…")
+        or (closes_quote and punctuation.endswith(("?", "!")))
+    ):
+        return "State" if re.match(r"State\s", match.group("prefix")) else "state"
+    if punctuation.endswith((".", "!", "?")):
+        return "State"
+    return "state"
 
 
-def _plural_target(level: str, chamber: str, mode: str) -> str:
-    title = _plural_title(chamber)
+def _qualified_title(
+    title: str, level: str, mode: str, match: re.Match[str], text: str
+) -> str:
     if level == "federal":
         return f"U.S. {title}"
     if mode == "mixed":
-        return f"state {title}"
+        return f"{_state_qualifier(match, text)} {title}"
     return title
 
 
@@ -555,7 +582,9 @@ def apply_legislator_rules_to_session(
         identity = records[0]
         if identity.chamber != _chamber_from_title(match.group("prefix")):
             return None
-        return _singular_target(identity, mode)
+        return _qualified_title(
+            _singular_title(identity.chamber), identity.level, mode, match, _text
+        )
 
     session.replace_pattern(
         _SINGULAR_RULE,
@@ -591,7 +620,9 @@ def apply_legislator_rules_to_session(
             or {record.chamber for record in records} != {expected_chamber}
         ):
             return None
-        return _plural_target(records[0].level, expected_chamber, mode)
+        return _qualified_title(
+            _plural_title(expected_chamber), records[0].level, mode, match, _text
+        )
 
     session.replace_pattern(
         _PLURAL_RULE,

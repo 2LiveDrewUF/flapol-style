@@ -146,8 +146,12 @@ look tidier than it was.
   from resolved lawmakers present in the document. Use the public officeholder
   base plus caller overlays as identity evidence. Outside quotations,
   identity-proven forms may be corrected to `Rep.` or `Sen.`, `U.S. Rep.` or
-  `U.S. Sen.`, or lowercase `state Rep.` or `state Sen.` as the document mode
-  requires. Edited narration never uses `Florida Rep.` or `Florida Sen.`.
+  `U.S. Sen.`, or `state Rep.` or `state Sen.` as the document mode requires.
+  Drew's Nov. 19, 2026 clarification capitalizes `State` at a sentence or
+  paragraph start and retains lowercase `state` mid-sentence. Apply the same
+  casing to the equivalent plural forms. The jurisdiction rules keep their
+  existing quote boundary. Edited narration never uses `Florida Rep.` or
+  `Florida Sen.`.
 - Why: The same short title has different Florida Politics meaning depending on
   whether a story invokes state lawmakers, members of Congress or both. Text
   alone cannot safely establish that distinction; the dated book now supplies

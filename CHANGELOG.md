@@ -6,6 +6,10 @@ prefix.
 
 ## Unreleased
 
+- Keep the state qualifier in mixed legislative coverage and capitalize it
+  at the start of a sentence, paragraph, or delimited passage. Apply the
+  same casing to singular and plural House and Senate titles in narration.
+
 ## 0.1.0a14 — prepared 2026-11-19
 
 - Fix the quotation-protection gap exposed by a13 consumer acceptance:

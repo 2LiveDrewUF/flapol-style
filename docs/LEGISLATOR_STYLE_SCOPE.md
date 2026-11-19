@@ -74,7 +74,10 @@ title text or silently continue with stale identities.
 ### Mixed documents
 
 - Use `U.S. Rep.` or `U.S. Sen.` before a federal lawmaker's name.
-- Use `state Rep.` or `state Sen.` before a Florida state lawmaker's name.
+- Use `State Rep.` or `State Sen.` at the start of a sentence or a new
+  paragraph. Use `state Rep.` or `state Sen.` mid-sentence.
+- Apply the same casing to `State Reps.` / `state Reps.` and
+  `State Sens.` / `state Sens.` for same-scope lists.
 - Never use `Florida Rep.` or `Florida Sen.` as edited narration.
 
 The long title immediately before a resolved current lawmaker's full name is
@@ -88,8 +91,13 @@ identity proof never grants the jurisdiction-changing rules quotation access.
 
 Outside quotations, a title immediately before a resolved current lawmaker's
 full name may be normalized to the form required by the document mode. This
-includes removing `Florida`, adding `U.S.` or lowercase `state`, and applying
-the established `Rep.` or `Sen.` abbreviation.
+includes removing `Florida`, adding `U.S.` or the appropriately cased
+`State`/`state`, and applying the established `Rep.` or `Sen.` abbreviation.
+Article start and clear sentence breaks, blank lines, and standalone U+2063
+passage separators establish the start of new prose. A simple line wrap
+does not. Where a period in an abbreviation, an ellipsis, or quoted terminal
+punctuation leaves the sentence boundary uncertain, preserve supplied
+`State`/`state` casing and use `state` when the qualifier is missing.
 
 The written plural title is abbreviated before a syntactically closed list of
 resolved same-chamber lawmakers, including inside a balanced quotation.
@@ -128,7 +136,8 @@ The implementation uses the shared editing session and produces
 original-source coordinates and structured before/after values. Tests cover:
 
 - all three resolved document modes and the unresolved mode;
-- singular and plural House and Senate forms;
+- singular and plural House and Senate forms, including sentence starts,
+  mid-sentence references, and separately delimited passages;
 - state-only and federal-only attributions plus mixed-document ambiguity;
 - exact official names, aliases supplied by a caller and ambiguous names;
 - straight quotes, curly quotes and unbalanced quotes;

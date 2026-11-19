@@ -317,9 +317,11 @@ Florida Politics owner rulings from Sept. 29-Oct. 2, 2026, establish a
 document-level convention backed by the dated officeholder book. A document
 that invokes only Florida state lawmakers uses `Rep.`, `Sen.`, `Reps.` and
 `Sens.`. A document that invokes only members of Congress adds `U.S.`. A mixed
-document uses `U.S. Rep.` or `U.S. Sen.` for federal lawmakers and lowercase
-`state Rep.` or `state Sen.` for state lawmakers. Edited narration does not use
-`Florida Rep.` or `Florida Sen.`.
+document uses `U.S. Rep.` or `U.S. Sen.` for federal lawmakers and
+`state Rep.` or `state Sen.` for state lawmakers. Under Drew's Nov. 19
+clarification, capitalize `State` when it opens a sentence or starts a new
+paragraph or delimited passage. The same holds for shared plural titles.
+Edited narration does not use `Florida Rep.` or `Florida Sen.`.
 
 The implementation requires an explicit officeholder as-of date and resolves
 identity from the public base plus caller overlays. Unknown identities,
