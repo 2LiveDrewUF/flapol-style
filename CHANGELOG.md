@@ -6,6 +6,16 @@ prefix.
 
 ## Unreleased
 
+## 0.1.0a14 — prepared 2026-11-19
+
+- Fix the quotation-protection gap exposed by a13 consumer acceptance:
+  standalone straight/curly single-quoted speech is now hard-protected from
+  findings and automatic changes. Existing speech-preserving rules receive
+  no new single-quote access. Preserve ordinary contractions, possessives
+  and bounded leading elisions as narration; uncertain delimiters fail closed.
+- Keep a13 immutable. The numbered-bill rule remains a body-only FLAG;
+  no automatic bill shortening or quote capitalization is added.
+
 ## 0.1.0a13 — 2026-11-19
 
 - Flag numbered House Bill/House bill and Senate Bill/Senate bill references

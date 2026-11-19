@@ -27,7 +27,7 @@ rule coverage. A rule is not considered implemented merely because the human
 guide discusses it. See `coverage/` for the implementation ledger and its
 separate documentation, detection, context and automatic-correction fields.
 
-The Python distribution is currently versioned `0.1.0a13`. Consumers can adopt
+The Python distribution is currently versioned `0.1.0a14`. Consumers can adopt
 the version by pinning its release tag.
 
 See `docs/RULE_SOURCES.md` for the provenance of automatic rules salvaged from

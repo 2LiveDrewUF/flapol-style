@@ -224,6 +224,11 @@ does not shorten copy automatically or add links; see D-027.
 ## Protection and metadata
 
 Ordinary automatic edits and contextual findings exclude direct quotations.
+The a14 protection candidate also recognizes standalone straight/curly single
+quotations and hard-protects them even when a rule permits rendering inside
+balanced double quotations. Existing grants are unchanged. Word-internal
+apostrophes, unquoted s-possessives and bounded elisions remain narration;
+ambiguous open speech fails closed. See `QUOTE_POLICY.md` and D-028.
 The main-body title forms `Speaker Pro Tempore` and `President Pro Tempore`
 are normalized only in narration. Their registry records explicitly set
 `speech_preserving=False`.
@@ -244,5 +249,5 @@ hard-protected.
 
 ## Versioning
 
-The current API version is alpha `0.1.0a13`. Consumers must pin a released tag
+The current API version is alpha `0.1.0a14`. Consumers must pin a released tag
 or commit. Floating `main` is not a production dependency.

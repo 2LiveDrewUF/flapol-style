@@ -413,3 +413,26 @@ look tidier than it was.
   and relaying it to the project manager to coordinate updates to all
   consumers. Commit, release publication and verified adoption remain
   separate states; the audit and local implementation did not deploy it.
+
+## D-028 — Recognize single-quoted speech without new rendering grants
+
+- Status: Protective implementation fix prepared Nov. 19, 2026; unreleased.
+- Authority: Existing D-005/D-006 and Drew's explicit Nov. 19 instruction to
+  preserve quoted bill wording. Consumer acceptance reproduced a gap; it does
+  not independently admit a new style rule or authorize publication.
+- Finding: The documented quote boundary had no double-only limitation, but
+  the parser ignored standalone straight/curly single-quoted speech. A13
+  therefore emitted bill findings inside it; older ordinary word rules could
+  also change it. Classify this as a contract defect, not a reason to weaken
+  the consumer's quotation fixture.
+- Decision: Hard-protect supported single-quoted spans in every profile.
+  Keep their kind distinct from the balanced double-quote rendering scope;
+  existing speech-preserving grants must not acquire single-quote access.
+  Contractions, ordinary possessives and bounded leading elisions remain
+  narration. Ambiguous s-apostrophes inside open speech, unmatched and
+  mismatched delimiters fail closed. Literal delimiters do not open quotes.
+- Preserve immutable a13. Prepare a separately verified successor and retain
+  the rollout hold until publication and consumer acceptance are resolved.
+- Evidence and bounds: docs/SINGLE_QUOTE_DEFECT_2026-11-19.md and
+  tests/test_single_quotes.py. This adds protection, not quotation editing,
+  automatic bill shortening or quote capitalization authority.

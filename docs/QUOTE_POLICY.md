@@ -8,6 +8,21 @@ copy-editing rules. The formatter must not paraphrase, repair grammar, remove
 repetitions or hedges, change emphasis or tone, alter factual content, or make
 a contextual editorial judgment inside quoted speech.
 
+The a14 protection fix recognizes standalone straight single quotes and curly
+single quotation marks as well as the existing double-quote forms. Single
+quotations are hard-protected, including from rules with existing
+`speech_preserving=True` grants: recognizing a delimiter does not grant a rule
+new in-quote rendering authority. Ordinary word-internal apostrophes,
+unquoted s-possessives and bounded leading elisions are not delimiters.
+An ambiguous s-apostrophe inside open single-quoted speech keeps the speech
+protected through a later close or the remainder. This can conservatively
+withhold findings in ambiguous narration rather than expose possibly quoted
+words. Mismatched and unbalanced quotation marks fail closed. Delimiters in
+hard-protected literals do not open a single quotation in surrounding prose.
+
+This corrects an implementation gap; the earlier contract did not document a
+double-quotes-only limitation. See `SINGLE_QUOTE_DEFECT_2026-11-19.md`.
+
 A deterministic rule may operate inside a balanced direct quotation only when
 the rule is explicitly classified as `speech_preserving`. That classification
 means both of the following are true:

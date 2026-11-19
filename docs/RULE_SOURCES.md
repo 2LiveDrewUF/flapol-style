@@ -1,5 +1,15 @@
 # Rule sources
 
+## Single-quoted speech protection
+
+The existing Florida Politics quotation boundary (D-005/D-006 and Drew's
+Nov. 19, 2026 bill-reference instruction) requires preserving quoted words.
+A Nov. 19 consumer acceptance case reproduced a preexisting parser gap:
+standalone single quotes were neither documented as unsupported nor protected.
+The a14 candidate hard-protects those spans without expanding any rule's
+speech-preserving permission. It preserves a13 and its original fixtures;
+see D-028 and [the defect report](SINGLE_QUOTE_DEFECT_2026-11-19.md).
+
 This file records the governing source behind automatic rules added while
 salvaging product-neutral behavior from the legacy Streamlet formatter. The
 legacy implementation is evidence that a rule was useful; it is not the

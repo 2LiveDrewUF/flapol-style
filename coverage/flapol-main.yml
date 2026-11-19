@@ -514,3 +514,11 @@ numbered-bill-abbreviation:
   contexts: [main]
   protected_regions: required
   implementations: [python/flapol_style/usage.py]
+single-quote-protection:
+  documented: true
+  detected: true
+  detection_mode: python
+  auto_fix: false
+  contexts: [main, headline, presentation]
+  protected_regions: required
+  implementations: [python/flapol_style/protected.py]

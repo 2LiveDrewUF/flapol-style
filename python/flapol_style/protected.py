@@ -93,6 +93,74 @@ def _quote_spans(text: str) -> list[ProtectedSpan]:
     return spans
 
 
+_LEADING_ELISION_RE = re.compile(
+    r"['’](?:[0-9]{2}s?|n['’]?|cause|cos|em|round|til|tis|twas|twere|"
+    r"bout|cept|scuse|tween)(?!\w)",
+    re.IGNORECASE,
+)
+
+
+def _single_quote_spans(
+    text: str, literal_spans: Iterable[ProtectedSpan]
+) -> list[ProtectedSpan]:
+    """Hard-protect single quotes without granting new rendering access.
+
+    Apostrophes within words, unquoted s-possessives and bounded leading
+    elisions are not quotation delimiters. An s-apostrophe within open speech
+    is ambiguous: keep the quote open rather than expose possibly quoted words.
+    """
+    literals = tuple(literal_spans)
+    spans: list[ProtectedSpan] = []
+    stack: list[tuple[int, str]] = []
+    elision_end = 0
+
+    def word(character: str) -> bool:
+        return character.isalnum() or character == "_"
+
+    for match in re.finditer("['‘’]", text):
+        index = match.start()
+        if index < elision_end or (index and text[index - 1] == "\\"):
+            continue
+        if any(span.start <= index < span.end for span in literals):
+            continue
+        mark = match.group()
+        before = text[index - 1] if index else ""
+        after = text[index + 1] if index + 1 < len(text) else ""
+        if word(before) and word(after):
+            continue
+        if not word(before):
+            elision = _LEADING_ELISION_RE.match(text, index)
+            if elision:
+                elision_end = elision.end()
+                continue
+        if before in {"s", "S"} and not word(after):
+            if not stack or (after.isspace() and text[index + 1:].lstrip()
+                             and word(text[index + 1:].lstrip()[0])):
+                continue
+
+        opens = mark == "‘" or (mark == "'" and word(after) and not word(before))
+        if opens:
+            stack.append((index, "’" if mark == "‘" else "'"))
+        elif stack:
+            start, expected = stack[-1]
+            if mark != expected:
+                spans.append(ProtectedSpan(stack[0][0], len(text), "uncertain_quotation"))
+                return spans
+            stack.pop()
+            # This kind is deliberately NOT direct_quotation: existing
+            # speech-preserving grants must not acquire single-quote access.
+            spans.append(ProtectedSpan(start, index + 1, "single_quotation"))
+        elif word(after) and not word(before):
+            spans.append(ProtectedSpan(index, len(text), "uncertain_quotation"))
+            return spans
+        else:
+            spans.append(ProtectedSpan(0, index + 1, "uncertain_quotation"))
+
+    if stack:
+        spans.append(ProtectedSpan(stack[0][0], len(text), "uncertain_quotation"))
+    return spans
+
+
 def _regex_spans(
     text: str, pattern: re.Pattern[str], kind: str, group: int = 0
 ) -> list[ProtectedSpan]:
@@ -129,9 +197,9 @@ def find_protected_spans(
 ) -> list[ProtectedSpan]:
     """Return spans protected from the requested transformation class.
 
-    ``allow_balanced_quotations`` removes only balanced direct quotations from
-    the protected set. Literal regions and structurally uncertain quotations
-    remain protected.
+    ``allow_balanced_quotations`` removes only balanced double quotations from
+    the protected set. Single quotations, literal regions and structurally
+    uncertain quotations remain protected; this adds no rendering authority.
     """
     if not text:
         return []
@@ -145,6 +213,7 @@ def find_protected_spans(
     spans.extend(_regex_spans(text, _AUTOLINK_RE, "autolink"))
     spans.extend(_regex_spans(text, _URL_RE, "url"))
     spans.extend(_regex_spans(text, _EMAIL_RE, "email_address"))
+    spans.extend(_single_quote_spans(text, spans))
     quote_spans = _quote_spans(text)
     if allow_balanced_quotations:
         quote_spans = [
