@@ -4,7 +4,7 @@ This project follows semantic versioning. Release tags use a `v` prefix; the
 Python distribution exposes the corresponding PEP 440 version without that
 prefix.
 
-## Unreleased
+## 0.1.0a15 — 2026-11-19
 
 - Keep the state qualifier in mixed legislative coverage and capitalize it
   at the start of a sentence, paragraph, or delimited passage. Apply the
